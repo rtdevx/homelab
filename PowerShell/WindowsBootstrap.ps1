@@ -8,7 +8,10 @@
     MSSTORE requires user to be logged in to Microsoft in order to install software. Script should be run under your user with local Administrator rights for that reason.
     
     .USAGE
-    Run with elevated powershell.
+    Run elevated powershell.
+    Execute: 
+
+    iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WindowsBootstrap.ps1'))    
 
 #>
 
