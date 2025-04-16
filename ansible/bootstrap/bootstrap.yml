@@ -1,0 +1,62 @@
+---
+
+#
+#To run first time, sudo enabled user's password is required. 
+#.ssh keys and sudoers file copied in the initial run:
+#
+#:~>ansible-playbook --ask-become-pass ./bootstrap/bootstrap.yml
+#
+
+- hosts: all
+  become: true
+  pre_tasks:
+
+  - name: install updates (CentOS)
+    tags: always
+    dnf:
+      update_only: yes
+      update_cache: yes
+    when: ansible_distribution == "CentOS"
+    register: updated
+
+  - name: install updates (Ubuntu)
+    tags: always   
+    apt:
+      upgrade: dist
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+    register: updated
+
+  - name: Rebooting after applying updates.
+    tags: always
+    reboot:
+      msg: Rebooting...
+    when: updated.changed
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Add User ansible
+    tags: always
+    user: 
+      name: ansible
+      state: present
+      groups: sudo
+      comment: "Add User ansible"
+      shell: /bin/bash
+
+  - name: Update authorized_keys for user ansible
+    tags: always
+    authorized_key:
+      user: ansible
+      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPXFX63LfEGDYBI+bT1VeaTE/L+ovz8aPvl3nTk8vcSY ansible"
+
+  - name: Add sudoers file for ansible user
+    tags: always
+    copy:
+      src: sudoer_ansible
+      dest: /etc/sudoers.d/ansible
+      owner: root
+      group: root
+      mode: 0440
