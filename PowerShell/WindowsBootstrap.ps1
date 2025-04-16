@@ -60,10 +60,9 @@ if (Get-Command choco.exe -ErrorAction SilentlyContinue) {
     $ChocoInstalled = $true
 }
 
-$Packages = '7zip', 'notepadplusplus', 'git', 'vscode', 'googlechrome', 'firefox', 'qsync', 'garmin-express', 'mremoteng'
+$Packages = '7zip', 'notepadplusplus', 'git', 'vscode', 'googlechrome', 'firefox', 'mremoteng', 'keepass'
 
 ForEach ($PackageName in $Packages)
 {
     choco install $PackageName -y
 }
-
