@@ -151,16 +151,16 @@ function Set-RegistryValueWithBackup {
         
         # Set value
         Set-ItemProperty -Path $Path -Name $Name -Value $Value -ErrorAction Stop
-        Write-Log "Registry value set: $Path\$Name = $Value $(if($Description){" ($Description)"})" -Level 'Info'
+        Write-Host "Registry value set: $Path\$Name = $Value $(if($Description){" ($Description)"})" -Level 'Info'
         return $true
     }
     catch {
-        Write-Log "Error setting $Path\$Name : $($_.Exception.Message)" -Level 'Error'
+        Write-Host "Error setting $Path\$Name : $($_.Exception.Message)" -Level 'Error'
         return $false
     }
 }
 function Set-WindowsPrivacy {
-    Write-Log "Configuring Windows privacy settings..." -Level 'Info'
+    Write-Host "Configuring Windows privacy settings..." -Level 'Info'
     
     # Basic Telemetry Settings
     Set-RegistryValueWithBackup -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection' `
@@ -418,12 +418,12 @@ function Set-WindowsPrivacy {
         -Name 'AllowGameDVR' -Value 0 `
         -Description "Disable Game DVR"
         
-    Write-Log "Windows privacy settings configuration completed" -Level 'Info'        
+    Write-Host "Windows privacy settings configuration completed" -Level 'Info'        
      
 }   
 
 function Set-AppPermissions {
-    Write-Log "Configuring Windows App Permissions..." -Level 'Info'
+    Write-Host "Configuring Windows App Permissions..." -Level 'Info'
 
     # App Permissions Privacy Settings
     Set-RegistryValueWithBackup -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone' `
@@ -506,13 +506,13 @@ function Set-AppPermissions {
         -Name 'Value' -Value 'Deny' `
         -Description "Disable Screenshot Capability"   
 
-    Write-Log "Windows App Permissions configuration completed" -Level 'Info'        
+    Write-Host "Windows App Permissions configuration completed" -Level 'Info'        
      
 }
 
 # Windows Update Delivery Optimization Configuration
 function Set-DeliveryOptimization {
-    Write-Log "Configuring Windows Update Delivery Optimization..." -Level 'Info'
+    Write-Host "Configuring Windows Update Delivery Optimization..." -Level 'Info'
     
     Set-RegistryValueWithBackup -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config' `
         -Name 'DODownloadMode' -Value 1 `
@@ -522,7 +522,7 @@ function Set-DeliveryOptimization {
         -Name 'DOMaxUploadBandwidth' -Value 1 `
         -Description "Restrict Upload Bandwidth"
 
-    Write-Log "Windows Update Delivery Optimization configuration completed" -Level 'Info'   
+    Write-Host "Windows Update Delivery Optimization configuration completed" -Level 'Info'   
        
 }
 
