@@ -95,6 +95,7 @@ winget install -e --id Lenovo.SystemUpdate --silent && `
 winget install -e --id Obsidian.Obsidian --silent && `
 #>
 
+<#
 winget install -e --id mcmilk.7zip-zstd --silent && `
                     NordVPN.NordVPN --silent && `
                     Notepad++.Notepad++ --silent && `
@@ -111,9 +112,43 @@ winget install -e --id mcmilk.7zip-zstd --silent && `
                     mRemoteNG.mRemoteNG --silent && `
                     Lenovo.SystemUpdate --silent && `
                     Obsidian.Obsidian --silent
+#>
 
+#Install New apps
+Write-Output "Installing Apps"
+$apps = @(
+    @{name = "mcmilk.7zip-zstd" }, 
+    @{name = "NordVPN.NordVPN" },
+    @{name = "Notepad++.Notepad++" },  
+    @{name = "Git.Git" }, 
+    @{name = "Microsoft.VisualStudioCode" }, 
+    @{name = "WinDirStat.WinDirStat" },
+    @{name = "Google.Chrome" }, 
+    @{name = "Mozilla.Firefox" }, 
+    @{name = "TradingView.TradingViewDesktop" },
+    @{name = "QNAP.Qsync" },
+    @{name = "Garmin.Express" },
+    @{name = "Garmin.BaseCamp" },
+    @{name = "mRemoteNG.mRemoteNG" },
+    @{name = "Lenovo.SystemUpdate" },
+    @{name = "Obsidian.Obsidian" }
+);
 
+Foreach ($app in $apps) {
+    $listApp = winget list --exact -q $app.name
+    if (![String]::Join("", $listApp).Contains($app.name)) {
+        Write-host "Installing:" $app.name
+        
+            winget install --exact --silent --accept-source-agreements --accept-package-agreements $app.name 
+    
+        }
+    
+    else {
 
+        Write-host "Skipping Install of " $app.name
+
+    }    
+}
 
 
 
