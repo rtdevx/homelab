@@ -72,7 +72,7 @@ If ((Get-ItemPropertyValue -path "HKLM:\System\CurrentControlSet\Control\Session
     
     Write-Host "Registry Periodic backup is already enabled. Skipping."
 
-        else { Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Session Manager\Configuration Manager" -Name EnablePeriodicBackup -Type DWORD -Value 1 }
+        else { New-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Session Manager\Configuration Manager" -Name EnablePeriodicBackup -Type DWORD -Value 1 }
 
 }
 
@@ -543,3 +543,12 @@ Set-DeliveryOptimization
 
 #Set Windows to show file extensions
 New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Value 0 -PropertyType DWORD -Force
+
+#Disable Search in Taskbar
+<#
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\Search\DisableSearch]
+"value"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search]
+"DisableSearch"=dword:00000001
+#>
