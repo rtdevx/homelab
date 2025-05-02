@@ -97,6 +97,10 @@ Foreach ($app in $apps) {
     }    
 }
 
+#Set Windows to show file extensions
+New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Value 0 -PropertyType DWORD -Force
+
+
 
 
 
