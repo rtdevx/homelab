@@ -17,6 +17,12 @@
 
 #>
 
+# Run as Administrator
+if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    Write-Host "This script requires administrator privileges. Please run as administrator." -Level 'Error'
+    exit 1
+}
+
 #Set Powershell Execution Policy and Disable UAC
 Set-ExecutionPolicy Unrestricted -Force
 Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0
@@ -94,9 +100,6 @@ Foreach ($app in $apps) {
 
     }    
 }
-
-#Checking if dotnet is installed
-Get-WindowsCapability -Online -Name NetFx3
 
 #Set Windows to show file extensions
 New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Value 0 -PropertyType DWORD -Force
