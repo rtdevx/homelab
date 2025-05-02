@@ -72,9 +72,11 @@ If ((Get-ItemPropertyValue -path "HKLM:\System\CurrentControlSet\Control\Session
     
     Write-Host "Registry Periodic backup is already enabled. Skipping."
 
-        else { New-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Session Manager\Configuration Manager" -Name EnablePeriodicBackup -Type DWORD -Value 1 }
+    } else { Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Session Manager\Configuration Manager" -Name EnablePeriodicBackup -Type DWORD -Value 1 
 
-}
+        Write-Host "Registry Periodic backup ENABLED."
+
+           }
 
 ### WINGET ###
 
