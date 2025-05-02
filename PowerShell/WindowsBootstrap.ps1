@@ -68,7 +68,7 @@ Source: https://woshub.com/enable-auto-registry-backup-windows/
 
 #New-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Session Manager\Configuration Manager" -Name EnablePeriodicBackup -Type DWORD -Value 1
 
-{ If ((Get-ItemPropertyValue -path "HKLM:\System\CurrentControlSet\Control\Session Manager\Configuration Manager" -Name EnablePeriodicBackup) -eq "1") {
+If ((Get-ItemPropertyValue -path "HKLM:\System\CurrentControlSet\Control\Session Manager\Configuration Manager" -Name EnablePeriodicBackup) -eq "1") {
     
     Write-Host "Registry Periodic backup is already enabled. Skipping."
 
@@ -77,7 +77,6 @@ Source: https://woshub.com/enable-auto-registry-backup-windows/
         Write-Host "Registry Periodic backup ENABLED."
 
            }
-}
 
 ### WINGET ###
 
