@@ -134,5 +134,7 @@ New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search]
 "DisableSearch"=dword:00000001
 #>
-New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Search\DisableSearch" -Name "HideFileExt" -Value 1 -PropertyType DWORD -Force
-New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "HideFileExt" -Value 1 -PropertyType DWORD -Force
+#New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Search\DisableSearch" -Name "HideFileExt" -Value 1 -PropertyType DWORD -Force
+#New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "HideFileExt" -Value 1 -PropertyType DWORD -Force
+
+Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -Name SearchBoxTaskbarMode -Value 0 -Type DWord -Force
