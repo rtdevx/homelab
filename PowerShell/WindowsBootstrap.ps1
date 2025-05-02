@@ -7,6 +7,8 @@
     Bootstraping Windows 11. Installing Software, uninstalling bloatware, applying privacy and security settings, setting up development environment...
     MSSTORE requires user to be logged in to Microsoft in order to install software. Script should be run under your user with local Administrator rights for that reason.
     
+    Winget software sources can be found here: https://winget.run/
+
     .USAGE
     Run elevated powershell.
     Execute: 
