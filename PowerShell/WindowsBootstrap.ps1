@@ -72,7 +72,7 @@ Source: https://woshub.com/enable-auto-registry-backup-windows/
 
     }
 
-    else { New-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Session Manager\Configuration Manager" -Name EnablePeriodicBackup -Type DWORD -Value 1
+        else { New-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Session Manager\Configuration Manager" -Name EnablePeriodicBackup -Type DWORD -Value 1
 
     }
 
