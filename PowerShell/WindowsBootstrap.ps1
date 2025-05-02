@@ -63,7 +63,7 @@ Write-Output "Installing Apps"
 $apps = @(
     @{name = "Microsoft.DotNet.SDK.7" }, 
     @{name = "mcmilk.7zip-zstd" }, 
-    @{name = "NordVPN.NordVPN" },
+    @{name = "NordSecurity.NordVPN" },
     @{name = "Notepad++.Notepad++" },  
     @{name = "Git.Git" }, 
     @{name = "Microsoft.VisualStudioCode" }, 
