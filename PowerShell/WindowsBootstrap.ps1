@@ -51,6 +51,7 @@ Foreach ($app in $apps)
   Get-AppxPackage -allusers $app | Remove-AppxPackage
 }
 
+<#
 #Install Chocolatey
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
@@ -66,3 +67,54 @@ ForEach ($PackageName in $Packages)
 {
     choco install $PackageName -y
 }
+#>
+
+#Winget
+
+#Upgrading existing winget packages
+winget source update ; winget upgrade --all --accept-package-agreements --accept-source-agreements --accept-unknown --silent
+
+#Install packages with winget
+
+<#
+winget install -e --id mcmilk.7zip-zstd --silent && `
+winget install -e --id NordVPN.NordVPN --silent && `
+winget install -e --id Notepad++.Notepad++ --silent && `
+winget install -e --id Git.Git --silent && `
+winget install -e --id Microsoft.VisualStudioCode --silent && `
+winget install -e --id DominikReichl.KeePass --silent && `
+winget install -e --id WinDirStat.WinDirStat --silent && `
+winget install -e --id Google.Chrome --silent && `
+winget install -e --id Mozilla.Firefox --silent && `
+winget install -e --id TradingView.TradingViewDesktop --silent && `
+winget install -e --id QNAP.Qsync --silent && `
+winget install -e --id Garmin.Express --silent && `
+winget install -e --id Garmin.BaseCamp --silent && `
+winget install -e --id mRemoteNG.mRemoteNG --silent && `
+winget install -e --id Lenovo.SystemUpdate --silent && `
+winget install -e --id Obsidian.Obsidian --silent && `
+#>
+
+winget install -e --id mcmilk.7zip-zstd --silent && `
+                    NordVPN.NordVPN --silent && `
+                    Notepad++.Notepad++ --silent && `
+                    Git.Git --silent && `
+                    Microsoft.VisualStudioCode --silent && `
+                    DominikReichl.KeePass --silent && `
+                    WinDirStat.WinDirStat --silent && `
+                    Google.Chrome --silent && `
+                    Mozilla.Firefox --silent && `
+                    TradingView.TradingViewDesktop --silent && `
+                    QNAP.Qsync --silent && `
+                    Garmin.Express --silent && `
+                    Garmin.BaseCamp --silent && `
+                    mRemoteNG.mRemoteNG --silent && `
+                    Lenovo.SystemUpdate --silent && `
+                    Obsidian.Obsidian --silent
+
+
+
+
+
+
+
