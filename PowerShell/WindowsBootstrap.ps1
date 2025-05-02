@@ -53,11 +53,7 @@ Foreach ($app in $apps)
   Get-AppxPackage -allusers $app | Remove-AppxPackage
 }
 
-#Winget
-
-#Installing Pre-requisites
-#Install-WindowsFeature Net-Framework-Core
-Get-WindowsCapability -Online -Name NetFx3
+##Winget
 
 #Upgrading existing winget packages
 winget source update ; winget upgrade --all --accept-package-agreements --accept-source-agreements --silent
@@ -65,7 +61,7 @@ winget source update ; winget upgrade --all --accept-package-agreements --accept
 #Install New apps
 Write-Output "Installing Apps"
 $apps = @(
-    @{name = "Microsoft.DotNet.Runtime.7" }, 
+    @{name = "Microsoft.DotNet.SDK.7" }, 
     @{name = "mcmilk.7zip-zstd" }, 
     @{name = "NordVPN.NordVPN" },
     @{name = "Notepad++.Notepad++" },  
@@ -98,6 +94,9 @@ Foreach ($app in $apps) {
 
     }    
 }
+
+#Checking if dotnet is installed
+Get-WindowsCapability -Online -Name NetFx3
 
 #Set Windows to show file extensions
 New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Value 0 -PropertyType DWORD -Force
