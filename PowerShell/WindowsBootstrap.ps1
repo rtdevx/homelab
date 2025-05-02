@@ -66,7 +66,15 @@ The task copies the system registry files (DEFAULT, SAM, SECURITY, SOFTWARE, and
 Source: https://woshub.com/enable-auto-registry-backup-windows/
 #>
 
-New-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Session Manager\Configuration Manager" -Name EnablePeriodicBackup -Type DWORD -Value 1
+{If((get-itempropertyvalue  -path "HKLM:\System\CurrentControlSet\Control\Session Manager\Configuration Manager" -Type DWORD) -eq "1") {
+    
+    write-host 'Value already exists'}
+
+    else { New-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Session Manager\Configuration Manager" -Name EnablePeriodicBackup -Type DWORD -Value 1
+
+    }
+
+}
 
 ### WINGET ###
 
