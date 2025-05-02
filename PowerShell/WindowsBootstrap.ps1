@@ -56,7 +56,8 @@ Foreach ($app in $apps)
 #Winget
 
 #Installing Pre-requisites
-Get-WindowsCapability -Online -Name NetFx3
+Install-WindowsFeature Net-Framework-Core
+#Get-WindowsCapability -Online -Name NetFx3
 
 #Upgrading existing winget packages
 winget source update ; winget upgrade --all --accept-package-agreements --accept-source-agreements --silent
