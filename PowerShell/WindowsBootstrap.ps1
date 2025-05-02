@@ -72,7 +72,7 @@ ForEach ($PackageName in $Packages)
 #Winget
 
 #Upgrading existing winget packages
-winget source update ; winget upgrade --all --accept-package-agreements --accept-source-agreements --accept-unknown --silent
+winget source update ; winget upgrade --all --accept-package-agreements --accept-source-agreements --silent
 
 #Install packages with winget
 
