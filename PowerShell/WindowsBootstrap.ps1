@@ -146,3 +146,14 @@ New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer
 
 #Set Search Taskbar to icon only
 Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -Name SearchBoxTaskbarMode -Value 1 -Type DWord -Force
+
+### Git ###
+
+#Create Git folder for all users
+$Users = (Get-ChildItem C:\Users).Name
+
+ForEach($User in $Users) {
+
+    New-Item -Path "C:\Users\$User\" -Name "Git" -ItemType "directory" -ErrorAction SilentlyContinue
+    
+}
