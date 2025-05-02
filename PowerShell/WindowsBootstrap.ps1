@@ -86,7 +86,7 @@ Foreach ($app in $apps) {
     if (![String]::Join("", $listApp).Contains($app.name)) {
         Write-host "Installing:" $app.name
         
-            winget install --exact --silent --quiet --accept-source-agreements --accept-package-agreements --scope machine $app.name 
+            winget install --exact --silent --quiet --accept-source-agreements --accept-package-agreements --scope machine --id $app.name 
     
         }
     
