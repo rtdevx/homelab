@@ -65,6 +65,7 @@ winget source update ; winget upgrade --all --accept-package-agreements --accept
 #Install New apps
 Write-Output "Installing Apps"
 $apps = @(
+    @{name = "Microsoft.DotNet.Runtime.7" }, 
     @{name = "mcmilk.7zip-zstd" }, 
     @{name = "NordVPN.NordVPN" },
     @{name = "Notepad++.Notepad++" },  
