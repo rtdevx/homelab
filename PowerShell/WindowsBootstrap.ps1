@@ -127,14 +127,4 @@ Foreach ($app in $apps) {
 New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Value 0 -PropertyType DWORD -Force
 
 #Disable Search in Taskbar
-<#
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\Search\DisableSearch]
-"value"=dword:00000001
-
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search]
-"DisableSearch"=dword:00000001
-#>
-#New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Search\DisableSearch" -Name "HideFileExt" -Value 1 -PropertyType DWORD -Force
-#New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "HideFileExt" -Value 1 -PropertyType DWORD -Force
-
-Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -Name SearchBoxTaskbarMode -Value 0 -Type DWord -Force
+Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -Name SearchBoxTaskbarMode -Value 1 -Type DWord -Force
