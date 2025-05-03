@@ -295,7 +295,7 @@ ForEach ($FontFile in $FontFiles) {
 
     If (-not(Test-Path "C:\Windows\Fonts\$FontFile")) {    
 
-        Add-Font -Path $FontFolder $FontFile
+        Add-Font -Path $FontFolder #$FontFile
         #Write-Host "$FontFile"
 
     } else { Write-Host "$FontFile already exists. Skipping..." -ForegroundColor Yellow }
