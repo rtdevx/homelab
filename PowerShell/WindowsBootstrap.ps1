@@ -162,6 +162,10 @@ powercfg /L
 
 Write-Host `n"Setting up Git."`n -ForegroundColor Green
 
+#Git config
+git config --global user.name "$env:UserName"
+git config --global user.email "$env:UserName@localhost"
+
 #Copy SSH keys
 Write-Host `n"Copying SSH Keys for $env:UserName."`n -ForegroundColor Green
 $CurrentGitUser = $env:UserName
