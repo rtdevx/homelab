@@ -146,6 +146,16 @@ wsl --install
 ### Git ###
 
 Write-Host `n"Setting up Git."`n -ForegroundColor Green
+
+#Copy SSH keys
+Write-Host `n"SSH Keys."`n -ForegroundColor Green
+$CurrentGitUser = $env:UserName
+$SSHLocalFolder = "C:\Users\$CurrentGitUser\.ssh"
+
+If(!(test-path -PathType container $SSHLocalFolder)) {
+    New-Item -ItemType Directory -Path $SSHLocalFolder      
+}
+
 #Create Git folder for all users
 $Users = (Get-ChildItem C:\Users).Name
 
@@ -154,6 +164,47 @@ ForEach($User in $Users) {
     New-Item -Path "C:\Users\$User\" -Name "Git" -ItemType "directory" -ErrorAction SilentlyContinue
     
 }
+
+$Encrypted = "76492d1116743f0423413b16050a5345MgB8AE8AcQBCADAARgBmAEQAbgBrAEMAaAA3AE4AdwBPAEMAQQBFADQATAB0AEEAPQA9AHwANAAxADYANgA3AGIANwBmADMAZAA1ADMAZgBmADcAYQBiAGEAYQA1AGYAZQBkADkANwAwADUAMgA5ADgAYgBjADUAOQAwADgAYgAxADgAYQA1ADUANABhAGIAYQAyADEAZQAxADIANQBkAGUAMAAxADIAYgAzADAAYgBlAGYAZgA3AGEAMwAyAGEAZQAwAGMANQBmADUANgBmADEAYwA0AGYAMwAxADEAMAA4AGQAMwAyAGEAMwBmADcANgAwADEA"
+$Key = (3,34,72,131,5,234,21,12,112,127,23,23,44,34,33,233,55,4,207,22,36,5,35,43)
+$Password = ConvertTo-SecureString $Encrypted -Key $Key
+
+$Credential = New-Object System.Management.Automation.PsCredential("_svcScript", $Password)
+
+New-PSDrive -name "X" -PSProvider FileSystem -Root \\192.168.24.100\Automation -Persist -Credential $Credential
+
+Copy-Item -Path X:\Ansible\Keys\Windows\.ssh\* -Destination $SSHLocalFolder -Recurse
+
+Remove-PSDrive -name "X" -Force
+
+#Secure SSH keys
+
+    Get-Item $SSHLocalFolder -Force | ForEach-Object { $_.Attributes = $_.Attributes -bor "Hidden" }
+    Get-Item $SSHLocalFolder -Force | ForEach-Object { $_.Attributes = $_.Attributes -bor "ReadOnly" }
+    Get-Item $SSHLocalFolder\* -Force | ForEach-Object { $_.Attributes = $_.Attributes -bor "ReadOnly" }
+
+    #Set Key File Variable:
+    New-Variable -Name PKFile -Value "$SSHLocalFolder\id_rsa_git"
+
+    #Remove Inheritance:
+    Icacls $PKFile /c /t /Inheritance:d
+
+    #Set Ownership to Owner:
+    #Key's within $env:UserProfile:
+    Icacls $PKFile /c /t /Grant ${env:UserName}:F
+
+    #Key's outside of $env:UserProfile:
+    TakeOwn /F $PKFile
+    Icacls $PKFile /c /t /Grant:r ${env:UserName}:F
+
+    #Remove All Users, except for Owner:
+    Icacls $PKFile /c /t /Remove:g Administrator "Authenticated Users" BUILTIN\Administrators BUILTIN Everyone System Users
+
+    #Verify:
+    Icacls $PKFile
+
+    #Remove Variable:
+    Remove-Variable -Name PKFile
 
 ### Set up Terminal ###
 
