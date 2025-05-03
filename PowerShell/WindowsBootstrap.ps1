@@ -260,8 +260,9 @@ Write-Host `n"Setting up Windows Terminal..."`n -ForegroundColor Green
 # Installing fonts (source: https://www.nerdfonts.com/)
 
 #Source: https://github.com/amnweb/Nerd-Fonts-PowerShell-Installer
-#Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/amnweb/nf-installer/main/install.ps1'))
+Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/amnweb/nf-installer/main/install.ps1'))
 
+<#
 #Installing PowerSHellGet to enable Install-PSResource (source: https://www.alitajran.com/install-microsoft-powershell-psresourceget-module/)
 
 Install-Module -Name Microsoft.PowerShell.PSResourceGet -Force
@@ -273,6 +274,8 @@ Import-Module -Name NerdFonts
 #Install-NerdFont -Name 'FiraCode' -Scope AllUsers
 
 Install-NerdFont -All -Scope AllUsers -Reinstall
+
+#>
 
 ### Privacy ###
 
