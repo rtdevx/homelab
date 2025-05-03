@@ -39,7 +39,7 @@ Enable-LocalUser -Name $NewAdmin
 $Password = Read-Host "Enter password for "$NewAdmin": " -AsSecureString
 $UserAccount = Get-LocalUser -Name $NewAdmin
 $UserAccount | Set-LocalUser -Password $Password
-} else { `n ; Write-Host " User $UserID doesn't exist." -ForegroundColor Yellow ; `n } 
+} else { Write-Host `n" User $UserID doesn't exist."`n -ForegroundColor Yellow } 
 
 #Remove msstore Apps
 Write-Output "Removing Bloatware from MSSTORE"
@@ -83,11 +83,11 @@ Source: https://woshub.com/enable-auto-registry-backup-windows/
 
 If ((Get-ItemPropertyValue -path "HKLM:\System\CurrentControlSet\Control\Session Manager\Configuration Manager" -Name EnablePeriodicBackup) -eq "1") {
     
-    `n ; Write-Host " Registry Periodic backup is already enabled. Skipping." -ForegroundColor Green  ; `n
+    Write-Host `n" Registry Periodic backup is already enabled. Skipping."`n -ForegroundColor Green
 
     } else { Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Session Manager\Configuration Manager" -Name EnablePeriodicBackup -Type DWORD -Value 1 ;
 
-    `n ; Write-Host "Registry Periodic backup ENABLED." -ForegroundColor Green ; `n
+    Write-Host `n"Registry Periodic backup ENABLED."`n -ForegroundColor Green
 
            }
 
@@ -126,7 +126,7 @@ Foreach ($app in $apps) {
         
             winget install --exact --silent --accept-source-agreements --accept-package-agreements --scope machine --id $app.name 
     
-        } else { `n ; Write-host "Skipping Install of " $app.name -ForegroundColor Yellow ; `n }    
+        } else { Write-host "Skipping Install of " $app.name -ForegroundColor Yellow }    
 }
 
 ### CUSTOMIZATIONS ###
@@ -153,8 +153,8 @@ ForEach($User in $Users) {
 
 ### Set up Terminal ###
 
-Write-Host "`n ; Setting up Windows Terminal... ; `n" -ForegroundColor Green
+Write-Host `n"Setting up Windows Terminal..."`n -ForegroundColor Green
 
 ### Privacy ###
 
-Write-Host "`n ; Applying Privacy... ; `n" -ForegroundColor Green
+Write-Host `n"Applying Privacy..."`n -ForegroundColor Green
