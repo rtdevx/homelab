@@ -149,6 +149,24 @@ wsl --install
 Write-Host `n"Enabling sudo."`n -ForegroundColor Green
 sudo config --enable normal
 
+#Power Plans (source: https://www.elevenforum.com/t/change-power-plan-in-windows-11.1439/)
+Write-Host `n"Setting up Power Plan."`n -ForegroundColor Green
+
+#(Balanced)​
+#powercfg /setactive 381b4222-f694-41f0-9685-ff5bb260df2e​
+
+#(High performance)​
+#powercfg /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c​
+
+#(Power saver)​
+#powercfg /setactive a1841308-3541-4fab-bc81-f71556f20b4a​
+
+#(Ultimate Performance)​
+powercfg /setactive e9a42b02-d5df-448d-aa00-03f14749eb61​
+
+Write-Host `n"Power Plan set to:"`n -ForegroundColor Green
+powercfg /L
+
 ### Git ###
 
 Write-Host `n"Setting up Git."`n -ForegroundColor Green
