@@ -284,7 +284,10 @@ $FontFiles = Get-ChildItem -Path $FontFolder -Filter *.ttf
 
 #Import the Microsoft.PowerShell.Utility module
 
-Import-Module -Name Microsoft.PowerShell.Utility
+#Import-Module -Name Microsoft.PowerShell.Utility
+
+#Install PPoShTools module to allow Add-Font cmd
+Install-Module -Name PPoShTools -Confirm
 
 # Install the fonts
 
