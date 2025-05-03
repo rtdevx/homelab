@@ -259,10 +259,7 @@ Write-Host `n"Setting up Windows Terminal..."`n -ForegroundColor Green
 
 # Installing fonts (source: https://www.nerdfonts.com/)
 
-#Installing PowerSHellGet to enable Install-PSResource
-#Install-Module -Name PowerShellGet -Force
-#Update-Module PowerShellGet -Force
-#Get-Command Install-Module
+#Installing PowerSHellGet to enable Install-PSResource (source: https://www.alitajran.com/install-microsoft-powershell-psresourceget-module/)
 
 Install-Module -Name Microsoft.PowerShell.PSResourceGet -Force
 Set-PSResourceRepository -Name PSGallery -Trusted
