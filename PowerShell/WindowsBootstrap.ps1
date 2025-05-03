@@ -290,12 +290,12 @@ Import-Module -Name Microsoft.PowerShell.Utility
 
 ForEach ($FontFile in $FontFiles) {
 
-    #If (-not(Test-Path "C:\Windows\Fonts\$FontFile.FullName")) {    
+    If (-not(Test-Path "C:\Windows\Fonts\$FontFile.FullName")) {    
 
         #Add-Font -Path $FontFile.FullName
-        Write-Host "$FontFile.FullName"
+        Write-Host "$FontFile"
 
-    #} else { Write-Host "$FontFile.FullName already exists. Skipping..." -ForegroundColor Yellow }
+    } else { Write-Host "$FontFile.FullName already exists. Skipping..." -ForegroundColor Yellow }
 
 }
 
