@@ -259,6 +259,15 @@ Write-Host `n"Setting up Windows Terminal..."`n -ForegroundColor Green
 
 # Installing fonts (source: https://www.nerdfonts.com/)
 
+Install-PSResource -Name NerdFonts
+Import-Module -Name NerdFonts
+
+Install-NerdFont -Name 'FiraCode' -Scope AllUsers
+
+#Install-NerdFont -All -Scope AllUsers
+
+<#
+
 $WorkDir = "C:\TEMP"
 
 If(!(test-path -PathType container $WorkDir)) {
@@ -303,6 +312,8 @@ ForEach ($FontFile in $FontFiles) {
 }
 
 Remove-Item $WorkDir -Force -Recurse
+
+#>
 
 <#
 
