@@ -132,20 +132,20 @@ Foreach ($app in $apps) {
 ### CUSTOMIZATIONS ###
 
 #Set Windows to show file extensions
-Write-Host `n"Setting Windows to show file extensions."`n -ForegroundColor Yellow
+Write-Host `n"Setting Windows to show file extensions." -ForegroundColor Green
 New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Value 0 -PropertyType DWORD -Force
 
 #Set Search Taskbar to icon only
-Write-Host `n"Setting Search Taskbar to icon only."`n -ForegroundColor Yellow
+Write-Host `n"Setting Search Taskbar to icon only."`n -ForegroundColor Green
 Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -Name SearchBoxTaskbarMode -Value 1 -Type DWord -Force
 
 #Enable WSL
-Write-Host `n"Installing Ubuntu WSL."`n -ForegroundColor Yellow
+Write-Host `n"Installing Ubuntu WSL."`n -ForegroundColor Green
 wsl --install
 
 ### Git ###
 
-Write-Host `n"Setting up Git."`n -ForegroundColor Yellow
+Write-Host `n"Setting up Git."`n -ForegroundColor Green
 #Create Git folder for all users
 $Users = (Get-ChildItem C:\Users).Name
 
