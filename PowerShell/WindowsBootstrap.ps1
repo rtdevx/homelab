@@ -121,6 +121,8 @@ $apps = @(
     @{name = "Obsidian.Obsidian" }
 );
 
+#More packages: https://winget.run/
+
 Foreach ($app in $apps) {
     $listApp = winget list --exact -q $app.name
     If (![String]::Join("", $listApp).Contains($app.name)) {
