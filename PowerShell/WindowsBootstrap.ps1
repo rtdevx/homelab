@@ -267,9 +267,9 @@ Set-PSResourceRepository -Name PSGallery -Trusted
 Install-PSResource -Name NerdFonts -Confirm
 Import-Module -Name NerdFonts
 
-Install-NerdFont -Name 'FiraCode' -Scope AllUsers
+#Install-NerdFont -Name 'FiraCode' -Scope AllUsers
 
-#Install-NerdFont -All -Scope AllUsers
+Install-NerdFont -All -Scope AllUsers
 
 <#
 
