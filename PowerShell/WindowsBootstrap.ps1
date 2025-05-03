@@ -290,11 +290,11 @@ $FontFiles = Get-ChildItem -Path $FontFolder -Filter *.ttf
 
 ForEach ($FontFile in $FontFiles) {
 
-    If (-not(Test-Path "C:\Windows\Fonts\$FontFile.FullName")) {    
+    #If (-not(Test-Path "C:\Windows\Fonts\$FontFile.FullName")) {    
 
         Add-Font -Path $FontFile.FullName
 
-} else { Write-Host "$FontFile.FullName already exists. Skipping..." -ForegroundColor Yellow }
+    #} else { Write-Host "$FontFile.FullName already exists. Skipping..." -ForegroundColor Yellow }
 
 }
 
