@@ -296,6 +296,8 @@ ForEach ($FontFile in $FontFiles) {
 
 } else { Write-Host "$FontFile.FullName already exists. Skipping..." -ForegroundColor Yellow }
 
+}
+
 Remove-Item $WorkDir -Force
 
 <#
