@@ -110,6 +110,7 @@ $apps = @(
     @{name = "NordSecurity.NordVPN" },
     @{name = "Notepad++.Notepad++" },  
     @{name = "Git.Git" }, 
+    @{name = "OpenJS.NodeJS.LTS" },     
     @{name = "Microsoft.VisualStudioCode" }, 
     @{name = "WinDirStat.WinDirStat" },
     @{name = "Google.Chrome" }, 
