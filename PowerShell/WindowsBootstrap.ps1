@@ -122,7 +122,7 @@ $apps = @(
 Foreach ($app in $apps) {
     $listApp = winget list --exact -q $app.name
     If (![String]::Join("", $listApp).Contains($app.name)) {
-        Write-host "Installing:" $app.name
+        Write-host `n"Installing:"`n $app.name -ForegroundColor Green
         
             winget install --exact --silent --accept-source-agreements --accept-package-agreements --scope machine --id $app.name 
     
