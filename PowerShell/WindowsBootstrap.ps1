@@ -15,6 +15,8 @@
 
     iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WindowsBootstrap.ps1'))
 
+    #Decryption key ($Key) must be provided in order to decrypt $Password to mount the NAS share and copy ssh keys (see "#Copy SSH keys" section).
+
 #>
 
 # Run as Administrator
@@ -170,7 +172,7 @@ ForEach($User in $Users) {
 }
 
 $Encrypted = "76492d1116743f0423413b16050a5345MgB8AE8AcQBCADAARgBmAEQAbgBrAEMAaAA3AE4AdwBPAEMAQQBFADQATAB0AEEAPQA9AHwANAAxADYANgA3AGIANwBmADMAZAA1ADMAZgBmADcAYQBiAGEAYQA1AGYAZQBkADkANwAwADUAMgA5ADgAYgBjADUAOQAwADgAYgAxADgAYQA1ADUANABhAGIAYQAyADEAZQAxADIANQBkAGUAMAAxADIAYgAzADAAYgBlAGYAZgA3AGEAMwAyAGEAZQAwAGMANQBmADUANgBmADEAYwA0AGYAMwAxADEAMAA4AGQAMwAyAGEAMwBmADcANgAwADEA"
-#$Key = (3,34,72,131,5,234,21,12,112,127,23,23,44,34,33,233,55,4,207,22,36,5,35,43)
+#Decryption key ($Key) must be included in the script that is calling this script.
 $Password = ConvertTo-SecureString $Encrypted -Key $Key
 
 $Credential = New-Object System.Management.Automation.PsCredential("_svcScript", $Password)
