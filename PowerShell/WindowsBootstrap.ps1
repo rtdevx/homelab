@@ -83,11 +83,11 @@ Source: https://woshub.com/enable-auto-registry-backup-windows/
 
 If ((Get-ItemPropertyValue -path "HKLM:\System\CurrentControlSet\Control\Session Manager\Configuration Manager" -Name EnablePeriodicBackup) -eq "1") {
     
-    Write-Host "`n ; Registry Periodic backup is already enabled. Skipping. ; `n" -ForegroundColor Green
+    `n ; Write-Host " Registry Periodic backup is already enabled. Skipping." -ForegroundColor Green  ; `n
 
     } else { Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Session Manager\Configuration Manager" -Name EnablePeriodicBackup -Type DWORD -Value 1 ;
 
-        Write-Host "Registry Periodic backup ENABLED." -ForegroundColor Green
+    `n ; Write-Host "Registry Periodic backup ENABLED." -ForegroundColor Green ; `n
 
            }
 
@@ -126,7 +126,7 @@ Foreach ($app in $apps) {
         
             winget install --exact --silent --accept-source-agreements --accept-package-agreements --scope machine --id $app.name 
     
-        } else { Write-host "Skipping Install of " $app.name -ForegroundColor Yellow }    
+        } else { `n ; Write-host "Skipping Install of " $app.name -ForegroundColor Yellow ; `n }    
 }
 
 ### CUSTOMIZATIONS ###
