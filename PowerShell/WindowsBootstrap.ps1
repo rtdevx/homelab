@@ -265,6 +265,7 @@ If(!(test-path -PathType container C:\TEMP)) {
 
 } 
 
+Write-Host `n"Downloading fonts..."`n -ForegroundColor Yellow
 Invoke-WebRequest https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip -Outfile C:\TEMP\FiraCode.zip
 
 Expand-Archive -Path "C:\TEMP\FiraCode.zip" -DestinationPath "C:\TEMP\FiraCode"
