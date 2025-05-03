@@ -237,6 +237,7 @@ If(!(test-path -PathType container C:\Users\$User\Git\Public)) {
 
 $ErrorActionPreference = "SilentlyContinue"
 
+#Public Repositories
 Set-Location -Path C:\Users\$User\Git\Public
 
 git clone git@github.com:rtdevx/homelab.git
