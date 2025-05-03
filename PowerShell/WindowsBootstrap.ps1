@@ -257,6 +257,18 @@ $ErrorActionPreference = "Continue"
 
 Write-Host `n"Setting up Windows Terminal..."`n -ForegroundColor Green
 
+# Installing fonts (source: https://www.nerdfonts.com/)
+
+If(!(test-path -PathType container C:\TEMP)) {
+
+    New-Item -ItemType Directory -Path C:\TEMP
+
+} 
+
+Invoke-WebRequest https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip -Outfile C:\TEMP\FiraCode.zip
+
+Expand-Archive -Path "C:\TEMP\FiraCode.zip" -DestinationPath "C:\TEMP\FiraCode"
+
 ### Privacy ###
 
 Write-Host `n"Applying Privacy..."`n -ForegroundColor Green
