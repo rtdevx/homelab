@@ -187,7 +187,7 @@ ForEach($User in $Users) {
     
 }
 
-If(!(test-path -PathType container $SSHLocalFolder)) {
+If(!(Test-Path -PathType container $SSHLocalFolder)) {
 
 $Encrypted = "76492d1116743f0423413b16050a5345MgB8AE8AcQBCADAARgBmAEQAbgBrAEMAaAA3AE4AdwBPAEMAQQBFADQATAB0AEEAPQA9AHwANAAxADYANgA3AGIANwBmADMAZAA1ADMAZgBmADcAYQBiAGEAYQA1AGYAZQBkADkANwAwADUAMgA5ADgAYgBjADUAOQAwADgAYgAxADgAYQA1ADUANABhAGIAYQAyADEAZQAxADIANQBkAGUAMAAxADIAYgAzADAAYgBlAGYAZgA3AGEAMwAyAGEAZQAwAGMANQBmADUANgBmADEAYwA0AGYAMwAxADEAMAA4AGQAMwAyAGEAMwBmADcANgAwADEA"
 #Decryption key ($Key) must be included in the script that is calling this script.
@@ -259,16 +259,74 @@ Write-Host `n"Setting up Windows Terminal..."`n -ForegroundColor Green
 
 # Installing fonts (source: https://www.nerdfonts.com/)
 
-If(!(test-path -PathType container C:\TEMP)) {
+$WorkDir = "C:\TEMP"
 
-    New-Item -ItemType Directory -Path C:\TEMP
+If(!(test-path -PathType container $WorkDir)) {
+
+    New-Item -ItemType Directory -Path $WorkDir
 
 } 
 
 Write-Host `n"Downloading fonts..."`n -ForegroundColor Yellow
 Invoke-WebRequest https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip -Outfile C:\TEMP\FiraCode.zip
 
-Expand-Archive -Path "C:\TEMP\FiraCode.zip" -DestinationPath "C:\TEMP\FiraCode"
+Expand-Archive -Path "$WorkDir\FiraCode.zip" -DestinationPath "$WorkDir\FiraCode"
+
+Write-Host `n"Installing fonts..."`n -ForegroundColor Green
+
+# Set font source location
+
+$FontFolder = "$WorkDir\FiraCode"
+
+# Get a list of font files
+
+$FontFiles = Get-ChildItem -Path $FontFolder -Filter *.ttf
+
+# Import the Microsoft.PowerShell.Utility module
+
+#Import-Module -Name Microsoft.PowerShell.Utility
+
+# Install the fonts
+
+ForEach ($FontFile in $FontFiles) {
+
+    If (-not(Test-Path "C:\Windows\Fonts\$FontFile.FullName")) {    
+
+        Add-Font -Path $FontFile.FullName
+
+} else { Write-Host "$FontFile.FullName already exists. Skipping..." -ForegroundColor Yellow }
+
+Remove-Item $WorkDir -Force
+
+<#
+
+$Font = "FiraCodeNerdFontPropo-Retina.ttf"
+
+If (-not(Test-Path "C:\Windows\Fonts\$Font")) {
+
+Copy-Item $WorkDir\FiraCode\$Font C:\Windows\fonts\
+
+} else { Write-Host "$Font is already installed... Skipping." -ForegroundColor Yellow }
+
+Remove-Item $WorkDir -Force
+
+#>
+
+<#
+Set-Location -Path C:\TEMP\FiraCode
+
+$Fonts = (New-Object -ComObject Shell.Application).Namespace(0x14)
+Foreach ($File in gci *.ttf)
+{
+    $FileName = $File.Name
+    if (-not(Test-Path -Path "C:\Windows\fonts\$fileName" )) {
+        Write-Host $FileName
+        dir $File | %{ $Fonts.CopyHere($_.fullname) }
+    }
+}
+Copy-Item *.ttf c:\windows\fonts\
+
+#>
 
 ### Privacy ###
 
