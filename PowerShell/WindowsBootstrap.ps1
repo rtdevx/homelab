@@ -143,6 +143,10 @@ Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -N
 Write-Host `n"Installing Ubuntu WSL."`n -ForegroundColor Green
 wsl --install
 
+#Enable Sudo
+Write-Host `n"Enabling sudo."`n -ForegroundColor Green
+sudo config --enable normal
+
 ### Git ###
 
 Write-Host `n"Setting up Git."`n -ForegroundColor Green
