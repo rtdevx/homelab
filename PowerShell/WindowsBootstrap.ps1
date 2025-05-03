@@ -152,6 +152,9 @@ sudo config --enable normal
 #Power Plans (source: https://www.elevenforum.com/t/change-power-plan-in-windows-11.1439/)
 Write-Host `n"Setting up Power Plan."`n -ForegroundColor Green
 
+#Restoring default schemes
+powercfg -restoredefaultschemes
+
 #(Balanced)​
 #powercfg /setactive 381b4222-f694-41f0-9685-ff5bb260df2e​
 
