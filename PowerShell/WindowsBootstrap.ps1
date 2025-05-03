@@ -260,9 +260,12 @@ Write-Host `n"Setting up Windows Terminal..."`n -ForegroundColor Green
 # Installing fonts (source: https://www.nerdfonts.com/)
 
 #Installing PowerSHellGet to enable Install-PSResource
-Install-Module -Name PowerShellGet -Force
-Update-Module PowerShellGet -Force
-Get-Command Install-Module
+#Install-Module -Name PowerShellGet -Force
+#Update-Module PowerShellGet -Force
+#Get-Command Install-Module
+
+Install-Module -Name Microsoft.PowerShell.PSResourceGet -Force
+Set-PSResourceRepository -Name PSGallery -Trusted
 
 Install-PSResource -Name NerdFonts -Confirm
 Import-Module -Name NerdFonts
