@@ -171,7 +171,7 @@ $Password = ConvertTo-SecureString $Encrypted -Key $Key
 
 $Credential = New-Object System.Management.Automation.PsCredential("_svcScript", $Password)
 
-New-PSDrive -name "X" -PSProvider FileSystem -Root \\192.168.24.100\Automation -Persist -Credential $Credential
+New-PSDrive -name "X" -PSProvider FileSystem -Root \\xfiles\Automation -Persist -Credential $Credential
 
 Copy-Item -Path X:\Ansible\Keys\Windows\.ssh\* -Destination $SSHLocalFolder -Recurse
 
