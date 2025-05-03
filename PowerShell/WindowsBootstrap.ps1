@@ -171,6 +171,8 @@ ForEach($User in $Users) {
     
 }
 
+If(!(test-path -PathType container $SSHLocalFolder)) {
+
 $Encrypted = "76492d1116743f0423413b16050a5345MgB8AE8AcQBCADAARgBmAEQAbgBrAEMAaAA3AE4AdwBPAEMAQQBFADQATAB0AEEAPQA9AHwANAAxADYANgA3AGIANwBmADMAZAA1ADMAZgBmADcAYQBiAGEAYQA1AGYAZQBkADkANwAwADUAMgA5ADgAYgBjADUAOQAwADgAYgAxADgAYQA1ADUANABhAGIAYQAyADEAZQAxADIANQBkAGUAMAAxADIAYgAzADAAYgBlAGYAZgA3AGEAMwAyAGEAZQAwAGMANQBmADUANgBmADEAYwA0AGYAMwAxADEAMAA4AGQAMwAyAGEAMwBmADcANgAwADEA"
 #Decryption key ($Key) must be included in the script that is calling this script.
 $Password = ConvertTo-SecureString $Encrypted -Key $Key
@@ -213,6 +215,8 @@ Remove-PSDrive -name "X" -Force
     #Remove Variable:
     Remove-Variable -Name PKFile
 #>
+
+} else { Write-Host ".ssh folder already exist. Skipping" -ForegroundColor Yellow }
 
 #Clone Public repositories
 
