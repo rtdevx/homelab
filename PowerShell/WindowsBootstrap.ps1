@@ -189,6 +189,7 @@ Remove-PSDrive -name "X" -Force
     Get-Item $SSHLocalFolder -Force | ForEach-Object { $_.Attributes = $_.Attributes -bor "ReadOnly" }
     Get-Item $SSHLocalFolder\* -Force | ForEach-Object { $_.Attributes = $_.Attributes -bor "ReadOnly" }
 
+<#
     #Set Key File Variable:
     New-Variable -Name PKFile -Value "$SSHLocalFolder\id_rsa_git"
 
@@ -211,6 +212,7 @@ Remove-PSDrive -name "X" -Force
 
     #Remove Variable:
     Remove-Variable -Name PKFile
+#>
 
 #Clone Public repositories
 
