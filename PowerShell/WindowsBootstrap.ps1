@@ -153,8 +153,7 @@ Write-Host `n"Setting up Git."`n -ForegroundColor Green
 
 #Copy SSH keys
 Write-Host `n"Copying SSH Keys for $env:UserName."`n -ForegroundColor Green
-#$CurrentGitUser = $env:UserName
-$CurrentGitUser = rtclo #To be removed after M$ account switch over.
+$CurrentGitUser = $env:UserName
 $SSHLocalFolder = "C:\Users\$CurrentGitUser\.ssh"
 
 If(!(test-path -PathType container $SSHLocalFolder)) {
