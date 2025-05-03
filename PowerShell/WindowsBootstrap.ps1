@@ -97,7 +97,7 @@ If ((Get-ItemPropertyValue -path "HKLM:\System\CurrentControlSet\Control\Session
 winget source update ; winget upgrade --all --accept-package-agreements --accept-source-agreements --silent
 
 #Install New apps
-Write-Output `n"Installing Apps"`n -ForegroundColor Green
+Write-Output `n"Installing Apps"`n
 $apps = @(
     @{name = "Microsoft.DotNet.SDK.7" }, 
     @{name = "Microsoft.DotNet.DesktopRuntime.8" }, 
