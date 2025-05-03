@@ -18,8 +18,8 @@
 #>
 
 # Run as Administrator
-if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Write-Host "This script requires administrator privileges. Please run as administrator." -Level 'Error'
+If (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    Write-Host "This script requires administrator privileges. Please run as administrator." -Level 'Error'  -ForegroundColor Red
     exit 1
 }
 
@@ -31,7 +31,7 @@ Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\C
 $UserID = Get-LocalUser -Name 'Administrator' -ErrorAction SilentlyContinue
 $NewAdmin = "Admin"
 
-if($UserID){
+If($UserID){
 Rename-LocalUser -Name "Administrator" -NewName $NewAdmin
 Enable-LocalUser -Name $NewAdmin
 
@@ -39,12 +39,7 @@ Enable-LocalUser -Name $NewAdmin
 $Password = Read-Host "Enter password for "$NewAdmin": " -AsSecureString
 $UserAccount = Get-LocalUser -Name $NewAdmin
 $UserAccount | Set-LocalUser -Password $Password
-} 
-else {
-
-    Write-Host "User $UserID doesn't exist."
-
-} 
+} else { Write-Host "User $UserID doesn't exist." -ForegroundColor Yellow } 
 
 #Remove msstore Apps
 Write-Output "Removing Bloatware from MSSTORE"
@@ -88,11 +83,11 @@ Source: https://woshub.com/enable-auto-registry-backup-windows/
 
 If ((Get-ItemPropertyValue -path "HKLM:\System\CurrentControlSet\Control\Session Manager\Configuration Manager" -Name EnablePeriodicBackup) -eq "1") {
     
-    Write-Host "Registry Periodic backup is already enabled. Skipping."
+    Write-Host "`n ; Registry Periodic backup is already enabled. Skipping. ; `n" -ForegroundColor Green
 
     } else { Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Session Manager\Configuration Manager" -Name EnablePeriodicBackup -Type DWORD -Value 1 ;
 
-        Write-Host "Registry Periodic backup ENABLED."
+        Write-Host "Registry Periodic backup ENABLED." -ForegroundColor Green
 
            }
 
@@ -126,18 +121,12 @@ $apps = @(
 
 Foreach ($app in $apps) {
     $listApp = winget list --exact -q $app.name
-    if (![String]::Join("", $listApp).Contains($app.name)) {
+    If (![String]::Join("", $listApp).Contains($app.name)) {
         Write-host "Installing:" $app.name
         
             winget install --exact --silent --accept-source-agreements --accept-package-agreements --scope machine --id $app.name 
     
-        }
-    
-    else {
-
-        Write-host "Skipping Install of " $app.name
-
-    }    
+        } else { Write-host "Skipping Install of " $app.name -ForegroundColor Yellow }    
 }
 
 ### CUSTOMIZATIONS ###
@@ -161,3 +150,11 @@ ForEach($User in $Users) {
     New-Item -Path "C:\Users\$User\" -Name "Git" -ItemType "directory" -ErrorAction SilentlyContinue
     
 }
+
+### Set up Terminal ###
+
+Write-Host "`n ; Setting up Windows Terminal... ; `n" -ForegroundColor Green
+
+### Privacy ###
+
+Write-Host "`n ; Applying Privacy... ; `n" -ForegroundColor Green
