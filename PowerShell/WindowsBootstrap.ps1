@@ -97,7 +97,7 @@ If ((Get-ItemPropertyValue -path "HKLM:\System\CurrentControlSet\Control\Session
 winget source update ; winget upgrade --all --accept-package-agreements --accept-source-agreements --silent
 
 #Install New apps
-Write-Output "Installing Apps"
+Write-Output `n"Installing Apps"`n -ForegroundColor Green
 $apps = @(
     @{name = "Microsoft.DotNet.SDK.7" }, 
     @{name = "Microsoft.DotNet.DesktopRuntime.8" }, 
@@ -122,7 +122,7 @@ $apps = @(
 Foreach ($app in $apps) {
     $listApp = winget list --exact -q $app.name
     If (![String]::Join("", $listApp).Contains($app.name)) {
-        Write-host `n"Installing:"`n $app.name -ForegroundColor Green
+        Write-host "Installing:" $app.name -ForegroundColor Green
         
             winget install --exact --silent --accept-source-agreements --accept-package-agreements --scope machine --id $app.name 
     
