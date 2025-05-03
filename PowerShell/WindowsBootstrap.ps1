@@ -220,6 +220,12 @@ Remove-PSDrive -name "X" -Force
 
 #Clone Public repositories
 
+If(!(test-path -PathType container C:\Users\$User\Git\Public)) {
+
+    New-Item -ItemType Directory -Path C:\Users\$User\Git\Public
+
+}    
+
 $ErrorActionPreference = "SilentlyContinue"
 
 Set-Location -Path C:\Users\$User\Git\Public
