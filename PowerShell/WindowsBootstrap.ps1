@@ -282,21 +282,21 @@ $FontFolder = "$WorkDir\FiraCode"
 
 $FontFiles = Get-ChildItem -Path $FontFolder -Filter *.ttf
 
-# Import the Microsoft.PowerShell.Utility module
+#Import the Microsoft.PowerShell.Utility module
 
-#Import-Module -Name Microsoft.PowerShell.Utility
+Import-Module -Name Microsoft.PowerShell.Utility
 
 # Install the fonts
 
-ForEach ($FontFile in $FontFiles) {
+#ForEach ($FontFile in $FontFiles) {
 
     #If (-not(Test-Path "C:\Windows\Fonts\$FontFile.FullName")) {    
 
-        Add-Font -Path $FontFile.FullName
+        #Add-Font -Path $FontFile.FullName
 
     #} else { Write-Host "$FontFile.FullName already exists. Skipping..." -ForegroundColor Yellow }
 
-}
+#}
 
 Remove-Item $WorkDir -Force
 
