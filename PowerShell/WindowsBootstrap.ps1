@@ -293,12 +293,12 @@ Install-Module -Name PPoShTools -Confirm
 
 ForEach ($FontFile in $FontFiles) {
 
-    If (-not(Test-Path "C:\Windows\Fonts\$FontFile.FullName")) {    
+    If (-not(Test-Path "C:\Windows\Fonts\$FontFile")) {    
 
-        Add-Font -Path $FontFile.FullName
+        Add-Font -Path $FontFile
         #Write-Host "$FontFile"
 
-    } else { Write-Host "$FontFile.FullName already exists. Skipping..." -ForegroundColor Yellow }
+    } else { Write-Host "$FontFile already exists. Skipping..." -ForegroundColor Yellow }
 
 }
 
