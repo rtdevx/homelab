@@ -299,7 +299,7 @@ ForEach ($FontFile in $FontFiles) {
 
 }
 
-Remove-Item $WorkDir -Force
+Remove-Item $WorkDir -Force -Recurse
 
 <#
 
