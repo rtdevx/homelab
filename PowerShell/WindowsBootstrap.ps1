@@ -39,7 +39,7 @@ Enable-LocalUser -Name $NewAdmin
 $Password = Read-Host "Enter password for "$NewAdmin": " -AsSecureString
 $UserAccount = Get-LocalUser -Name $NewAdmin
 $UserAccount | Set-LocalUser -Password $Password
-} else { Write-Host "User $UserID doesn't exist." -ForegroundColor Yellow } 
+} else { `n ; Write-Host " User $UserID doesn't exist." -ForegroundColor Yellow ; `n } 
 
 #Remove msstore Apps
 Write-Output "Removing Bloatware from MSSTORE"
