@@ -264,7 +264,7 @@ Write-Host `n"Setting up Windows Terminal..."`n -ForegroundColor Green
 Install-Module -Name Microsoft.PowerShell.PSResourceGet -Force
 Set-PSResourceRepository -Name PSGallery -Trusted
 
-Install-PSResource -Name NerdFonts -Confirm
+Install-PSResource -Name NerdFonts -Confirm -Quiet -AcceptLicense
 Import-Module -Name NerdFonts
 
 #Install-NerdFont -Name 'FiraCode' -Scope AllUsers
