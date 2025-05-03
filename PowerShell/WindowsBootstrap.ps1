@@ -147,8 +147,8 @@ New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer
 #Set Search Taskbar to icon only
 Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -Name SearchBoxTaskbarMode -Value 1 -Type DWord -Force
 
-#Rename cloud user
-Rename-LocalUser -Name "rtclo" -NewName "robk"
+#Enable WSL
+wsl --install
 
 ### Git ###
 
