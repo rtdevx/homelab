@@ -148,7 +148,7 @@ wsl --install
 Write-Host `n"Setting up Git."`n -ForegroundColor Green
 
 #Copy SSH keys
-Write-Host `n"SSH Keys."`n -ForegroundColor Green
+Write-Host `n"Copying SSH Keys for $env:UserName."`n -ForegroundColor Green
 $CurrentGitUser = $env:UserName
 $SSHLocalFolder = "C:\Users\$CurrentGitUser\.ssh"
 
