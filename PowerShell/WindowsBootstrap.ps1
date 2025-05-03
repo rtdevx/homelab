@@ -259,7 +259,7 @@ Write-Host `n"Setting up Windows Terminal..."`n -ForegroundColor Green
 
 # Installing fonts (source: https://www.nerdfonts.com/)
 
-Install-PSResource -Name NerdFonts
+Install-PSResource -Name NerdFonts -Confirm
 Import-Module -Name NerdFonts
 
 Install-NerdFont -Name 'FiraCode' -Scope AllUsers
