@@ -143,7 +143,7 @@ Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -N
 
 #Enable WSL
 Write-Host `n"Installing Ubuntu WSL."`n -ForegroundColor Green
-wsl --install
+wsl --install ; wsl --status
 
 #Enable Sudo
 Write-Host `n"Enabling sudo."`n -ForegroundColor Green
