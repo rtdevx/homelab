@@ -319,6 +319,8 @@ If(-not($Content | Select-String -Pattern "Invoke-Expression")) {
 
 Get-Content $PROFILE
 
+If(!(Test-Path -PathType container $env:USERPROFILE\.config)) { New-Item -ItemType Directory -Path $env:USERPROFILE\.config } 
+
 Write-Host `n"Applying Starship Settings."`n -ForegroundColor Green
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/terminal/starship.toml -OutFile $env:USERPROFILE\.config\starship.toml
 
