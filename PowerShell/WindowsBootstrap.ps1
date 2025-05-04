@@ -8,6 +8,10 @@
     
     Winget software sources can be found here: https://winget.run/
 
+    .DEPENDENCIES
+    Configuring Git - https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/Configure-Git.ps1
+    Configuring Windows Terminal - https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/Configure-WindowsTerminal.ps1
+
     .USAGE
     Run elevated powershell.
 
@@ -197,7 +201,7 @@ powercfg /setactive SCHEME_MIN
 Write-Host `n"Power Plan set to:"`n -ForegroundColor Green
 powercfg /L
 
-#Configuring Windows Terminal
+#Configuring Git
 Write-Host `n"Configuring Git."`n -ForegroundColor Green
 Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/Configure-Git.ps1'))
 
