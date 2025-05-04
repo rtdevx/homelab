@@ -317,6 +317,8 @@ If(-not($Content | Select-String -Pattern "Invoke-Expression")) {
 
 } else { Write-Host "Starship profile was already configured here." -ForegroundColor Yellow }
 
+#Adding shell icons (source:https://www.hanselman.com/blog/my-ultimate-powershell-prompt-with-oh-my-posh-and-the-windows-terminal)
+Write-Host `n"Adding shell icons."`n -ForegroundColor Green
 If(-not($Content | Select-String -Pattern "Module")) {
         
     Add-Content -Path $PROFILE -Value "Install-Module -Name Terminal-Icons -Repository PSGallery -Force"
