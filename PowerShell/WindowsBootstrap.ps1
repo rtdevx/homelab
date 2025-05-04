@@ -249,12 +249,12 @@ $ErrorActionPreference = "SilentlyContinue"
 Set-Location -Path C:\Users\$User\Git\Public
 
 git clone git@github.com:rtdevx/homelab.git
-
+git clone git@github.com:rtdevx/dotfiles.git
 git clone git@github.com:rtdevx/rtdevx.github.io.git
 
 $ErrorActionPreference = "Continue"
 
-### Set up Terminal ###
+### Set up Windows Terminal ###
 
 Write-Host `n"Setting up Windows Terminal..."`n -ForegroundColor Green
 
