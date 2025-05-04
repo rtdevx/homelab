@@ -164,12 +164,12 @@ Refresh-Path
                                       'vscode.csharp@1.2.3'.
 #>
 
-start-process "code --install-extension "ms-vscode.powershell" --force"
-start-process "code --install-extension "ms-vscode-remote.remote-ssh" --force"
-start-process "code --install-extension "ms-vscode.remote-server" --force"
-start-process "code --install-extension "ms-vscode-remote.remote-wsl" --force"
-start-process "code --install-extension "ms-vscode-remote.vscode-remote-extensionpack" --force"
-start-process "code --install-extension "redhat.vscode-yaml" --force"
+start-process "code --install-extension ms-vscode.powershell --force"
+start-process "code --install-extension ms-vscode-remote.remote-ssh --force"
+start-process "code --install-extension ms-vscode.remote-server --force"
+start-process "code --install-extension ms-vscode-remote.remote-wsl --force"
+start-process "code --install-extension ms-vscode-remote.vscode-remote-extensionpack --force"
+start-process "code --install-extension redhat.vscode-yaml --force"
 
 #Set Windows to show file extensions
 Write-Host `n"Setting Windows to show file extensions." -ForegroundColor Green
