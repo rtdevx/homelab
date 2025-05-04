@@ -34,6 +34,8 @@ If(!(Test-Path -PathType container $env:USERPROFILE\.config)) { New-Item -ItemTy
 Write-Host `n"Applying Starship Settings."`n -ForegroundColor Green
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/terminal/starship.toml -OutFile $env:USERPROFILE\.config\starship.toml
 
+#More Windows Terminal Themes: https://windowsterminalthemes.dev/
+
 }
 
 Starship
