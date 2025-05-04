@@ -190,10 +190,8 @@ sudo config --enable normal
 
 #Power Plans (source: https://www.makeuseof.com/restore-missing-default-power-plans-windows-11/)
 Write-Host `n"Setting up Power Plan."`n -ForegroundColor Green
-
 powercfg /setactive SCHEME_MIN
 #powercfg /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
-
 Write-Host `n"Power Plan set to:"`n -ForegroundColor Green
 powercfg /L
 
