@@ -25,6 +25,15 @@ If (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     exit 1
 }
 
+### FUNCTIONS ###
+Function Refresh-Path {
+    $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") +
+                ";" +
+                [System.Environment]::GetEnvironmentVariable("Path","User")
+}
+
+### END FUNCTIONS ###
+
 #Set Powershell Execution Policy and Disable UAC
 Set-ExecutionPolicy Unrestricted -Force
 Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0
@@ -135,7 +144,30 @@ Foreach ($app in $apps) {
         } else { Write-host "Skipping Install of " $app.name -ForegroundColor Yellow }    
 }
 
+#Refresh Environment Variables after installing software
+Refresh-Path
+
 ### CUSTOMIZATIONS ###
+
+#Install additional VSCode Extensions
+
+<#
+--install-extension <ext-id | path> Installs or updates an extension. The
+                                      argument is either an extension id or a
+                                      path to a VSIX. The identifier of an
+                                      extension is '${publisher}.${name}'. Use
+                                      '--force' argument to update to latest
+                                      version. To install a specific version
+                                      provide '@${version}'. For example:
+                                      'vscode.csharp@1.2.3'.
+#>
+
+code --install-extension "ms-vscode.powershell" --force 
+code --install-extension "ms-vscode-remote.remote-ssh" --force
+code --install-extension "ms-vscode.remote-server" --force
+code --install-extension "ms-vscode-remote.remote-wsl" --force
+code --install-extension "ms-vscode-remote.vscode-remote-extensionpack" --force
+code --install-extension "redhat.vscode-yaml" --force
 
 #Set Windows to show file extensions
 Write-Host `n"Setting Windows to show file extensions." -ForegroundColor Green
