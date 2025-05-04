@@ -317,13 +317,11 @@ Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw
 #Installing Starhip Cross-Shell Prompt to start with Windows Terminal
 Write-Host `n"Setting up Starship Terminal."`n -ForegroundColor Green
 
-If(!(Test-Path -PathType Leaf $PROFILE)) {
-    New-Item -ItemType File -Path $PROFILE      
-}
+If(!(Test-Path -PathType Leaf $PROFILE)) { New-Item -ItemType File -Path $PROFILE }
 
 $Content = Get-Content $PROFILE
 If(-not($Content | Select-String -Pattern "Invoke-Expression")) {
-    
+        
     Add-Content -Path $PROFILE -Value "Invoke-Expression (&starship init powershell)"
 
 } else { Write-Host "Starship was already configured here." -ForegroundColor Yellow }
