@@ -164,9 +164,9 @@ Refresh-Path
                                       'vscode.csharp@1.2.3'.
 #>
 
-$process = start-process code.exe -windowstyle Hidden -ArgumentList "--install-extension ms-vscode.powershell --force" -PassThru -Wait
+$process = start-process code -ArgumentList "--install-extension ms-vscode.powershell --force" -PassThru -Wait
 $process.ExitCode
-
+#C:\Users\$env:UserName\AppData\Local\Programs\Microsoft VS Code\bin\code.cmd
 <#
 code --install-extension ms-vscode.powershell --force
 code --install-extension ms-vscode-remote.remote-ssh --force
