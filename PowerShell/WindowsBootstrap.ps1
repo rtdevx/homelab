@@ -307,11 +307,14 @@ Write-Host `n"Setting up Windows Terminal..."`n -ForegroundColor Green
 #C:\Users\$env:UserName\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState
 
 #Installing Nerd Fonts (source: https://www.nerdfonts.com/)
+Write-Host `n"Installing Nerd Fonts."`n -ForegroundColor Green
 Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/NerdFonts-Install.ps1'))
 
 #Installing Starhip Cross-Shell Prompt to start with Windows Terminal
-If(!(test-path -PathType Leaf $PROFILE)) {
-    New-Item -ItemType Directory -Path $PROFILE      
+Write-Host `n"Setting up Starship Terminal."`n -ForegroundColor Green
+
+If(!(Test-Path -PathType Leaf $PROFILE)) {
+    New-Item -ItemType File -Path $PROFILE      
 }
 
 Add-Content -Path $PROFILE -Value "Invoke-Expression (&starship init powershell)"
