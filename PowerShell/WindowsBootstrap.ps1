@@ -321,7 +321,12 @@ If(!(Test-Path -PathType Leaf $PROFILE)) {
     New-Item -ItemType File -Path $PROFILE      
 }
 
-Add-Content -Path $PROFILE -Value "Invoke-Expression (&starship init powershell)"
+$Content = get-content $PROFILE
+if(-not($Content | select-string -pattern "Invoke-Expression (&starship init powershell)"){
+    
+    Add-Content -Path $PROFILE -Value "Invoke-Expression (&starship init powershell)"
+
+} else { Write-Host "Starship was already configured here." -ForegroundColor Yellow }
 
 Get-Content $PROFILE
 
