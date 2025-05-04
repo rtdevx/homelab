@@ -26,7 +26,7 @@ If (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
 }
 
 ### FUNCTIONS ###
-Function Refresh-Path {
+Function RefreshPath {
     $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") +
                 ";" +
                 [System.Environment]::GetEnvironmentVariable("Path","User")
@@ -147,7 +147,7 @@ Foreach ($app in $apps) {
 }
 
 #Refresh Environment Variables after installing software
-Refresh-Path
+RefreshPath
 
 ### CUSTOMIZATIONS ###
 
@@ -165,21 +165,12 @@ Refresh-Path
 #>
 
 Write-Host `n"VSCode extensions."`n -ForegroundColor Green
-$process = start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode.powershell --force" -PassThru -Wait
-$process = start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode-remote.remote-ssh --force" -PassThru -Wait
-$process = start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode.remote-server --force" -PassThru -Wait
-$process = start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode-remote.remote-wsl --force" -PassThru -Wait
-$process = start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode-remote.vscode-remote-extensionpack --force" -PassThru -Wait
-$process = start-process code -windowstyle Hidden -ArgumentList "--install-extension redhat.vscode-yaml --force" -PassThru -Wait
-#C:\Users\$env:UserName\AppData\Local\Programs\Microsoft VS Code\bin\code.cmd
-<#
-code --install-extension ms-vscode.powershell --force
-code --install-extension ms-vscode-remote.remote-ssh --force
-code --install-extension ms-vscode.remote-server --force
-code --install-extension ms-vscode-remote.remote-wsl --force
-code --install-extension ms-vscode-remote.vscode-remote-extensionpack --force
-code --install-extension redhat.vscode-yaml --force
-#>
+start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode.powershell --force" -PassThru -Wait
+start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode-remote.remote-ssh --force" -PassThru -Wait
+start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode.remote-server --force" -PassThru -Wait
+start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode-remote.remote-wsl --force" -PassThru -Wait
+start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode-remote.vscode-remote-extensionpack --force" -PassThru -Wait
+start-process code -windowstyle Hidden -ArgumentList "--install-extension redhat.vscode-yaml --force" -PassThru -Wait
 
 #Set Windows to show file extensions
 Write-Host `n"Setting Windows to show file extensions." -ForegroundColor Green
@@ -324,10 +315,12 @@ If(-not($Content | Select-String -Pattern "Invoke-Expression")) {
         
     Add-Content -Path $PROFILE -Value "Invoke-Expression (&starship init powershell)"
 
-} else { Write-Host "Starship was already configured here." -ForegroundColor Yellow }
+} else { Write-Host "Starship profile was already configured here." -ForegroundColor Yellow }
 
 Get-Content $PROFILE
 
-### Privacy ###
+Write-Host `n"Applying Starship Settings."`n -ForegroundColor Green
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/terminal/starship.toml -OutFile $env:USERPROFILE\.config\starship.toml
 
+### Privacy ###
 Write-Host `n"Applying Privacy..."`n -ForegroundColor Green
