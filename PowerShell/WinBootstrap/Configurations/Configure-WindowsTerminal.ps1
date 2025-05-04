@@ -25,7 +25,7 @@ If(-not($Content | Select-String -Pattern "Module")) {
     Add-Content -Path $PROFILE -Value "Install-Module -Name Terminal-Icons -Repository PSGallery -Force"
     Add-Content -Path $PROFILE -Value "Import-Module -Name Terminal-Icons -Force"
 
-} else { Write-Host "Starship profile was already configured here." -ForegroundColor Yellow }
+} else { Write-Host "Terminal-Icons are already installed. Skipping." -ForegroundColor Yellow }
 
 Get-Content $PROFILE
 
