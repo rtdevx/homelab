@@ -89,6 +89,7 @@ catch {
     exit 
 }
 
+#Change $Font variable to mach the font you want to install (https://www.nerdfonts.com/)
 $Font = "FiraCode"
 
 DownloadAndInstallFont $Font
