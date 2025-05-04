@@ -1,4 +1,3 @@
-
 <#
     .SYNOPSIS
     Windows Bootstrap - Windows 11 deployment utility.
