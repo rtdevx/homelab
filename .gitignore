@@ -2,7 +2,7 @@
 *.key
 *.pem
 *.env
-#*.config
+*.config
 
 # Ignore user-specific files
 *.log
