@@ -300,8 +300,11 @@ Write-Host `n"Setting up Windows Terminal..."`n -ForegroundColor Green
 #Copy dotfile
 #C:\Users\$env:UserName\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState
 
-# Installing Nerd Fonts (source: https://www.nerdfonts.com/)
+#Installing Nerd Fonts (source: https://www.nerdfonts.com/)
 Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/NerdFonts-Install.ps1'))
+
+#Installing Starhip Cross-Shell Prompt to start with Windows Terminal
+Add-Content -Path $PROFILE -Value "Invoke-Expression (&starship init powershell)"
 
 ### Privacy ###
 
