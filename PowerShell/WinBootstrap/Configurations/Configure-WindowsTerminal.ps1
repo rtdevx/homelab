@@ -1,6 +1,6 @@
 ### Set up Windows Terminal ###
 
-Function Starship-Terminal {
+Function Starship {
 
 #Installing Nerd Fonts (source: https://www.nerdfonts.com/)
 Write-Host `n"Installing Nerd Fonts."`n -ForegroundColor Green
@@ -36,7 +36,7 @@ Invoke-WebRequest -Uri https://raw.githubusercontent.com/rtdevx/dotfiles/refs/he
 
 }
 
-Starship-Terminal
+Starship
 
 Write-Host `n"Applying Windows Terminal Settings."`n -ForegroundColor Green
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/terminal/WindowsTerminal.json -OutFile $env:USERPROFILE\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
