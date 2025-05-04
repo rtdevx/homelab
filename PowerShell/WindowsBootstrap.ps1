@@ -166,7 +166,11 @@ Refresh-Path
 
 Write-Host `n"VSCode extensions."`n -ForegroundColor Green
 $process = start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode.powershell --force" -PassThru -Wait
-$process.ExitCode
+$process = start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode-remote.remote-ssh --force" -PassThru -Wait
+$process = start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode.remote-server --force" -PassThru -Wait
+$process = start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode-remote.remote-wsl --force" -PassThru -Wait
+$process = start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode-remote.vscode-remote-extensionpack --force" -PassThru -Wait
+$process = start-process code -windowstyle Hidden -ArgumentList "--install-extension redhat.vscode-yaml --force" -PassThru -Wait
 #C:\Users\$env:UserName\AppData\Local\Programs\Microsoft VS Code\bin\code.cmd
 <#
 code --install-extension ms-vscode.powershell --force
