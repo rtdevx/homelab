@@ -1,7 +1,5 @@
 ### Git ###
 
-Write-Host `n"Configuring Git."`n -ForegroundColor Green
-
 #Git config
 git config --global user.name "$env:UserName"
 git config --global user.email "$env:UserName@localhost"
