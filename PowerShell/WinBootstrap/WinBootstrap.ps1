@@ -203,11 +203,11 @@ powercfg /L
 
 #Configuring Git
 Write-Host `n"Configuring Git."`n -ForegroundColor Green
-Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/Configure-Git.ps1'))
+Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/Configurations/Configure-Git.ps1'))
 
 #Configuring Windows Terminal
 Write-Host `n"Configuring Windows Terminal."`n -ForegroundColor Green
-Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/Configure-WindowsTerminal.ps1'))
+Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/Configurations/Configure-WindowsTerminal.ps1'))
 
 ### Privacy ###
 Write-Host `n"Applying Privacy..."`n -ForegroundColor Green
