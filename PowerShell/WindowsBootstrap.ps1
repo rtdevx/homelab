@@ -323,6 +323,8 @@ If(!(Test-Path -PathType Leaf $PROFILE)) {
 
 Add-Content -Path $PROFILE -Value "Invoke-Expression (&starship init powershell)"
 
+Get-Content $PROFILE
+
 ### Privacy ###
 
 Write-Host `n"Applying Privacy..."`n -ForegroundColor Green
