@@ -168,7 +168,7 @@ RefreshPath
                                       'vscode.csharp@1.2.3'.
 #>
 
-Write-Host `n"VSCode extensions."`n -ForegroundColor Green
+Write-Host `n"Installing VSCode extensions."`n -ForegroundColor Green
 start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode.powershell --force" -PassThru -Wait
 start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode-remote.remote-ssh --force" -PassThru -Wait
 start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode.remote-server --force" -PassThru -Wait
