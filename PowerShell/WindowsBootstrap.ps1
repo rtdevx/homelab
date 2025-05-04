@@ -131,7 +131,7 @@ $apps = @(
     @{name = "Lenovo.SystemUpdate" },
     @{name = "Obsidian.Obsidian" }
     # Starthip Cross-Shell Prompt for Windows Terminal (https://starship.rs/)
-    @{name = "starship" }    
+    @{name = "Starship.Starship" }    
 );
 
 #More packages: https://winget.run/
