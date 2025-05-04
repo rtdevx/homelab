@@ -1,7 +1,5 @@
 ### Set up Windows Terminal ###
 
-Write-Host `n"Setting up Windows Terminal..."`n -ForegroundColor Green
-
 #Copy dotfile
 #C:\Users\$env:UserName\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState
 
