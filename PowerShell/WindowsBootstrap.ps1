@@ -164,7 +164,8 @@ Refresh-Path
                                       'vscode.csharp@1.2.3'.
 #>
 
-$process = start-process code -ArgumentList "--install-extension ms-vscode.powershell --force" -PassThru -Wait
+Write-Host `n"VSCode extensions."`n -ForegroundColor Green
+$process = start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode.powershell --force" -PassThru -Wait
 $process.ExitCode
 #C:\Users\$env:UserName\AppData\Local\Programs\Microsoft VS Code\bin\code.cmd
 <#
