@@ -53,7 +53,7 @@ $UserAccount | Set-LocalUser -Password $Password
 } else { Write-Host `n" User 'Administrator' doesn't exist."`n -ForegroundColor Yellow } 
 
 #Remove msstore Apps
-Write-Output "Removing Bloatware from MSSTORE"
+Write-Output "Removing Bloatware from MSSTORE."
 
 $apps = "Microsoft.549981C3F5F10", "Microsoft.3DBuilder", "Microsoft.Appconnector", "Microsoft.BingFinance", "Microsoft.BingNews",
  "Microsoft.BingSports", "Microsoft.BingTranslator", "Microsoft.GamingServices", "Microsoft.Microsoft3DViewer", 
