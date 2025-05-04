@@ -110,7 +110,7 @@ If ((Get-ItemPropertyValue -path "HKLM:\System\CurrentControlSet\Control\Session
 ### WINGET ###
 
 #Upgrading existing winget packages
-winget source update ; winget upgrade --all --accept-package-agreements --accept-source-agreements --silent
+Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/Configurations/Update-WingetPackages.ps1'))
 
 #Install New apps
 Write-Output `n"Installing Apps"`n
