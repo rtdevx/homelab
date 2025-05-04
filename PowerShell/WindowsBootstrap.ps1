@@ -10,9 +10,10 @@
 
     .USAGE
     Run elevated powershell.
+
     Execute: 
 
-    iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WindowsBootstrap.ps1'))
+    Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WindowsBootstrap.ps1'))
 
     #Decryption key ($Key) must be provided in order to decrypt $Password to mount the NAS share and copy ssh keys (see "#Copy SSH keys" section).
 
@@ -77,6 +78,7 @@ Foreach ($app in $apps)
 <#
 Among other things, this runs the RegIdleBackup task. 
 The task copies the system registry files (DEFAULT, SAM, SECURITY, SOFTWARE, and SYSTEM) from the %windir%\System32\config to the %windir%\System32\config\RegBack folder.
+
 Source: https://woshub.com/enable-auto-registry-backup-windows/
 #>
 
