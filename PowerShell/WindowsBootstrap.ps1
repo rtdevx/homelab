@@ -322,7 +322,7 @@ If(!(Test-Path -PathType Leaf $PROFILE)) {
 }
 
 $Content = Get-Content $PROFILE
-If(-not($Content | Select-String -Pattern "Invoke-Expression") {
+If(-not($Content | Select-String -Pattern "Invoke-Expression")) {
     
     Add-Content -Path $PROFILE -Value "Invoke-Expression (&starship init powershell)"
 
