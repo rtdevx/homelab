@@ -8,16 +8,12 @@
     
     Winget software sources can be found here: https://winget.run/
 
-    .DEPENDENCIES
-    Configuring Git - https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/Configure-Git.ps1
-    Configuring Windows Terminal - https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/Configure-WindowsTerminal.ps1
-
     .USAGE
     Run elevated powershell.
 
     Execute: 
 
-    Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WindowsBootstrap.ps1'))
+    Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/WinBootstrap.ps1'))
 
     #Decryption key ($Key) must be provided in order to decrypt $Password to mount the NAS share and copy ssh keys (see "#Copy SSH keys" section).
 
