@@ -281,14 +281,22 @@ $ErrorActionPreference = "SilentlyContinue"
 Set-Location -Path C:\Users\$User\Git\Public
 
 git clone git@github.com:rtdevx/homelab.git
+git config --global --add safe.directory C:/Users/$env:UserName/Git/Public/homelab
+
 git clone git@github.com:rtdevx/dotfiles.git
+git config --global --add safe.directory C:/Users/$env:UserName/Git/Public/dotfiles
+
 git clone git@github.com:rtdevx/rtdevx.github.io.git
+git config --global --add safe.directory C:/Users/$env:UserName/Git/Public/rtdevx.github.io
 
 $ErrorActionPreference = "Continue"
 
 ### Set up Windows Terminal ###
 
 Write-Host `n"Setting up Windows Terminal..."`n -ForegroundColor Green
+
+#Copy dotfile
+C:\Users\$env:UserName\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState
 
 # Installing Nerd Fonts (source: https://www.nerdfonts.com/)
 Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/NerdFonts-Install.ps1'))
