@@ -130,6 +130,8 @@ $apps = @(
     @{name = "mRemoteNG.mRemoteNG" },
     @{name = "Lenovo.SystemUpdate" },
     @{name = "Obsidian.Obsidian" }
+    # Starthip Cross-Shell Prompt for Windows Terminal (https://starship.rs/)
+    @{name = "starship" }    
 );
 
 #More packages: https://winget.run/
