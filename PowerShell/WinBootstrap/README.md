@@ -13,15 +13,15 @@ Run elevated powershell.
 
 **Execute:**
 
-
+```PowerShell
 Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/WinBootstrap.ps1'))
-
+```
 
 _Decryption key ($Key) must be provided in order to decrypt $Password to mount the NAS share and copy ssh keys. **If $Key variable is not present, Git configuration will be skipped.**_
 
 # Components
 
-### WinBootstrap.ps1
+### WinBootstrap
     
     - Enable System Restore
     - Rename Administrator Account
@@ -41,7 +41,7 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
 
 ## Configurations
 
-### Configure-Git.ps1
+### Configure-Git
 
     **The variable '$Key' is required to decrypt credentials on the NAS system where my .ssh keys are stored. If '$Key' is not present, Git will not be configured.**
 
@@ -51,7 +51,7 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
     - Secure SSH keys
     - Clone Public repositories
 
-### Configure-Privacy.ps1
+### Configure-Privacy
 
     >Privacy resources On GitHub: 
     >https://github.com/TemporalAgent7/awesome-windows-privacy
@@ -71,7 +71,7 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
     - Removing Telemetry and other unnecessary services
     - Disabling Privacy-Related Scheduled Tasks
 
-### Configure-WindowsTerminal.ps1
+### Configure-WindowsTerminal
 
     **Setting up Windows Terminal with Starship Cross-Shell Prompt** (*source:* https://starship.rs/)
 
