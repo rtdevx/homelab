@@ -4,7 +4,7 @@ Function Starship {
 
 #Install Nerd Fonts (source: https://www.nerdfonts.com/)
 Write-Host `n"Installing Nerd Fonts."`n -ForegroundColor Green
-Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('./Configurations/Install-NerdFonts.ps1'))
+Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/Configurations/Install-NerdFonts.ps1'))
 
 #Install Starhip Cross-Shell Prompt to start with Windows Terminal
 Write-Host `n"Setting up Starship Terminal."`n -ForegroundColor Green
