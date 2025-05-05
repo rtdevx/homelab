@@ -21,9 +21,9 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
 
 # Components
 
-#### WinBootstrap
+
     
-     Enable System Restore
+    - Enable System Restore
     - Rename Administrator Account
     - Change password for Local Admin
     - Enable Automatic Registry Backup
