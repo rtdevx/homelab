@@ -51,19 +51,21 @@ Starship
 
 #Apply Windows Terminal Settings
 Write-Host `n"Applying Windows Terminal Settings."`n -ForegroundColor Green
+#Remove all Generated ID's
+Remove-Item $env:USERPROFILE\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\state.json
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/terminal/WindowsTerminal.json -OutFile $env:USERPROFILE\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
 
-# Re-generating GUID for Ubuntu as it is not being displayed after restoring Terminal Settings.
-# Define the path to the Windows Terminal settings file
+#Re-generating GUID for Ubuntu as it is not being displayed after restoring Terminal Settings.
+#Define the path to the Windows Terminal settings file
 $jsonPath = "$env:USERPROFILE\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 
-# Read the JSON content
+#Read the JSON content
 $jsonContent = Get-Content -Raw -Path $jsonPath | ConvertFrom-Json
 
-# Generate a new GUID
+#Generate a new GUID
 $newGuid = [guid]::NewGuid().ToString()
 
-# Find the Ubuntu profile and update its GUID
+#Find the Ubuntu profile and update its GUID
 $ubuntuProfile = $jsonContent.profiles.list | Where-Object { $_.name -match "Ubuntu" }
 if ($ubuntuProfile) {
     $ubuntuProfile.guid = $newGuid
@@ -72,7 +74,7 @@ if ($ubuntuProfile) {
     Write-Host "Ubuntu profile not found!"
 }
 
-# Save the updated JSON back to the file
+#Save the updated JSON back to the file
 $jsonContent | ConvertTo-Json -Depth 10 | Set-Content -Path $jsonPath
 
 Write-Host "Windows Terminal settings successfully updated!"
