@@ -1,6 +1,6 @@
 ### Git ###
 
-if ($Key -eq $null) {
+if ($null -eq $Key) {
     Write-Host "The variable '$Key' does not exist or has no value assigned. Skipping Git Configuration" -ForegroundColor Yellow
 } else {
 
