@@ -6,7 +6,7 @@ Windows Bootstrap - Windows 11 deployment utility.
 Bootstraping Windows 11. Installing Software, uninstalling bloatware, applying privacy and security settings, setting up development environment...
 MSSTORE requires user to be logged in to Microsoft in order to install software. Script should be run under your user with local Administrator rights for that reason.
     
-Winget software sources can be found here: https://winget.run/
+*Winget software sources can be found here:* https://winget.run/
 
 # USAGE
 Run elevated powershell.
@@ -23,21 +23,21 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
 
 ### WinBootstrap.ps1
     
-- Enable System Restore
-- Rename Administrator Account
-- Change password for Local Admin
-- Enable Automatic Registry Backup
-- Upgrade existing winget packages (Invoke-Expression)
-- Install New apps
-- Install additional VSCode Extensions
-- Set Windows to show known file extensions
-- Set Search Taskbar to icon only
-- Enable WSL
-- Enable Sudo in Windows Terminal
-- Change Power Plans (_source:_ https://www.makeuseof.com/restore-missing-default-power-plans-windows-11/)
-- Configure Git (Invoke-Expression)
-- Configure Windows Terminal (Invoke-Expression)
-- Configure Privacy Settings (Invoke-Expression)
+    - Enable System Restore
+    - Rename Administrator Account
+    - Change password for Local Admin
+    - Enable Automatic Registry Backup
+    - Upgrade existing winget packages (Invoke-Expression)
+    - Install New apps
+    - Install additional VSCode Extensions
+    - Set Windows to show known file extensions
+    - Set Search Taskbar to icon only
+    - Enable WSL
+    - Enable Sudo in Windows Terminal
+    - Change Power Plans (*source:* https://www.makeuseof.com/restore-missing-default-power-plans-windows-11/)
+    - Configure Git (Invoke-Expression)
+    - Configure Windows Terminal (Invoke-Expression)
+    - Configure Privacy Settings (Invoke-Expression)
 
 ## Configurations
 
@@ -47,7 +47,7 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
 
     - Git config
     - Copy SSH keys
-    - Create Git folder for all users under _C:\Users\$User\Git_
+    - Create Git folder for all users under *C:\Users\$User\Git*
     - Secure SSH keys
     - Clone Public repositories
 
@@ -73,12 +73,12 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
 
 ### Configure-WindowsTerminal.ps1
 
-    **Setting up Windows Terminal with Starship Cross-Shell Prompt** (_source:_ https://starship.rs/)
+    **Setting up Windows Terminal with Starship Cross-Shell Prompt** (*source:* https://starship.rs/)
 
-    - Install Nerd Fonts (_source:_ https://www.nerdfonts.com/) (Invoke-Expression)
+    - Install Nerd Fonts (*source:* https://www.nerdfonts.com/) (Invoke-Expression)
     - Install Starhip Cross-Shell Prompt to start with Windows Terminal
-    - Add shell icons (_source:_ https://www.hanselman.com/blog/my-ultimate-powershell-prompt-with-oh-my-posh-and-the-windows-terminal)
-    - Enable IntelliSense (_source:_ https://learn.microsoft.com/en-us/powershell/module/psreadline/about/about_psreadline)
+    - Add shell icons (*source:* https://www.hanselman.com/blog/my-ultimate-powershell-prompt-with-oh-my-posh-and-the-windows-terminal)
+    - Enable IntelliSense (*source:* https://learn.microsoft.com/en-us/powershell/module/psreadline/about/about_psreadline)
     - Apply Starship Configuration
     - Apply Windows Terminal Settings
 
