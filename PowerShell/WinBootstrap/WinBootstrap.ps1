@@ -147,7 +147,7 @@ powercfg /L
 #Configure Git
 
 if ($null -eq $Key) {
-    Write-Host "The variable 'Key' does not exist or has no value assigned. Skipping Git Configuration" -ForegroundColor Yellow
+    Write-Host `n"The variable 'Key' does not exist or has no value assigned. Skipping Git Configuration"`n -ForegroundColor Yellow
 } else {
 
 Write-Host `n"Configuring Git."`n -ForegroundColor Green
