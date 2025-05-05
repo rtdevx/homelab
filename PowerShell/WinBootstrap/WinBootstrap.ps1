@@ -79,7 +79,7 @@ If ((Get-ItemPropertyValue -path "HKLM:\System\CurrentControlSet\Control\Session
 ### WINGET ###
 
 #Upgrade existing winget packages
-Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/Configurations/Update-WingetPackages.ps1'))
+Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('./Configurations/Update-WingetPackages.ps1'))
 
 #Install New apps
 Write-Output `n"Installing Apps"`n
@@ -170,12 +170,12 @@ powercfg /L
 
 #Configure Git
 Write-Host `n"Configuring Git."`n -ForegroundColor Green
-Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/Configurations/Configure-Git.ps1'))
+Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('./Configurations/Configure-Git.ps1'))
 
 #Configure Windows Terminal
 Write-Host `n"Configuring Windows Terminal."`n -ForegroundColor Green
-Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/Configurations/Configure-WindowsTerminal.ps1'))
+Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('./Configurations/Configure-WindowsTerminal.ps1'))
 
 #Configure Privacy Settings
 Write-Host `n"Applying Privacy..."`n -ForegroundColor Green
-Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/Configurations/Configure-Privacy.ps1'))
+Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('./Configurations/Configure-Privacy.ps1'))
