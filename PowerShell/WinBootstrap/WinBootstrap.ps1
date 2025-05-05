@@ -133,10 +133,6 @@ New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer
 Write-Host `n"Setting Search Taskbar to icon only."`n -ForegroundColor Green
 Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -Name SearchBoxTaskbarMode -Value 1 -Type DWord -Force
 
-#Enable WSL
-Write-Host `n"Installing Ubuntu WSL."`n -ForegroundColor Green
-wsl --install ; wsl --status ; wsl --update
-
 #Enable Sudo in Windows Terminal
 Write-Host `n"Enabling sudo."`n -ForegroundColor Green
 sudo config --enable normal
@@ -159,3 +155,7 @@ Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw
 #Configure Privacy Settings
 Write-Host `n"Applying Privacy..."`n -ForegroundColor Green
 Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/Configurations/Configure-Privacy.ps1'))
+
+#Enable WSL
+Write-Host `n"Installing Ubuntu WSL."`n -ForegroundColor Green
+wsl --install ; wsl --status ; wsl --update
