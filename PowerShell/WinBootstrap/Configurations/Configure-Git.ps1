@@ -13,7 +13,7 @@ Write-Host `n"Copying SSH Keys for $env:UserName."`n -ForegroundColor Green
 $CurrentGitUser = $env:UserName
 $SSHLocalFolder = "C:\Users\$CurrentGitUser\.ssh"
 
-If(!(test-path -PathType container $SSHLocalFolder)) {
+If(!(Test-Path -PathType container $SSHLocalFolder)) {
     New-Item -ItemType Directory -Path $SSHLocalFolder      
 }
 
@@ -74,6 +74,8 @@ If(!(Test-Path -PathType container C:\Users\$User\Git\Public)) {
 } 
 
 $ErrorActionPreference = "SilentlyContinue"
+
+else { Write-Host "$SSHLocalFolder already exist. Skipping" -ForegroundColor Yellow }
 
 #Public Repositories
 Set-Location -Path C:\Users\$User\Git\Public
