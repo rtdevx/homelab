@@ -1,9 +1,5 @@
 ### Git ###
 
-if ($null -eq $Key) {
-    Write-Host "The variable 'Key' does not exist or has no value assigned. Skipping Git Configuration" -ForegroundColor Yellow
-} else {
-
 #Git config
 git config --global user.name "$env:UserName"
 git config --global user.email "$env:UserName@localhost"
@@ -90,5 +86,3 @@ git clone git@github.com:rtdevx/rtdevx.github.io.git
 git config --global --add safe.directory C:/Users/$env:UserName/Git/Public/rtdevx.github.io
 
 $ErrorActionPreference = "Continue"
-
-}

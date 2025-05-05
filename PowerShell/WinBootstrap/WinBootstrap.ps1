@@ -145,8 +145,15 @@ Write-Host `n"Power Plan set to:"`n -ForegroundColor Green
 powercfg /L
 
 #Configure Git
+
+if ($null -eq $Key) {
+    Write-Host "The variable 'Key' does not exist or has no value assigned. Skipping Git Configuration" -ForegroundColor Yellow
+} else {
+
 Write-Host `n"Configuring Git."`n -ForegroundColor Green
 Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/Configurations/Configure-Git.ps1'))
+
+}
 
 #Configure Windows Terminal
 Write-Host `n"Configuring Windows Terminal."`n -ForegroundColor Green
