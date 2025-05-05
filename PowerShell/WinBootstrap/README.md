@@ -82,6 +82,6 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
 - Apply Starship Configuration
 - Apply Windows Terminal Settings
 
-> __More Windows Terminal Themes:__
+> More Windows Terminal Themes:
 > 
 > https://windowsterminalthemes.dev/
