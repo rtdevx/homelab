@@ -6,12 +6,11 @@ Privacy resources On GitHub:
 https://github.com/TemporalAgent7/awesome-windows-privacy
 https://github.com/TheWorldOfPC/Windows11-Debloat-Privacy-Guide
 
-
 #>
 
 DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase
 
-#Remove msstore Apps
+#Remove Bloatware from MSSTORE
 Write-Output "Removing Bloatware from MSSTORE."
 
 $apps = "Microsoft.549981C3F5F10", "Microsoft.3DBuilder", "Microsoft.Appconnector", "Microsoft.BingFinance", "Microsoft.BingNews",

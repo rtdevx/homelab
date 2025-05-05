@@ -11,19 +11,78 @@ Winget software sources can be found here: https://winget.run/
 # USAGE
 Run elevated powershell.
 
-__Execute:__
+**Execute:**
 
 ```PowerShell
 Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/WinBootstrap.ps1'))
 ```
 
-- Decryption key ($Key) must be provided in order to decrypt $Password to mount the NAS share and copy ssh keys (see "#Copy SSH keys" section).
+_Decryption key ($Key) must be provided in order to decrypt $Password to mount the NAS share and copy ssh keys (see "#Copy SSH keys" section)._
 
 # Components
 
-- WinBootstrap.ps1
+### WinBootstrap.ps1
+    
+    - Enable System Restore
+    - Rename Administrator Account
+    - Change password for Local Admin
+    - Enable Automatic Registry Backup
+    - Upgrade existing winget packages (Invoke-Expression)
+    - Install New apps
+    - Install additional VSCode Extensions
+    - Set Windows to show known file extensions
+    - Set Search Taskbar to icon only
+    - Enable WSL
+    - Enable Sudo in Windows Terminal
+    - Change Power Plans (_source:_ https://www.makeuseof.com/restore-missing-default-power-plans-windows-11/)
+    - Configure Git (Invoke-Expression)
+    - Configure Windows Terminal (Invoke-Expression)
+    - Configure Privacy Settings (Invoke-Expression)
 
-    Main Script.
+## Configurations
+
+### Configure-Git.ps1
+
+    **The variable '$Key' is required to decrypt credentials on the NAS system where my .ssh keys are stored. If '$Key' is not present, Git will not be configured.**
+
+    - Git config
+    - Copy SSH keys
+    - Create Git folder for all users under _C:\Users\$User\Git_
+    - Secure SSH keys
+    - Clone Public repositories
+
+### Configure-Privacy.ps1
+
+    >Privacy resources On GitHub: 
+    >https://github.com/TemporalAgent7/awesome-windows-privacy
+    >https://github.com/TheWorldOfPC/Windows11-Debloat-Privacy-Guide
+
+    - Remove Bloatware from MSSTORE
+    - Remove Cortana
+    - Remove Music,TV
+    - Remove M$ Solitaire collection
+    - Remove Help and Feedback Hub
+    - Remove Maps
+    - Remove Weather, News
+    - Remove Sound Recorder
+    - Remove Quick Assist
+    - Remove XBOX
+    - Turn Off Windows Error Reporting
+    - Removing Telemetry and other unnecessary services
+    - Disabling Privacy-Related Scheduled Tasks
+
+### Configure-WindowsTerminal.ps1
+
+    **Setting up Windows Terminal with Starship Cross-Shell Prompt** (_source:_ https://starship.rs/)
+
+    - Install Nerd Fonts (_source:_ https://www.nerdfonts.com/) (Invoke-Expression)
+    - Install Starhip Cross-Shell Prompt to start with Windows Terminal
+    - Add shell icons (_source:_ https://www.hanselman.com/blog/my-ultimate-powershell-prompt-with-oh-my-posh-and-the-windows-terminal)
+    - Enable IntelliSense (_source:_ https://learn.microsoft.com/en-us/powershell/module/psreadline/about/about_psreadline)
+    - Apply Starship Configuration
+    - Apply Windows Terminal Settings
+
+    >More Windows Terminal Themes: https://windowsterminalthemes.dev/
 
 
 

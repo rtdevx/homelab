@@ -78,7 +78,7 @@ If ((Get-ItemPropertyValue -path "HKLM:\System\CurrentControlSet\Control\Session
 
 ### WINGET ###
 
-#Upgrading existing winget packages
+#Upgrade existing winget packages
 Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/Configurations/Update-WingetPackages.ps1'))
 
 #Install New apps
@@ -145,7 +145,7 @@ start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vsc
 start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode-remote.vscode-remote-extensionpack --force" -PassThru -Wait
 start-process code -windowstyle Hidden -ArgumentList "--install-extension redhat.vscode-yaml --force" -PassThru -Wait
 
-#Set Windows to show file extensions
+#Set Windows to show known file extensions
 Write-Host `n"Setting Windows to show file extensions." -ForegroundColor Green
 New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Value 0 -PropertyType DWORD -Force
 
@@ -157,25 +157,25 @@ Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -N
 Write-Host `n"Installing Ubuntu WSL."`n -ForegroundColor Green
 wsl --install ; wsl --status ; wsl --update
 
-#Enable Sudo
+#Enable Sudo in Windows Terminal
 Write-Host `n"Enabling sudo."`n -ForegroundColor Green
 sudo config --enable normal
 
-#Power Plans (source: https://www.makeuseof.com/restore-missing-default-power-plans-windows-11/)
+#Change Power Plans (source: https://www.makeuseof.com/restore-missing-default-power-plans-windows-11/)
 Write-Host `n"Setting up Power Plan."`n -ForegroundColor Green
 powercfg /setactive SCHEME_MIN
 #powercfg /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 Write-Host `n"Power Plan set to:"`n -ForegroundColor Green
 powercfg /L
 
-#Configuring Git
+#Configure Git
 Write-Host `n"Configuring Git."`n -ForegroundColor Green
 Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/Configurations/Configure-Git.ps1'))
 
-#Configuring Windows Terminal
+#Configure Windows Terminal
 Write-Host `n"Configuring Windows Terminal."`n -ForegroundColor Green
 Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/Configurations/Configure-WindowsTerminal.ps1'))
 
-### Privacy ###
+#Configure Privacy Settings
 Write-Host `n"Applying Privacy..."`n -ForegroundColor Green
 Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/Configurations/Configure-Privacy.ps1'))
