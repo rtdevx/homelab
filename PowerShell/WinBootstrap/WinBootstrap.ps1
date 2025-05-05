@@ -38,6 +38,10 @@ Function RefreshPath {
 Set-ExecutionPolicy Unrestricted -Force
 Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0
 
+#Enable System Restore
+Write-Host `n" Enabling System Restore."`n -ForegroundColor Green
+Enable-ComputerRestore -Drive "C:\"
+
 #Rename Administrator Account
 $UserID = Get-LocalUser -Name 'Administrator' -ErrorAction SilentlyContinue
 $NewAdmin = "Admin"
