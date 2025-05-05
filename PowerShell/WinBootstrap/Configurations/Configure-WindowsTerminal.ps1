@@ -9,8 +9,12 @@ Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw
 #Installing Starhip Cross-Shell Prompt to start with Windows Terminal
 Write-Host `n"Setting up Starship Terminal."`n -ForegroundColor Green
 
+#PowerShell profile can be found under $PROFILE. PowerShell and PowerShell ISE have slightly different profiles.
+#If this script is being executed from PowerShell ISE, different $PROFILE will be updated.
+#Enruring that only PowerShell Profile is updated.
 #If(!(Test-Path -PathType Leaf $PROFILE)) { New-Item -ItemType File -Path $PROFILE }
 $TerminalProfile = "$env:USERPROFILE\OneDrive\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
+
 If(!(Test-Path -PathType Leaf $TerminalProfile)) { New-Item -ItemType File -Path $TerminalProfile }
 
 $Content = Get-Content $TerminalProfile
