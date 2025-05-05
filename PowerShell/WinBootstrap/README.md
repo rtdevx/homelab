@@ -19,7 +19,7 @@ Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw
 
 _Decryption key ($Key) must be provided in order to decrypt $Password to mount the NAS share and copy ssh keys. **If $Key variable is not present, Git configuration will be skipped.**_
 
-
+# Components
 
 #### WinBootstrap
     
@@ -53,9 +53,9 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
 
 #### Configure-Privacy
 
-    >Privacy resources On GitHub: 
-    >https://github.com/TemporalAgent7/awesome-windows-privacy
-    >https://github.com/TheWorldOfPC/Windows11-Debloat-Privacy-Guide
+    > Privacy resources On GitHub: 
+    > https://github.com/TemporalAgent7/awesome-windows-privacy
+    > https://github.com/TheWorldOfPC/Windows11-Debloat-Privacy-Guide
 
     - Remove Bloatware from MSSTORE
     - Remove Cortana
@@ -82,4 +82,4 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
     - Apply Starship Configuration
     - Apply Windows Terminal Settings
 
-    >More Windows Terminal Themes: https://windowsterminalthemes.dev/
+    > More Windows Terminal Themes: https://windowsterminalthemes.dev/
