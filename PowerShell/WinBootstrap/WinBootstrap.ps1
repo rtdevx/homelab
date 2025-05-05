@@ -56,26 +56,6 @@ $UserAccount = Get-LocalUser -Name $NewAdmin
 $UserAccount | Set-LocalUser -Password $Password
 } else { Write-Host `n" User 'Administrator' doesn't exist."`n -ForegroundColor Yellow } 
 
-#Enable Automatic Registry Backup
-<#
-Among other things, this runs the RegIdleBackup task. 
-The task copies the system registry files (DEFAULT, SAM, SECURITY, SOFTWARE, and SYSTEM) from the %windir%\System32\config to the %windir%\System32\config\RegBack folder.
-
-Source: https://woshub.com/enable-auto-registry-backup-windows/
-#>
-
-#New-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Session Manager\Configuration Manager" -Name EnablePeriodicBackup -Type DWORD -Value 1
-
-If ((Get-ItemPropertyValue -path "HKLM:\System\CurrentControlSet\Control\Session Manager\Configuration Manager" -Name EnablePeriodicBackup) -eq "1") {
-    
-    Write-Host `n" Registry Periodic backup is already enabled. Skipping."`n -ForegroundColor Green
-
-    } else { Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Session Manager\Configuration Manager" -Name EnablePeriodicBackup -Type DWORD -Value 1 ;
-
-    Write-Host `n"Registry Periodic backup ENABLED."`n -ForegroundColor Green
-
-           }
-
 ### WINGET ###
 
 #Upgrade existing winget packages

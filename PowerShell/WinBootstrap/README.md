@@ -25,7 +25,6 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
 - Enable System Restore
 - Rename Local Administrator Account
 - Change password for Local Admin
-- Enable Automatic Registry Backup
 - Upgrade existing winget packages (Invoke-Expression)
 - Install New apps
 - Install additional VSCode Extensions
