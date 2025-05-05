@@ -205,3 +205,4 @@ Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw
 
 ### Privacy ###
 Write-Host `n"Applying Privacy..."`n -ForegroundColor Green
+Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/Configurations/Configure-Privacy.ps1'))
