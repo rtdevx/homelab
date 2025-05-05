@@ -26,7 +26,7 @@ ForEach($User in $Users) {
     
 }
 
-If(!(Test-Path -PathType container $SSHLocalFolder)) {
+#If(!(Test-Path -PathType container $SSHLocalFolder)) {
 
 $Encrypted = "76492d1116743f0423413b16050a5345MgB8AE8AcQBCADAARgBmAEQAbgBrAEMAaAA3AE4AdwBPAEMAQQBFADQATAB0AEEAPQA9AHwANAAxADYANgA3AGIANwBmADMAZAA1ADMAZgBmADcAYQBiAGEAYQA1AGYAZQBkADkANwAwADUAMgA5ADgAYgBjADUAOQAwADgAYgAxADgAYQA1ADUANABhAGIAYQAyADEAZQAxADIANQBkAGUAMAAxADIAYgAzADAAYgBlAGYAZgA3AGEAMwAyAGEAZQAwAGMANQBmADUANgBmADEAYwA0AGYAMwAxADEAMAA4AGQAMwAyAGEAMwBmADcANgAwADEA"
 #Decryption key ($Key) must be included in the script that is calling this script.
@@ -36,7 +36,20 @@ $Credential = New-Object System.Management.Automation.PsCredential("_svcScript",
 
 New-PSDrive -name "X" -PSProvider FileSystem -Root \\xfiles\Automation -Persist -Credential $Credential
 
-Copy-Item -Path X:\Ansible\Keys\Windows\.ssh\* -Destination $SSHLocalFolder -Recurse
+#Copy-Item -Path X:\Ansible\Keys\Windows\.ssh\* -Destination $SSHLocalFolder -Recurse -Force
+
+$sourceFolder = "X:\Ansible\Keys\Windows\.ssh\"
+$destinationFolder = "$SSHLocalFolder"
+
+# Get all files in the source folder
+$Files = Get-ChildItem -Path $sourceFolder -File
+
+# Copy each file to the destination folder
+Foreach ($File in $Files) {
+    Copy-Item -Path $File.FullName -Destination $destinationFolder -Recurse
+}
+
+Write-Host "Files copied successfully!"
 
 Remove-PSDrive -name "X" -Force
 
@@ -69,7 +82,7 @@ Remove-PSDrive -name "X" -Force
     #Remove Variable:
     Remove-Variable -Name PKFile
 
-} else { Write-Host ".ssh folder already exist. Skipping" -ForegroundColor Yellow }
+#} else { Write-Host ".ssh folder already exist. Skipping" -ForegroundColor Yellow }
 
 #Clone Public repositories
 

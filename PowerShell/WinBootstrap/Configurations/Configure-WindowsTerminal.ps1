@@ -9,9 +9,6 @@ Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw
 #Install Starhip Cross-Shell Prompt to start with Windows Terminal
 Write-Host `n"Setting up Starship Terminal."`n -ForegroundColor Green
 
-#If(!(Test-Path -PathType Leaf $PROFILE)) { New-Item -ItemType File -Path $PROFILE }
-#$TerminalProfile = "$env:USERPROFILE\OneDrive\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
-
 #New-Item -ItemType File -Path $TerminalProfile -Force
 New-Item -ItemType File -Path $PROFILE -Force
 
