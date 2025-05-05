@@ -16,7 +16,7 @@ Write-Host `n"Setting up Starship Terminal."`n -ForegroundColor Green
 $TerminalProfile = "$env:USERPROFILE\OneDrive\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
 
 #If(!(Test-Path -PathType Leaf $TerminalProfile)) { New-Item -ItemType File -Path $TerminalProfile }
-New-Item -ItemType File -Path $TerminalProfile --force
+New-Item -ItemType File -Path $TerminalProfile -Force
 
 $Content = Get-Content $TerminalProfile
 If(-not($Content | Select-String -Pattern "Invoke-Expression")) {
