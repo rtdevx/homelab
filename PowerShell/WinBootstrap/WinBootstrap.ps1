@@ -80,7 +80,6 @@ $apps = @(
     @{name = "TradingView.TradingViewDesktop" },
     @{name = "QNAP.Qsync" },
     @{name = "Garmin.Express" },
-    @{name = "Garmin.BaseCamp" },
     @{name = "mRemoteNG.mRemoteNG" },
     @{name = "Lenovo.SystemUpdate" },
     @{name = "Obsidian.Obsidian" }
