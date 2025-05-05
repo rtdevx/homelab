@@ -54,8 +54,8 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
 
 > Privacy resources On GitHub:
 >
->> https://github.com/TemporalAgent7/awesome-windows-privacy
->> https://github.com/TheWorldOfPC/Windows11-Debloat-Privacy-Guide
+> https://github.com/TemporalAgent7/awesome-windows-privacy
+> https://github.com/TheWorldOfPC/Windows11-Debloat-Privacy-Guide
 
 - Remove Bloatware from MSSTORE
 - Remove Cortana
@@ -82,4 +82,6 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
 - Apply Starship Configuration
 - Apply Windows Terminal Settings
 
-> More Windows Terminal Themes: https://windowsterminalthemes.dev/
+> _More Windows Terminal Themes:_
+> 
+> https://windowsterminalthemes.dev/
