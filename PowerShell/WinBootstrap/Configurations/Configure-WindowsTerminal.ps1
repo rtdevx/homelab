@@ -59,7 +59,7 @@ $jsonPath = "$env:USERPROFILE\AppData\Local\Packages\Microsoft.WindowsTerminal_8
 # Read and parse the JSON content
 $jsonContent = Get-Content -Raw -Path $jsonPath | ConvertFrom-Json
 
-# Update "profiles.defaults"
+# Overwrite "profiles.defaults" section
 $jsonContent.profiles.defaults = @{
     colorScheme = "ayu"
     cursorShape = "bar"
@@ -70,11 +70,19 @@ $jsonContent.profiles.defaults = @{
     useAcrylic = $true
 }
 
-# Update the first profile in "profiles.list"
-$jsonContent.profiles.defaults.fontFace = "Hack Nerd Font"
-$jsonContent.profiles.list[0].fontFace = "Hack Nerd Font"
+# Overwrite "profiles.list" section with updated details
+$jsonContent.profiles.list = @(
+    @{
+        commandline = "%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe"
+        font = @{ face = "Hack Nerd Font" }
+        guid = "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}"
+        hidden = $false
+        name = "Windows PowerShell"
+        opacity = 85
+    }
+)
 
-# Update "schemes" section
+# Replace "schemes" with the new schemes
 $jsonContent.schemes = @(
     @{
         background = "#282C34"
@@ -124,11 +132,10 @@ $jsonContent.schemes = @(
     }
 )
 
-# Add "copyOnSelect" under "actions"
-$jsonContent.actions += @{ copyOnSelect = $true }
+# Ensure "copyOnSelect" exists
+$jsonContent.copyOnSelect = $true
 
 # Convert back to JSON and save the updated content
 $jsonContent | ConvertTo-Json -Depth 10 | Set-Content -Path $jsonPath
 
-Write-Host "Windows Terminal settings updated!"
-
+Write-Host "Windows Terminal settings successfully updated!"
