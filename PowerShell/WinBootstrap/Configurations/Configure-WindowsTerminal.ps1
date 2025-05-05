@@ -9,9 +9,6 @@ Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw
 #Install Starhip Cross-Shell Prompt to start with Windows Terminal
 Write-Host `n"Setting up Starship Terminal."`n -ForegroundColor Green
 
-#PowerShell profile can be found under $PROFILE. PowerShell and PowerShell ISE have slightly different profiles.
-#If this script is being executed from PowerShell ISE, different $PROFILE will be updated.
-#Enruring that only PowerShell Profile is updated.
 #If(!(Test-Path -PathType Leaf $PROFILE)) { New-Item -ItemType File -Path $PROFILE }
 $TerminalProfile = "$env:USERPROFILE\OneDrive\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
 
@@ -25,7 +22,7 @@ If(-not($Content | Select-String -Pattern "Invoke-Expression")) {
 
 } else { Write-Host "Starship profile was already configured here." -ForegroundColor Yellow }
 
-#Add shell icons (source:https://www.hanselman.com/blog/my-ultimate-powershell-prompt-with-oh-my-posh-and-the-windows-terminal)
+#Add shell icons 
 Write-Host `n"Adding shell icons."`n -ForegroundColor Green
 If(-not($Content | Select-String -Pattern "Terminal-Icons")) {
         
@@ -34,7 +31,7 @@ If(-not($Content | Select-String -Pattern "Terminal-Icons")) {
 
 } else { Write-Host "Terminal-Icons are already installed. Skipping." -ForegroundColor Yellow }
 
-#Enable IntelliSense (source: https://learn.microsoft.com/en-us/powershell/module/psreadline/about/about_psreadline)
+#Enable IntelliSense
 Write-Host `n"Enabling IntelliSense in Windows Terminal."`n -ForegroundColor Green
 If(-not($Content | Select-String -Pattern "PSReadLine")) {
         
@@ -59,4 +56,3 @@ Starship
 #Apply Windows Terminal Settings
 Write-Host `n"Applying Windows Terminal Settings."`n -ForegroundColor Green
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/terminal/WindowsTerminal.json -OutFile $env:USERPROFILE\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
-#More Windows Terminal Themes: https://windowsterminalthemes.dev/

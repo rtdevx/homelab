@@ -1,23 +1,4 @@
-<#
-    .SYNOPSIS
-    PowerShell script designed to automate the installation of Nerd Fonts on your system.
-
-    Original Repository: https://github.com/amnweb/Nerd-Fonts-PowerShell-Installer
-    Nerd Fonts: https://www.nerdfonts.com/
- 
-    .DESCRIPTION
-    Nerd Fonts patches developer targeted fonts with a high number of glyphs (icons). 
-    Specifically to add a high number of extra glyphs from popular ‘iconic fonts’ such as 
-    Font Awesome, Devicons, Octicons, and others.
-
-    Original Repository allows installation of multiple fonts selected in a pop up window. 
-    For my use case, I only require a single font to be installed so this feature is disabled and a single font is selected.
-
-    .USAGE
-    1. Change $Font variable to mach the font you want to install (https://www.nerdfonts.com/)
-    2. Run with PowerShell: ./NerdFonts-Install.ps1
-
-#>
+### Install Nerd Fonts ###
 
 function DownloadAndInstallFont {
     param(

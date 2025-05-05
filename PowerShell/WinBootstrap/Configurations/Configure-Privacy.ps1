@@ -1,13 +1,5 @@
 ### Privacy ###
 
-<#
-Privacy resources On GitHub: 
-
-https://github.com/TemporalAgent7/awesome-windows-privacy
-https://github.com/TheWorldOfPC/Windows11-Debloat-Privacy-Guide
-
-#>
-
 DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase
 
 #Remove Bloatware from MSSTORE
