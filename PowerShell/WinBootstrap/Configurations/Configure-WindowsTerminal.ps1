@@ -38,7 +38,6 @@ If(-not($Content | Select-String -Pattern "PSReadLine")) {
     
 } else { Write-Host "Intellisense is already installed. Skipping." -ForegroundColor Yellow }
 
-#Get-Content $PROFILE
 Get-Content $PROFILE
 
 #Apply Starship Configuration

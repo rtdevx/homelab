@@ -26,8 +26,6 @@ ForEach($User in $Users) {
     
 }
 
-#If(!(Test-Path -PathType container $SSHLocalFolder)) {
-
 $Encrypted = "76492d1116743f0423413b16050a5345MgB8AE8AcQBCADAARgBmAEQAbgBrAEMAaAA3AE4AdwBPAEMAQQBFADQATAB0AEEAPQA9AHwANAAxADYANgA3AGIANwBmADMAZAA1ADMAZgBmADcAYQBiAGEAYQA1AGYAZQBkADkANwAwADUAMgA5ADgAYgBjADUAOQAwADgAYgAxADgAYQA1ADUANABhAGIAYQAyADEAZQAxADIANQBkAGUAMAAxADIAYgAzADAAYgBlAGYAZgA3AGEAMwAyAGEAZQAwAGMANQBmADUANgBmADEAYwA0AGYAMwAxADEAMAA4AGQAMwAyAGEAMwBmADcANgAwADEA"
 #Decryption key ($Key) must be included in the script that is calling this script.
 $Password = ConvertTo-SecureString $Encrypted -Key $Key
@@ -38,7 +36,7 @@ New-PSDrive -name "X" -PSProvider FileSystem -Root \\xfiles\Automation -Persist 
 
 #Copy-Item -Path X:\Ansible\Keys\Windows\.ssh\* -Destination $SSHLocalFolder -Recurse -Force
 
-$sourceFolder = "X:\Ansible\Keys\Windows\.ssh\"
+$sourceFolder = "X:\Ansible\Keys\Windows\.ssh"
 $destinationFolder = "$SSHLocalFolder"
 
 # Get all files in the source folder
@@ -55,34 +53,17 @@ Remove-PSDrive -name "X" -Force
 
 #Secure SSH keys
 
-    Get-Item $SSHLocalFolder -Force | ForEach-Object { $_.Attributes = $_.Attributes -bor "Hidden" }
-    Get-Item $SSHLocalFolder -Force | ForEach-Object { $_.Attributes = $_.Attributes -bor "ReadOnly" }
-    Get-Item $SSHLocalFolder\* -Force | ForEach-Object { $_.Attributes = $_.Attributes -bor "ReadOnly" }
+$sshPath = "$env:USERPROFILE\.ssh"
 
-    #Set Key File Variable:
-    New-Variable -Name PKFile -Value "$SSHLocalFolder\id_rsa_git"
-
-    #Remove Inheritance:
-    Icacls $PKFile /c /t /Inheritance:d
-
-    #Set Ownership to Owner:
-    #Key's within $env:UserProfile:
-    Icacls $PKFile /c /t /Grant ${env:UserName}:F
-
-    #Key's outside of $env:UserProfile:
-    TakeOwn /F $PKFile
-    Icacls $PKFile /c /t /Grant:r ${env:UserName}:F
-
-    #Remove All Users, except for Owner:
-    Icacls $PKFile /c /t /Remove:g Administrator "Authenticated Users" BUILTIN\Administrators BUILTIN Everyone System Users
-
-    #Verify:
-    Icacls $PKFile
-
-    #Remove Variable:
-    Remove-Variable -Name PKFile
-
-#} else { Write-Host ".ssh folder already exist. Skipping" -ForegroundColor Yellow }
+    # Ensure only the owner has access to SSH folder
+    icacls $sshPath /inheritance:r /grant:r "$env:USERNAME:(OI)(CI)F"
+    
+    # Secure all private keys in the folder
+    Get-ChildItem -Path $sshPath -Filter "id_*" | ForEach-Object {
+        icacls $_.FullName /inheritance:r /grant:r "$env:USERNAME:F"
+    }
+    
+Write-Host "All SSH keys and folder permissions secured."    
 
 #Clone Public repositories
 
