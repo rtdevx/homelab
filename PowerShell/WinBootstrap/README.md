@@ -23,21 +23,21 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
 
 ### WinBootstrap.ps1
     
-    - Enable System Restore
-    - Rename Administrator Account
-    - Change password for Local Admin
-    - Enable Automatic Registry Backup
-    - Upgrade existing winget packages (Invoke-Expression)
-    - Install New apps
-    - Install additional VSCode Extensions
-    - Set Windows to show known file extensions
-    - Set Search Taskbar to icon only
-    - Enable WSL
-    - Enable Sudo in Windows Terminal
-    - Change Power Plans (_source:_ https://www.makeuseof.com/restore-missing-default-power-plans-windows-11/)
-    - Configure Git (Invoke-Expression)
-    - Configure Windows Terminal (Invoke-Expression)
-    - Configure Privacy Settings (Invoke-Expression)
+- Enable System Restore
+- Rename Administrator Account
+- Change password for Local Admin
+- Enable Automatic Registry Backup
+- Upgrade existing winget packages (Invoke-Expression)
+- Install New apps
+- Install additional VSCode Extensions
+- Set Windows to show known file extensions
+- Set Search Taskbar to icon only
+- Enable WSL
+- Enable Sudo in Windows Terminal
+- Change Power Plans (_source:_ https://www.makeuseof.com/restore-missing-default-power-plans-windows-11/)
+- Configure Git (Invoke-Expression)
+- Configure Windows Terminal (Invoke-Expression)
+- Configure Privacy Settings (Invoke-Expression)
 
 ## Configurations
 
