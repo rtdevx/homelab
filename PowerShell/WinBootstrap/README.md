@@ -52,10 +52,10 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
 
 #### Configure-Privacy
 
-> Privacy resources On GitHub: 
-
-> https://github.com/TemporalAgent7/awesome-windows-privacy
-> https://github.com/TheWorldOfPC/Windows11-Debloat-Privacy-Guide
+> Privacy resources On GitHub:
+>
+>> https://github.com/TemporalAgent7/awesome-windows-privacy
+>> https://github.com/TheWorldOfPC/Windows11-Debloat-Privacy-Guide
 
 - Remove Bloatware from MSSTORE
 - Remove Cortana
