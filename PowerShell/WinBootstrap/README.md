@@ -6,8 +6,11 @@ Bootstraping Windows 11. Installing Software, uninstalling bloatware, applying p
 
 # USAGE
 1. Open PowerShell and enable sudo in Options (Check here if unsure: https://pureinfotech.com/enable-sudo-windows-11/). Sudo is required for the Terminal Customizations for $PROFILE to be configured correctly.
-2. Run `sudo PowerShell Set-ExecutionPolicy Unrestricted -Force`
-3. Run `Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/WinBootstrap.ps1'))`
+2. Execute below commands:
+```PowerShell
+sudo PowerShell Set-ExecutionPolicy Unrestricted -Force
+Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/WinBootstrap.ps1'))
+```
 
 _Decryption key ($Key) must be provided in order to decrypt $Password to mount the NAS share and copy ssh keys. This Part is bespoke to my very setup. It will be skipped if $Key is not provided._
 
