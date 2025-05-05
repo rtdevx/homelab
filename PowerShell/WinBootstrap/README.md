@@ -3,20 +3,13 @@ Windows Bootstrap - Windows 11 deployment utility.
  
 # DESCRIPTION
 Bootstraping Windows 11. Installing Software, uninstalling bloatware, applying privacy and security settings, setting up development environment...
-MSSTORE requires user to be logged in to Microsoft in order to install software. Script should be run under your user with local Administrator rights for that reason.
-    
-*Winget software sources can be found here:* https://winget.run/
 
 # USAGE
-Run elevated powershell.
+1. Open PowerShell and enable sudo in Options (Check here if unsure: https://pureinfotech.com/enable-sudo-windows-11/). Sudo is required for the Terminal Customizations for $PROFILE to be configured correctly.
+2. Run `sudo PowerShell Set-ExecutionPolicy Unrestricted -Force`
+3. Run `Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/WinBootstrap.ps1'))`
 
-**Execute:**
-
-```PowerShell
-Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/WinBootstrap.ps1'))
-```
-
-_Decryption key ($Key) must be provided in order to decrypt $Password to mount the NAS share and copy ssh keys. **If $Key variable is not present, Git configuration will be skipped.**_
+_Decryption key ($Key) must be provided in order to decrypt $Password to mount the NAS share and copy ssh keys. This Part is bespoke to my very setup. It will be skipped if $Key is not provided._
 
 # Components
 
@@ -26,7 +19,7 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
 - Rename Local Administrator Account
 - Change password for Local Admin
 - Upgrade existing winget packages (Invoke-Expression)
-- Install New apps
+- Install New apps (*Winget software sources can be found here:* https://winget.run/)
 - Install additional VSCode Extensions
 - Set Windows to show known file extensions
 - Set Search Taskbar to icon only
@@ -45,7 +38,7 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
 
 - Git config
 - Copy SSH keys
-- Create Git folder for all users under *C:\Users\$User\Git*
+- Create Git folder for all users under *C:\Users\\$User\Git*
 - Secure SSH keys
 - Clone Public repositories
 
@@ -82,9 +75,7 @@ Using Functions (currently: Function Starship) to utilize different Cross-Shell 
 
 > PowerShell profile can be found under $PROFILE. PowerShell and PowerShell ISE have slightly different profiles.
 >
-> If this script is being executed from PowerShell ISE, different $PROFILE will be updated.
->
-> Enruring that only PowerShell Profile is updated.
+> If this script is being executed from PowerShell ISE, different $PROFILE will be updated...
 
 - Add shell icons (*source:* https://www.hanselman.com/blog/my-ultimate-powershell-prompt-with-oh-my-posh-and-the-windows-terminal)
 - Enable IntelliSense (*source:* https://learn.microsoft.com/en-us/powershell/module/psreadline/about/about_psreadline)
