@@ -42,7 +42,7 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
 
 #### Configure-Git
 
-    **The variable '$Key' is required to decrypt credentials on the NAS system where my .ssh keys are stored. If '$Key' is not present, Git will not be configured.**
+**The variable '$Key' is required to decrypt credentials on the NAS system where my .ssh keys are stored. If '$Key' is not present, Git will not be configured.**
 
 - Git config
 - Copy SSH keys
@@ -53,6 +53,7 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
 #### Configure-Privacy
 
 > Privacy resources On GitHub: 
+
 > https://github.com/TemporalAgent7/awesome-windows-privacy
 > https://github.com/TheWorldOfPC/Windows11-Debloat-Privacy-Guide
 
