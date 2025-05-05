@@ -9,12 +9,14 @@ Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw
 #Installing Starhip Cross-Shell Prompt to start with Windows Terminal
 Write-Host `n"Setting up Starship Terminal."`n -ForegroundColor Green
 
-If(!(Test-Path -PathType Leaf $PROFILE)) { New-Item -ItemType File -Path $PROFILE }
+#If(!(Test-Path -PathType Leaf $PROFILE)) { New-Item -ItemType File -Path $PROFILE }
+$TerminalProfile = "$env:USERPROFILE\OneDrive\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
+If(!(Test-Path -PathType Leaf $TerminalProfile)) { New-Item -ItemType File -Path $TerminalProfile }
 
-$Content = Get-Content $PROFILE
+$Content = Get-Content $TerminalProfile
 If(-not($Content | Select-String -Pattern "Invoke-Expression")) {
         
-    Add-Content -Path $PROFILE -Value "Invoke-Expression (&starship init powershell)"
+    Add-Content -Path $TerminalProfile -Value "Invoke-Expression (&starship init powershell)"
 
 } else { Write-Host "Starship profile was already configured here." -ForegroundColor Yellow }
 
@@ -22,23 +24,24 @@ If(-not($Content | Select-String -Pattern "Invoke-Expression")) {
 Write-Host `n"Adding shell icons."`n -ForegroundColor Green
 If(-not($Content | Select-String -Pattern "Module")) {
         
-    Add-Content -Path $PROFILE -Value "Install-Module -Name Terminal-Icons -Repository PSGallery -Force"
-    Add-Content -Path $PROFILE -Value "Import-Module -Name Terminal-Icons -Force"
+    Add-Content -Path $TerminalProfile -Value "Install-Module -Name Terminal-Icons -Repository PSGallery -Force"
+    Add-Content -Path $TerminalProfile -Value "Import-Module -Name Terminal-Icons -Force"
 
 } else { Write-Host "Terminal-Icons are already installed. Skipping." -ForegroundColor Yellow }
 
-Get-Content $PROFILE
+#Get-Content $PROFILE
+Get-Content $TerminalProfile
 
+#Apply Starship Configuration
 If(!(Test-Path -PathType container $env:USERPROFILE\.config)) { New-Item -ItemType Directory -Path $env:USERPROFILE\.config } 
-
 Write-Host `n"Applying Starship Settings."`n -ForegroundColor Green
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/terminal/starship.toml -OutFile $env:USERPROFILE\.config\starship.toml
-
-#More Windows Terminal Themes: https://windowsterminalthemes.dev/
 
 }
 
 Starship
 
+#Apply Windows Terminal Settings
 Write-Host `n"Applying Windows Terminal Settings."`n -ForegroundColor Green
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/terminal/WindowsTerminal.json -OutFile $env:USERPROFILE\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
+#More Windows Terminal Themes: https://windowsterminalthemes.dev/
