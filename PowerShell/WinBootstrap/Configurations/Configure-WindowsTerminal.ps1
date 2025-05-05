@@ -71,8 +71,8 @@ $jsonContent.profiles.defaults = @{
 }
 
 # Update the first profile in "profiles.list"
-$jsonContent.profiles.list[0].font = @{ face = "Hack Nerd Font" }
-$jsonContent.profiles.list[0].opacity = 85
+$jsonContent.profiles.defaults.fontFace = "Hack Nerd Font"
+$jsonContent.profiles.list[0].fontFace = "Hack Nerd Font"
 
 # Update "schemes" section
 $jsonContent.schemes = @(
