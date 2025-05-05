@@ -21,7 +21,7 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
 
 # Components
 
-### WinBootstrap
+#### WinBootstrap
     
     - Enable System Restore
     - Rename Administrator Account
@@ -41,7 +41,7 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
 
 ## Configurations
 
-### Configure-Git
+#### Configure-Git
 
     **The variable '$Key' is required to decrypt credentials on the NAS system where my .ssh keys are stored. If '$Key' is not present, Git will not be configured.**
 
@@ -51,7 +51,7 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
     - Secure SSH keys
     - Clone Public repositories
 
-### Configure-Privacy
+#### Configure-Privacy
 
     >Privacy resources On GitHub: 
     >https://github.com/TemporalAgent7/awesome-windows-privacy
@@ -71,7 +71,7 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
     - Removing Telemetry and other unnecessary services
     - Disabling Privacy-Related Scheduled Tasks
 
-### Configure-WindowsTerminal
+#### Configure-WindowsTerminal
 
     **Setting up Windows Terminal with Starship Cross-Shell Prompt** (*source:* https://starship.rs/)
 
@@ -83,8 +83,3 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
     - Apply Windows Terminal Settings
 
     >More Windows Terminal Themes: https://windowsterminalthemes.dev/
-
-
-
-
-
