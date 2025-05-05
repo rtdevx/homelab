@@ -51,10 +51,11 @@ Starship
 
 #Apply Windows Terminal Settings
 Write-Host `n"Applying Windows Terminal Settings."`n -ForegroundColor Green
-#Remove all Generated ID's
-Remove-Item $env:USERPROFILE\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\state.json
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/terminal/WindowsTerminal.json -OutFile $env:USERPROFILE\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
+#Remove all Generated Guids
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/terminal/state.json -OutFile $env:USERPROFILE\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\state.json
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/terminal/settings.json -OutFile $env:USERPROFILE\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
 
+<#
 #Re-generating GUID for Ubuntu as it is not being displayed after restoring Terminal Settings.
 #Define the path to the Windows Terminal settings file
 $jsonPath = "$env:USERPROFILE\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
@@ -78,3 +79,4 @@ if ($ubuntuProfile) {
 $jsonContent | ConvertTo-Json -Depth 10 | Set-Content -Path $jsonPath
 
 Write-Host "Windows Terminal settings successfully updated!"
+#>
