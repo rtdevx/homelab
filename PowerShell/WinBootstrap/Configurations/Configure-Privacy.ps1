@@ -58,8 +58,8 @@ Get-AppxPackage *Microsoft.WindowsFeedbackHub* | Remove-AppxPackage
 
 #Remove Maps
 Get-AppxPackage -AllUsers *maps* | Remove-AppxPackage
-sc delete MapsBroker
-sc delete lfsvc
+Set-Content delete MapsBroker
+Set-Content delete lfsvc
 schtasks /Change /TN "\Microsoft\Windows\Maps\MapsUpdateTask" /disable
 schtasks /Change /TN "\Microsoft\Windows\Maps\MapsToastTask" /disable
 
@@ -70,14 +70,14 @@ Get-AppxPackage -AllUsers *bing* | Remove-AppxPackage
 Get-AppxPackage -AllUsers *soundrec* | Remove-AppxPackage
 
 #Remove Quick Assist
-Get-WindowsPackage -Online | Where PackageName -like *QuickAssist* | Remove-WindowsPackage -Online -NoRestart
+Get-WindowsPackage -Online | Where-Object PackageName -like *QuickAssist* | Remove-WindowsPackage -Online -NoRestart
 
 #Remove XBOX
 #Get-AppxPackage -AllUsers *xbox* | Remove-AppxPackage
-sc delete XblAuthManager
-sc delete XblGameSave
-sc delete XboxNetApiSvc
-sc delete XboxGipSvc
+Set-Content delete XblAuthManager
+Set-Content delete XblGameSave
+Set-Content delete XboxNetApiSvc
+Set-Content delete XboxGipSvc
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\xbgm" /f
 schtasks /Change /TN "Microsoft\XblGameSave\XblGameSaveTask" /disable
 schtasks /Change /TN "Microsoft\XblGameSave\XblGameSaveTaskLogon" /disable
@@ -88,22 +88,22 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v Di
 reg add "HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f
 
 #Removing Telemetry and other unnecessary services
-sc delete DiagTrack
-sc delete dmwappushservice
-sc delete WerSvc
+Set-Content delete DiagTrack
+Set-Content delete dmwappushservice
+Set-Content delete WerSvc
 #sc delete OneSyncSvc
-sc delete MessagingService
-sc delete wercplsupport
-sc delete PcaSvc
+Set-Content delete MessagingService
+Set-Content delete wercplsupport
+Set-Content delete PcaSvc
 #sc config wlidsvc start=demand
-sc delete wisvc
-sc delete RetailDemo
-sc delete diagsvc
-sc delete shpamsvc 
-sc delete TermService
-sc delete UmRdpService
-sc delete SessionEnv
-sc delete TroubleshootingSvc
+Set-Content delete wisvc
+Set-Content delete RetailDemo
+Set-Content delete diagsvc
+Set-Content delete shpamsvc 
+Set-Content delete TermService
+Set-Content delete UmRdpService
+Set-Content delete SessionEnv
+Set-Content delete TroubleshootingSvc
 #for /f "tokens=1" %I in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /k /f "wscsvc" ^| find /i "wscsvc"') do (reg delete %I /f)
 #for /f "tokens=1" %I in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /k /f "OneSyncSvc" ^| find /i "OneSyncSvc"') do (reg delete %I /f)
 #for /f "tokens=1" %I in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /k /f "MessagingService" ^| find /i "MessagingService"') do (reg delete %I /f)
@@ -112,7 +112,7 @@ sc delete TroubleshootingSvc
 #for /f "tokens=1" %I in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /k /f "UnistoreSvc" ^| find /i "UnistoreSvc"') do (reg delete %I /f)
 #for /f "tokens=1" %I in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /k /f "BcastDVRUserService" ^| find /i "BcastDVRUserService"') do (reg delete %I /f)
 #for /f "tokens=1" %I in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /k /f "Sgrmbroker" ^| find /i "Sgrmbroker"') do (reg delete %I /f)
-sc delete diagnosticshub.standardcollector.service
+Set-Content delete diagnosticshub.standardcollector.service
 reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Siuf\Rules" /v "NumberOfSIUFInPeriod" /t REG_DWORD /d 0 /f
 reg delete "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Siuf\Rules" /v "PeriodInNanoSeconds" /f
 reg add "HKLM\SYSTEM\ControlSet001\Control\WMI\AutoLogger\AutoLogger-Diagtrack-Listener" /v Start /t REG_DWORD /d 0 /f

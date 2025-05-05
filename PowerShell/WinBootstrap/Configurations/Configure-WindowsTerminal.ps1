@@ -26,12 +26,22 @@ If(-not($Content | Select-String -Pattern "Invoke-Expression")) {
 
 #Adding shell icons (source:https://www.hanselman.com/blog/my-ultimate-powershell-prompt-with-oh-my-posh-and-the-windows-terminal)
 Write-Host `n"Adding shell icons."`n -ForegroundColor Green
-If(-not($Content | Select-String -Pattern "Module")) {
+If(-not($Content | Select-String -Pattern "Terminal-Icons")) {
         
     Add-Content -Path $TerminalProfile -Value "Install-Module -Name Terminal-Icons -Repository PSGallery -Force"
     Add-Content -Path $TerminalProfile -Value "Import-Module -Name Terminal-Icons -Force"
 
 } else { Write-Host "Terminal-Icons are already installed. Skipping." -ForegroundColor Yellow }
+
+#Enabling IntelliSense (Source: https://learn.microsoft.com/en-us/powershell/module/psreadline/about/about_psreadline)
+Write-Host `n"Enabling IntelliSense in Windows Terminal."`n -ForegroundColor Green
+If(-not($Content | Select-String -Pattern "PSReadLine")) {
+        
+    Add-Content -Path $TerminalProfile -Value "Install-Module -Name PSReadLine -Force"
+    Add-Content -Path $TerminalProfile -Value "Import-Module PSReadLine -Force"
+    Add-Content -Path $TerminalProfile -Value "Set-PSReadLineOption -PredictionSource History"
+    
+} else { Write-Host "Intellisense is already installed. Skipping." -ForegroundColor Yellow }
 
 #Get-Content $PROFILE
 Get-Content $TerminalProfile
