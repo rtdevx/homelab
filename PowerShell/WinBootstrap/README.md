@@ -23,7 +23,7 @@ _Decryption key ($Key) must be provided in order to decrypt $Password to mount t
 #### WinBootstrap
 
 - Enable System Restore
-- Rename Administrator Account
+- Rename Local Administrator Account
 - Change password for Local Admin
 - Enable Automatic Registry Backup
 - Upgrade existing winget packages (Invoke-Expression)
