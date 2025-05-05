@@ -110,7 +110,7 @@ Font Awesome, Devicons, Octicons, and others.
 Original Repository allows installation of multiple fonts selected in a pop up window. 
 For my use case, I only require a single font to be installed so this feature is disabled and a single font is selected with $Font variable.
 
-__USAGE__
+USAGE
 1. Change $Font variable to mach the font you want to install (https://www.nerdfonts.com/)
 2. Run with PowerShell: ./Install-NerdFonts.ps1
 
