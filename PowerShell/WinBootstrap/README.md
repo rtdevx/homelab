@@ -18,6 +18,10 @@ Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw
 
 _Decryption key ($Key) must be provided in order to decrypt $Password to mount the NAS share and copy ssh keys. **If $Key variable is not present, Git configuration will be skipped.**_
 
+# Components
+
+#### WinBootstrap
+
 - Node.js
 - Express
 - Nest.js
