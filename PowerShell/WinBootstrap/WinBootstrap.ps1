@@ -67,7 +67,8 @@ $apps = @(
     @{name = "Microsoft.DotNet.SDK.7" }, 
     @{name = "Microsoft.DotNet.DesktopRuntime.8" },
     @{name = "Microsoft.PowerToys" },     
-    @{name = "mcmilk.7zip-zstd" }, 
+    @{name = "mcmilk.7zip-zstd" },
+    @{name = "Rufus.Rufus" },    
     @{name = "NordSecurity.NordVPN" },
     @{name = "Notepad++.Notepad++" },  
     @{name = "DominikReichl.KeePass" },    
@@ -124,6 +125,8 @@ start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vsc
 start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode-remote.remote-wsl --force" -PassThru -Wait
 start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vscode-remote.vscode-remote-extensionpack --force" -PassThru -Wait
 start-process code -windowstyle Hidden -ArgumentList "--install-extension redhat.vscode-yaml --force" -PassThru -Wait
+start-process code -windowstyle Hidden -ArgumentList "--install-extension github.copilot --force" -PassThru -Wait
+start-process code -windowstyle Hidden -ArgumentList "--install-extension github.copilot-chat --force" -PassThru -Wait
 
 #Set Windows to show known file extensions
 Write-Host `n"Setting Windows to show file extensions." -ForegroundColor Green
