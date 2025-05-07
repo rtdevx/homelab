@@ -100,7 +100,8 @@ Foreach ($app in $apps) {
         } else { Write-host "Skipping Install of " $app.name -ForegroundColor Yellow }    
 }
 
-#Trading View doesn't like -- scope machine (issue: https://github.com/microsoft/winget-pkgs/issues/94861). 
+#Trading View doesn't like -- scope machine (issue: https://github.com/microsoft/winget-pkgs/issues/94861).
+Write-Output `n"Trading View (default scope)."`n
 winget install -e --id TradingView.TradingViewDesktop
 
 #Refresh Environment Variables after installing software
