@@ -78,7 +78,7 @@ $apps = @(
     @{name = "WinDirStat.WinDirStat" },
     @{name = "Google.Chrome" }, 
     @{name = "Mozilla.Firefox" }, 
-    @{name = "TradingView.TradingViewDesktop" },
+#    @{name = "TradingView.TradingViewDesktop" },
     @{name = "QNAP.Qsync" },
     @{name = "Garmin.Express" },
     @{name = "mRemoteNG.mRemoteNG" },
@@ -99,6 +99,9 @@ Foreach ($app in $apps) {
     
         } else { Write-host "Skipping Install of " $app.name -ForegroundColor Yellow }    
 }
+
+#Trading View doesn't like -- scope machine (issue: https://github.com/microsoft/winget-pkgs/issues/94861). 
+winget install -e --id TradingView.TradingViewDesktop
 
 #Refresh Environment Variables after installing software
 RefreshPath
