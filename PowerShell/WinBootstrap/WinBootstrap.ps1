@@ -83,7 +83,8 @@ $apps = @(
     @{name = "Garmin.Express" },
     @{name = "mRemoteNG.mRemoteNG" },
     @{name = "Lenovo.SystemUpdate" },
-    @{name = "Obsidian.Obsidian" }
+    @{name = "Obsidian.Obsidian" },
+    @{name = "Discord.Discord" },    
     # Starthip Cross-Shell Prompt for Windows Terminal (https://starship.rs/)
     @{name = "Starship.Starship" }    
 );
