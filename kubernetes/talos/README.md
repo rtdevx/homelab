@@ -33,16 +33,16 @@ talosctl gen secrets
 2. Export Variables
 
 ```Bash
-export CLUSTER_IP=192.168.20.44
-export CLUSTER_NAME=talos-cluster-s
+export CLUSTER_IP=XXX.XXX.XXX.XXX
+export CLUSTER_NAME=talos-cluster-name
 
-export CONTROL_PLANE_IP1=192.168.20.45
-export CONTROL_PLANE_IP2=192.168.20.46
-export CONTROL_PLANE_IP3=192.168.20.47
+export CONTROL_PLANE_IP1=XXX.XXX.XXX.XXX
+export CONTROL_PLANE_IP2=XXX.XXX.XXX.XXX
+export CONTROL_PLANE_IP3=XXX.XXX.XXX.XXX
 
-export WORKER_IP1=192.168.20.55
-export WORKER_IP2=192.168.20.56
-export WORKER_IP3=192.168.20.57
+export WORKER_IP1=XXX.XXX.XXX.XXX
+export WORKER_IP2=XXX.XXX.XXX.XXX
+export WORKER_IP3=XXX.XXX.XXX.XXX
 ```
 
 3. Generate config files for the cluster using patches
