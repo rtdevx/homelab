@@ -1,0 +1,17 @@
+---
+machine:
+  type: controlplane # Defines the role of the machine within the cluster.
+  network:
+    interfaces:
+      - interface: eth0
+        vip:
+          ip: 192.168.20.44
+#  kubelet:
+#    extraArgs:
+#      rotate-server-certificates: true
+#cluster:
+#  network:
+#    cni:
+#      name: custom
+#      urls:
+#        - https://docs.projectcalico.org/archive/v3.20/manifests/canal.yaml

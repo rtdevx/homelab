@@ -1,0 +1,30 @@
+---
+machine:
+  install:
+    extraKernelArgs:
+      - net.ifnames=0
+    image: factory.talos.dev/nocloud-installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515:v1.10.1 # Allows for supplying the image used to perform the installation.      
+    # wipe: false # Indicates if the installation disk should be wiped at installation time.    
+  network:
+    interfaces:
+      - interface: eth0
+        dhcp: true
+  certSANs:
+    # Enable SANs.
+      - 192.168.20.44 # Cluster IP
+      - k8s-cpls1
+      - 192.168.20.45
+      - k8s-cpls2
+      - 192.168.20.46
+      - k8s-cpls3
+      - 192.168.20.47
+      - k8s-wrks1
+      - 192.168.20.55
+      - k8s-wrks2
+      - 192.168.20.56
+      - k8s-wrks3
+      - 192.168.20.47
+cluster:
+    clusterName: talos-cluster-s # Configures the cluster's name.
+    network:
+        dnsDomain: skynetx.uk # The domain used by Kubernetes DNS.    
