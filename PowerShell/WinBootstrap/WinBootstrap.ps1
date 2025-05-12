@@ -84,7 +84,6 @@ $apps = @(
     @{name = "mRemoteNG.mRemoteNG" },
     @{name = "Lenovo.SystemUpdate" },
     @{name = "Obsidian.Obsidian" },
-    @{name = "Discord.Discord" },    
     # Starthip Cross-Shell Prompt for Windows Terminal (https://starship.rs/)
     @{name = "Starship.Starship" }    
 );
@@ -101,9 +100,10 @@ Foreach ($app in $apps) {
         } else { Write-host "Skipping Install of " $app.name -ForegroundColor Yellow }    
 }
 
-#Trading View doesn't like -- scope machine (issue: https://github.com/microsoft/winget-pkgs/issues/94861).
+#Some apps don't support -- scope machine
 Write-Output `n"Trading View (default scope)."`n
 winget install -e --id TradingView.TradingViewDesktop
+winget install -e --id Discord.Discord
 
 #Refresh Environment Variables after installing software
 RefreshPath
