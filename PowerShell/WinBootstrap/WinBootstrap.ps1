@@ -103,6 +103,7 @@ Foreach ($app in $apps) {
 #Some apps don't support -- scope machine
 Write-Output `n"Trading View (default scope)."`n
 winget install -e --id TradingView.TradingViewDesktop
+Write-Output `n"Discord (default scope)."`n
 winget install -e --id Discord.Discord
 
 #Refresh Environment Variables after installing software
