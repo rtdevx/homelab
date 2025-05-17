@@ -118,7 +118,7 @@ $ScriptUrl = "https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/P
 $ScriptPath = "$env:TEMP\UpdatePackages.ps1"
 
 # Ensure Custom folder exists
-schtasks /create /TN "\$TaskFolder\$TaskName" /TR "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$ScriptPath\"" /SC ONEVENT /EC Security /MO "4800" /RU "SYSTEM"
+schtasks /create /TN "\Custom\UpdatePackages" /TR "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$env:TEMP\UpdatePackages.ps1"" /SC ONEVENT /EC Security /MO "4800" /RU "SYSTEM"
 
 # Download script from GitHub
 Invoke-WebRequest -Uri $ScriptUrl -OutFile $ScriptPath
