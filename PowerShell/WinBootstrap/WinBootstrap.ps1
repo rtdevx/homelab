@@ -109,36 +109,6 @@ winget install -e --id Discord.Discord
 #Refresh Environment Variables after installing software
 RefreshPath
 
-#Create Scheduled Task to update packages every time computer locks
-
-$TaskName = "RunOnLock"
-$TaskFolder = "\Custom"
-$ScriptUrl = "https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/Configurations/Update-WingetPackages.ps1"
-
-# Ensure Custom folder exists
-$taskService = New-Object -ComObject Schedule.Service
-$taskService.Connect()
-$rootFolder = $taskService.GetFolder("\")
-try {
-    $null = $rootFolder.GetFolder($TaskFolder)
-} catch {
-    $rootFolder.CreateFolder($TaskFolder)
-}
-
-# Define the action
-$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$ScriptUrl`""
-
-# Define the trigger (on workstation lock)
-$trigger = New-ScheduledTaskTrigger -AtLogOn
-$trigger.Enabled = $true
-$trigger.Id = "OnLock"
-$trigger.Delay = (New-TimeSpan -Seconds 1)
-
-# Register the Scheduled Task
-Register-ScheduledTask -TaskName $TaskName -TaskPath $TaskFolder -Action $action -Trigger $trigger -User "NT AUTHORITY\SYSTEM" -RunLevel Highest
-
-Write-Host "Scheduled Task '$TaskName' created in folder '$TaskFolder', executing script from '$ScriptUrl'."
-
 ### CUSTOMIZATIONS ###
 
 #Install additional VSCode Extensions
