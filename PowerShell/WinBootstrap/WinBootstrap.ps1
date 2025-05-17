@@ -110,6 +110,7 @@ winget install -e --id Discord.Discord
 RefreshPath
 
 #Create Scheduled Task to update packages every time computer locks
+Write-Host `n" Creating Scheduled Task to update packages on computer lock."`n -ForegroundColor Green
 
 $TaskName = "RunOnLock"
 $TaskFolder = "\Custom"
