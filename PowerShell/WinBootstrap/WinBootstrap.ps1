@@ -110,10 +110,10 @@ winget install -e --id Discord.Discord
 RefreshPath
 
 #Create Scheduled Task to update packages every time computer locks
-$TaskName = "RunOnLock"
+$TaskName = "UpdateWingetPackages"
 $TaskFolder = "\Custom"
-$ScriptUrl = "https://raw.githubusercontent.com/your-repo/script.ps1"
-$ScriptPath = "$env:TEMP\RunOnLock.ps1"
+$ScriptUrl = "https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/Configurations/Update-WingetPackages.ps1"
+$ScriptPath = "$env:TEMP\UpdateWingetPackages`.ps1"
 
 # Ensure Custom folder exists
 $taskService = New-Object -ComObject Schedule.Service
@@ -128,22 +128,9 @@ try {
 # Download script from GitHub
 Invoke-WebRequest -Uri $ScriptUrl -OutFile $ScriptPath
 
-# Define the action
-$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$ScriptPath`""
-
-# Define the trigger (using Event ID 4800 for workstation lock)
-$triggerXml = @"
-<QueryList>
-  <Query Id="0" Path="Security">
-    <Select Path="Security">*[System[(EventID=4800)]]</Select>
-  </Query>
-</QueryList>
-"@
-
-$trigger = New-ScheduledTaskTrigger -OnEvent -Subscription $triggerXml
-
-# Register the Scheduled Task
-Register-ScheduledTask -TaskName $TaskName -TaskPath $TaskFolder -Action $action -Trigger $trigger -User "SYSTEM" -RunLevel Highest
+# Create the Scheduled Task using schtasks
+schtasks /Create /TN "$TaskFolder\$TaskName" /TR "powershell.exe -NoProfile -ExecutionPolicy Bypass -File $ScriptPath" `
+/SC ONEVENT /EC Security /MO "4800" /RU "SYSTEM"
 
 Write-Host "Scheduled Task '$TaskName' created in folder '$TaskFolder', executing script from '$ScriptPath'."
 
