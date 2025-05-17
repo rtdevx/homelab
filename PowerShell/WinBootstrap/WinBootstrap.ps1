@@ -112,7 +112,7 @@ RefreshPath
 #Create Scheduled Task to update packages every time computer locks
 Write-Host `n" Creating Scheduled Task to update packages on computer lock."`n -ForegroundColor Green
 
-$TaskName = "RunOnLock"
+$TaskName = "Update Packages"
 $TaskFolder = "\Custom"
 $ScriptUrl = "https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/Configurations/Update-WingetPackages.ps1"
 
