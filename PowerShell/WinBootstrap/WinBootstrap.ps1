@@ -129,7 +129,7 @@ try {
 Invoke-WebRequest -Uri $ScriptUrl -OutFile $ScriptPath
 
 # Create the Scheduled Task using schtasks
-schtasks /Create /TN "$TaskFolder\$TaskName" /TR "powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle hidden -File $ScriptPath" `
+schtasks /Create /TN "$TaskFolder\$TaskName" /TR "powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File $ScriptPath" `
 /SC ONEVENT /EC System /MO "6013" /RU "SYSTEM"
 #/SC ONSTART
 #/SC ONEVENT /EC Security /MO "4800" /RU "SYSTEM"
