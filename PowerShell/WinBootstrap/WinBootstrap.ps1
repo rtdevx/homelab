@@ -112,41 +112,18 @@ RefreshPath
 #Create Scheduled Task to update packages every time computer locks
 Write-Host `n" Creating Scheduled Task to update packages on computer lock."`n -ForegroundColor Green
 
-$TaskName = "Update Packages"
-$TaskFolder = "\Custom"
+$TaskName = "UpdatePackages"
+$TaskFolder = "Custom"
 $ScriptUrl = "https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/WinBootstrap/Configurations/Update-WingetPackages.ps1"
-$ScriptPath = "$env:TEMP\RunOnLock.ps1"
+$ScriptPath = "$env:TEMP\UpdatePackages.ps1"
 
 # Ensure Custom folder exists
-$taskService = New-Object -ComObject Schedule.Service
-$taskService.Connect()
-$rootFolder = $taskService.GetFolder("\")
-try {
-    $null = $rootFolder.GetFolder($TaskFolder)
-} catch {
-    $rootFolder.CreateFolder($TaskFolder)
-}
+schtasks /create /TN "\$TaskFolder\$TaskName" /TR "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$ScriptPath\"" /SC ONEVENT /EC Security /MO "4800" /RU "SYSTEM"
 
 # Download script from GitHub
 Invoke-WebRequest -Uri $ScriptUrl -OutFile $ScriptPath
 
-# Define the action
-$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$ScriptPath`""
-
-# Define the event-based trigger for workstation lock (Event ID 4800)
-$trigger = New-ScheduledTaskTrigger -OnEvent
-$trigger.Subscription = @"
-<QueryList>
-  <Query Id="0" Path="Security">
-    <Select Path="Security">*[System[(EventID=4800)]]</Select>
-  </Query>
-</QueryList>
-"@
-
-# Register the Scheduled Task
-Register-ScheduledTask -TaskName $TaskName -TaskPath $TaskFolder -Action $action -Trigger $trigger -User "SYSTEM" -RunLevel Highest
-
-Write-Host "Scheduled Task '$TaskName' created in folder '$TaskFolder', executing script from '$ScriptPath'."
+Write-Host "Scheduled Task '$TaskName' created in folder '$TaskFolder', executing script from '$ScriptPath' on workstation lock."
 
 ### CUSTOMIZATIONS ###
 
