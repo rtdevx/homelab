@@ -136,7 +136,8 @@ $trigger.Id = "OnLock"
 $trigger.Delay = (New-TimeSpan -Seconds 1)
 
 # Register the Scheduled Task
-Register-ScheduledTask -TaskName $TaskName -TaskPath $TaskFolder -Action $action -Trigger $trigger -User "NT AUTHORITY\SYSTEM" -RunLevel Highest
+#Register-ScheduledTask -TaskName $TaskName -TaskPath $TaskFolder -Action $action -Trigger $trigger -User "NT AUTHORITY\SYSTEM" -RunLevel Highest
+Register-ScheduledTask -TaskName $TaskName -TaskPath $TaskFolder -Action $action -Trigger $trigger -User "$env:USERNAME" -RunLevel Highest
 
 Write-Host "Scheduled Task '$TaskName' created in folder '$TaskFolder', executing script from '$ScriptUrl'."
 
