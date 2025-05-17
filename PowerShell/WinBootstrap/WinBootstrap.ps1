@@ -130,7 +130,7 @@ Invoke-WebRequest -Uri $ScriptUrl -OutFile $ScriptPath
 
 # Create the Scheduled Task using schtasks
 schtasks /Create /TN "$TaskFolder\$TaskName" /F /TR "powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File $ScriptPath" `
-/SC ONEVENT /EC System /MO "6013" /RU "$env:UserName"
+/SC ONEVENT /EC System /MO "6013" /RU "$NewAdmin"
 #/SC ONEVENT /EC Security /MO "4800" /RU "SYSTEM"
 
 Write-Host "Scheduled Task '$TaskName' created in folder '$TaskFolder', executing script from '$ScriptPath'."
