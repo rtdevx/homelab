@@ -84,6 +84,7 @@ $apps = @(
     @{name = "mRemoteNG.mRemoteNG" },
     @{name = "Lenovo.SystemUpdate" },
     @{name = "Obsidian.Obsidian" },
+    @{name = "Zoom.Zoom" },    
     # Starthip Cross-Shell Prompt for Windows Terminal (https://starship.rs/)
     @{name = "Starship.Starship" }    
 );
