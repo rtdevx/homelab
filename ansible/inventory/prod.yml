@@ -1,9 +1,11 @@
+# Proxmox
 pve:
   hosts:
     pve1:
     pve2:
     pve3:    
 
+# Raspberry Pi
 pi:
   hosts:
     pi1:
@@ -11,6 +13,7 @@ pi:
     pi3:
     pi4:
 
+# Docker
 dockerhosts:
   children:
     pi:  
