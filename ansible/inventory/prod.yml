@@ -1,3 +1,9 @@
+pve:
+  hosts:
+    pve1:
+    pve2:
+    pve3:    
+
 pi:
   hosts:
     pi1:

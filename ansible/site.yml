@@ -1,7 +1,16 @@
-- hosts: all
+- hosts: all:!pve
   become: true
   roles:
     - base
+
+# pve hosts are excluded so they are patched sequentially (serial: 1)
+# Controlling playbook execution: https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_strategies.html
+
+- hosts: pve
+  become: true
+  serial: 1
+  roles:
+    - base    
 
 - hosts: dockerhosts
   become: true
