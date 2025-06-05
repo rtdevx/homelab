@@ -1,6 +1,6 @@
-### Bootstrapping ansible nodes
+## Bootstrapping ansible nodes
 
-#### 1. Update ./inventory/bootstrap.yml
+#### 1. Add new nodes to ./inventory/bootstrap.yml
 
 #### 2. Run ansible playbook with --ask
 
