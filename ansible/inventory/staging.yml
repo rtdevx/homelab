@@ -6,25 +6,5 @@ pi:
     pi4:
 
 dockerhosts:
-  hosts:
-    pi1:
-    pi2:
-    pi3:
-    pi4:
-
-pve:
-  hosts:
-    pve1:
-    pve2:
-    pve3:
-
-# Nested Groups
-
-prod:
   children:
-    pi:
-    dockerhostsp:
-
-staging:
-  children:
-    dockerhostss:
+    pi:  
