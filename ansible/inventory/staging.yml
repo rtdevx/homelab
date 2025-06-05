@@ -12,6 +12,12 @@ dockerhosts:
     pi3:
     pi4:
 
+pve:
+  hosts:
+    pve1:
+    pve2:
+    pve3:
+
 # Nested Groups
 
 prod:

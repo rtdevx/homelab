@@ -1,4 +1,4 @@
-- name: install updates (CentOS)
+- name: Install updates (CentOS)
   tags: always
   dnf:
     update_only: yes
@@ -6,10 +6,18 @@
   when: ansible_distribution == "CentOS"
   notify: updated_reboot
 
-- name: install updates (Ubuntu)
+- name: Install updates (Ubuntu)
   tags: always
   apt:
     upgrade: dist
     update_cache: yes
   when: ansible_distribution == "Ubuntu"
+  notify: updated_reboot
+
+- name: Install updates (Debian)
+  tags: always
+  apt:
+    upgrade: dist
+    update_cache: yes
+  when: ansible_distribution == "Debian"
   notify: updated_reboot
