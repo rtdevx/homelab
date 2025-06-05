@@ -4,7 +4,7 @@
 #To run first time, sudo enabled user's password is required. 
 #.ssh keys and sudoers file copied in the initial run:
 #
-#:~>ansible-playbook --ask-become-pass ./bootstrap/bootstrap.yml
+#:~>ansible-playbook --ask-become-pass ./bootstrap/bootstrap.yml -i ./inventory/bootstrap.yml
 #
 
 - hosts: all

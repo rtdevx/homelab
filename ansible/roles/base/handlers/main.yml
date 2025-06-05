@@ -1,0 +1,4 @@
+  - name: updated_reboot
+    reboot:
+      msg: Rebooting...
+    when: updated.changed

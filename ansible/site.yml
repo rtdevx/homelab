@@ -1,25 +1,9 @@
 - hosts: all
   become: true
-  pre_tasks:
+  roles:
+    - base
 
-  - name: install updates (CentOS)
-    tags: always
-    dnf:
-      update_only: yes
-      update_cache: yes
-    when: ansible_distribution == "CentOS"
-    register: updated
-
-  - name: install updates (Ubuntu)
-    tags: always
-    apt:
-      upgrade: dist
-      update_cache: yes
-    when: ansible_distribution == "Ubuntu"
-    register: updated
-
-  - name: Rebooting after applying updates.
-    tags: always
-    reboot:
-      msg: Rebooting...
-    when: updated.changed
+- hosts: dockerhosts
+  become: true
+  roles:
+    - docker   
