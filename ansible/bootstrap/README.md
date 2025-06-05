@@ -1,0 +1,11 @@
+### Bootstrapping ansible nodes
+
+#### 1. Update ./inventory/bootstrap.yml
+
+#### 2. Run ansible playbook with --ask
+
+```bash
+ansible-playbook --ask-become-pass ./bootstrap/bootstrap.yml -i ./inventory/bootstrap.yml
+```
+
+#### 3. Update appropriate inventory file to include new hosts.
