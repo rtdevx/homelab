@@ -1,4 +1,4 @@
-- name: Install nfs-commons on Ubuntu servers
+- name: Install nfs-commons on Ubuntu Docker servers.
   tags: nfs,ubuntu   
   apt:
     name:
@@ -6,7 +6,7 @@
     state: latest
   when: ansible_distribution == "Ubuntu"
 
-- name: Install nfs-commons on Centos servers
+- name: Install nfs-commons on Centos Docker servers.
   tags: nfs,centos   
   dnf:
     name:
