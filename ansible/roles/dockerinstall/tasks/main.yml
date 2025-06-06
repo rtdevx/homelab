@@ -37,6 +37,13 @@
     owner: docker
     group: docker
 
+- name: Disable swap
+  mount:
+    name: "{{ item }}"
+    fstype: swap
+    state: absent
+  loop: ["none", "swap"]    
+
 # Install Docker on Ubuntu 24.04 LTS (Noble Numbat)
 
 - name: Install required Docker system packages for Ubuntu
