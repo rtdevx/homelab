@@ -1,10 +1,64 @@
+# Add user ansible
+
+- name: Add User ansible
+  tags: always
+  user: 
+    name: ansible
+    state: present
+    groups: sudo
+    comment: "Add User ansible"
+    shell: /bin/bash
+
+- name: Update authorized_keys for user ansible
+  tags: always
+  authorized_key:
+    user: ansible
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPXFX63LfEGDYBI+bT1VeaTE/L+ovz8aPvl3nTk8vcSY ansible"
+
+- name: Add sudoers file for ansible user
+  tags: always
+  copy:
+    src: sudoer_ansible
+    dest: /etc/sudoers.d/ansible
+    owner: root
+    group: root
+    mode: 0440
+
+# Add user robk
+
+- name: Add User robk
+  tags: always
+  user: 
+    name: robk
+    state: present
+    groups: sudo
+    comment: "Add User robk"
+    shell: /bin/bash
+
+- name: Update authorized_keys for user ansible
+  tags: always
+  authorized_key:
+    user: robk
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOn55CkaZUdRTpw1DN9iGNBIksbvwjBGWWkdQ2QzRl robk"
+
+- name: Add sudoers file for robk user
+  tags: always
+  copy:
+    src: sudoer_robk
+    dest: /etc/sudoers.d/robk
+    owner: root
+    group: root
+    mode: 0440    
+
+# Installing updates
+
 - name: Install updates (CentOS)
   tags: always
   dnf:
     update_only: yes
     update_cache: yes
   when: ansible_distribution == "CentOS"
-  notify: base:"Reboot after update"
+  notify: "Reboot after update"
 
 - name: Install updates (Ubuntu)
   tags: always
@@ -12,7 +66,7 @@
     upgrade: dist
     update_cache: yes
   when: ansible_distribution == "Ubuntu"
-  notify: base:"Reboot after update"
+  notify: "Reboot after update"
 
 - name: Install updates (Debian)
   tags: always
@@ -20,4 +74,4 @@
     upgrade: dist
     update_cache: yes
   when: ansible_distribution == "Debian"
-  notify: base:"Reboot after update"
+  notify: "Reboot after update"
