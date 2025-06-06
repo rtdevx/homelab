@@ -4,6 +4,7 @@
   tags: always
   user: 
     name: ansible
+    #uid: 1001
     state: present
     groups: sudo
     comment: "Add User ansible"
@@ -30,12 +31,13 @@
   tags: always
   user: 
     name: robk
+    #uid: 1000
     state: present
     groups: sudo
     comment: "Add User robk"
     shell: /bin/bash
 
-- name: Update authorized_keys for user ansible
+- name: Update authorized_keys for user robk
   tags: always
   authorized_key:
     user: robk

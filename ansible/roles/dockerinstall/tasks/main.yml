@@ -22,19 +22,20 @@
     state: mounted
     fstype: nfs
 
+- name: Add User docker
+  tags: docker
+  user: 
+    name: docker
+    uid: 1005
+    state: present      
+    comment: "Add User docker"
+    shell: /bin/bash
+
 - name: Apply folder permissions for Docker mount
   file:
     path: /mnt/docker
     owner: docker
     group: docker
-
-- name: Add User docker
-  tags: docker
-  user: 
-    name: docker
-    state: present      
-    comment: "Add User docker"
-    shell: /bin/bash
 
 # Install Docker on Ubuntu 24.04 LTS (Noble Numbat)
 

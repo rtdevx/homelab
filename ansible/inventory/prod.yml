@@ -19,8 +19,5 @@ dockerhosts:
     pi:
   hosts:
     swr-mgrp1:
-    swr-mgrs1:
     swr-nodep1:
-    swr-nodep2:
-    swr-nodes1:
-    swr-nodes2:       
+    swr-nodep2:       

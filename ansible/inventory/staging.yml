@@ -3,18 +3,9 @@ pve:
   
 pi:
   hosts:
-    pi1:
-    pi2:
-    pi3:
-    pi4:
 
 dockerhosts:
-  children:
-    pi:
   hosts:
-    swr-mgrp1:
     swr-mgrs1:
-    swr-nodep1:
-    swr-nodep2:
     swr-nodes1:
-    swr-nodes2:      
+    swr-nodes2:
