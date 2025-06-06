@@ -9,6 +9,8 @@
 
 - hosts: all
   become: true
+  become_user: robk
+
   pre_tasks:
 
   - name: install updates (CentOS)

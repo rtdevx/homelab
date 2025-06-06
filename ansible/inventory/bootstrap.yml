@@ -1,5 +1,8 @@
 bootstrap:
   hosts:
-    pve1:
-    pve2:
-    pve3:    
+    swr-mgrp1:
+    swr-mgrs1:
+    swr-nodep1:
+    swr-nodep2:
+    swr-nodes1:
+    swr-nodes2:
