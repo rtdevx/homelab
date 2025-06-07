@@ -1,4 +1,5 @@
 # Apply base role
+
 - hosts: all:!pve
   become: true
   roles:
@@ -25,6 +26,7 @@
       state: latest
 
 # Configure Docker
+
 - hosts: dockerhosts
   become: true
   roles:
