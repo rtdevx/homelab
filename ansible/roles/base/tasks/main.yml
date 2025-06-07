@@ -60,8 +60,8 @@
     update_only: yes
     update_cache: yes
   when: ansible_distribution == "CentOS"
-  register: updated
-  notify: "Reboot after update"
+  notify: 
+    - Reboot after update
 
 - name: Install updates (Ubuntu)
   tags: always
@@ -69,8 +69,8 @@
     upgrade: dist
     update_cache: yes
   when: ansible_distribution == "Ubuntu"
-  register: updated
-  notify: "Reboot after update"
+  notify: 
+    - Reboot after update
 
 - name: Install updates (Debian)
   tags: always
@@ -78,5 +78,5 @@
     upgrade: dist
     update_cache: yes
   when: ansible_distribution == "Debian"
-  register: updated
-  notify: "Reboot after update"
+  notify: 
+    - Reboot after update
