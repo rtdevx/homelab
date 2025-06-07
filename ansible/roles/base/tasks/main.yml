@@ -41,7 +41,7 @@
   tags: always
   authorized_key:
     user: robk
-    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOn55CkaZUdRTpw1DN9iGNBIksbvwjBGWWkdQ2QzRl robk"
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOn55Ck/aZ/UdRTpw1DN9iGNBIksbvwjBGWWkdQ2QzRl robk"
 
 - name: Add sudoers file for robk user
   tags: always
