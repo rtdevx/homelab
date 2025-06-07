@@ -31,7 +31,7 @@
   tags: always
   user: 
     name: robk
-    #uid: 1000
+    uid: 1001
     state: present
     groups: sudo
     comment: "Add User robk"
