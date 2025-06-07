@@ -78,15 +78,15 @@ $apps = @(
     @{name = "WinDirStat.WinDirStat" },
     @{name = "Google.Chrome" }, 
     @{name = "Mozilla.Firefox" }, 
-#    @{name = "TradingView.TradingViewDesktop" },
     @{name = "QNAP.Qsync" },
     @{name = "Garmin.Express" },
     @{name = "mRemoteNG.mRemoteNG" },
     @{name = "Lenovo.SystemUpdate" },
     @{name = "Obsidian.Obsidian" },
+    @{name = "Hugo.Hugo" },    
     @{name = "Zoom.Zoom" },    
     # Starthip Cross-Shell Prompt for Windows Terminal (https://starship.rs/)
-    @{name = "Starship.Starship" }    
+    @{name = "Starship.Starship" }
 );
 
 #More packages: https://winget.run/
