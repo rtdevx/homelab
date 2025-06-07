@@ -83,6 +83,7 @@ $apps = @(
     @{name = "Garmin.Express" },
     @{name = "mRemoteNG.mRemoteNG" },
     @{name = "Lenovo.SystemUpdate" },
+    @{name = "GNU.Wget2" },
     @{name = "Obsidian.Obsidian" },
     @{name = "Zoom.Zoom" },    
     # Starthip Cross-Shell Prompt for Windows Terminal (https://starship.rs/)
