@@ -16,7 +16,7 @@
 
 - name: Mount an NFS volume
   mount:
-    src: 192.168.20.5:/NFS/docker
+    src: '{{ nfs_docker }}'
     path: /mnt/docker
     opts: rw,sync,hard
     state: mounted

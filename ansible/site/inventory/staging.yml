@@ -9,3 +9,6 @@ dockerhosts:
     swr-mgrs1:
     swr-nodes1:
     swr-nodes2:
+  vars:
+    nfs_docker: 192.168.20.5:/NFS/dockers
+ 
