@@ -20,4 +20,6 @@ dockerhosts:
   hosts:
     swr-mgrp1:
     swr-nodep1:
-    swr-nodep2:       
+    swr-nodep2:
+  vars:
+    nfs_docker: 192.168.20.5:/NFS/dockerp
