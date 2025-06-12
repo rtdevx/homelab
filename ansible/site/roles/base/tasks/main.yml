@@ -51,23 +51,3 @@
     owner: root
     group: root
     mode: 0440
-
-# Configure Linux Updates (Ubuntu)
-- name: Installing unattended-upgrades on Ubuntu Servers
-  tags: ubuntu,patching
-  become: true
-  apt:
-    name:
-      - unattended-upgrades
-      - update-notifier-common
-    state: latest
-  when: ansible_distribution == "Ubuntu"
-
-- name: Configure unnatended-upgrades
-  tags: always,patching,ubuntu
-  copy:
-    src: 50unattended-upgrades
-    dest: /etc/apt/apt.conf.d/50unattended-upgrades
-    owner: root
-    group: root
-    mode: 0644      

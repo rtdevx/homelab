@@ -21,3 +21,8 @@
   serial: 1
   roles:
     - apply_patches    
+
+- hosts: all:!pve
+  become: true
+  roles:
+    - configure_patches
