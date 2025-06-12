@@ -15,19 +15,19 @@ pi:
 k3smgr:
   hosts:
     k3s-mgrs1:
-      ansible_host: 192.168.20.50 #Hosts are in DNS. IP address only required for Docker Swarm Init (role: docker_swarm_init).
+      ansible_host: 192.168.20.50
 
 k3scpl:
   hosts:
     k3s-cpls1:
-      ansible_host: 192.168.20.51 #Hosts are in DNS. IP address only required for Docker Swarm Init (role: docker_swarm_init).
+      ansible_host: 192.168.20.51
 
 k3swrk:
   hosts:
     k3s-wrks1:
-      ansible_host: 192.168.20.55 #Hosts are in DNS. IP address only required for Docker Swarm Init (role: docker_swarm_init).
+      ansible_host: 192.168.20.55
     k3s-wrks2:
-      ansible_host: 192.168.20.56 #Hosts are in DNS. IP address only required for Docker Swarm Init (role: docker_swarm_init).
+      ansible_host: 192.168.20.56
 
 # Docker
 dockermgrs:
