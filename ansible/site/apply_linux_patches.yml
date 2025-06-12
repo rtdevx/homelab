@@ -5,15 +5,15 @@
 #  roles:
 #    - apply_patches
 
-# !!! pve hosts are excluded so they are patched sequentially (serial: 1) !!!
-# !!! Controlling playbook execution: https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_strategies.html !!!
-
 # Reboot servers if required
 #- hosts: all:!pve:!ansiblehosts
 #  become: true
 #  tasks:
 #    - name: Unconditionally reboot the machine with all defaults
 #      ansible.builtin.reboot:
+
+# !!! pve hosts are excluded so they are patched sequentially (serial: 1) !!!
+# !!! Controlling playbook execution: https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_strategies.html !!!
 
 # Apply Linux patches to Proxmox servers
 - hosts: pve
@@ -22,6 +22,7 @@
   roles:
     - apply_patches    
 
+# Configure Linux patches for Linux (Ubuntu) servers
 - hosts: all:!pve
   become: true
   roles:
