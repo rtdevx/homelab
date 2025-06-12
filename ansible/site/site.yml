@@ -4,51 +4,11 @@
   roles:
     - base
 
-# Apply patches
-#- hosts: all:!pve
-#  become: true
-#  roles:
-#    - apply_patches
+# Apply Linux patches
+- import_playbook: apply_linux_patches.yml
 
-# !!!pve hosts are excluded so they are patched sequentially (serial: 1)
-# !!!Controlling playbook execution: https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_strategies.html
-
-- hosts: pve
-  become: true
-  serial: 1
-  roles:
-    - apply_patches  
-
-# Install Software
-- hosts: all:!pve:!pi
-  become: true
-  tasks:
-  - name: Installing qemu-guest-agent on Ubuntu Proxmox VMs
-    apt:
-      name:
-        - qemu-guest-agent
-      state: latest
+# Install Linux Software
+- import_playbook: install_linux_software.yml
 
 # Install Docker, initialize swarm and join mgrs and workers
-- hosts: dockerhosts
-  become: true
-  roles:
-    - docker_install
-
-- name: Init Docker Swarm
-  hosts: dockermgrs[0]
-  become: true
-  roles:
-    - docker_swarm_init
-
-- name: Join Managers
-  hosts: dockermgrs
-  become: true
-  roles:
-    - docker_swarm_join_mgr
-
-- name: Join Workers
-  hosts: dockerworkers
-  become: true
-  roles:
-    - docker_swarm_join_worker
+- import_playbook: configure_docker.yml
