@@ -1,0 +1,9 @@
+# Install Software
+- hosts: all:!pve:!pi
+  become: true
+  tasks:
+  - name: Installing qemu-guest-agent on Ubuntu Proxmox VMs
+    apt:
+      name:
+        - qemu-guest-agent
+      state: latest

@@ -50,7 +50,7 @@
     dest: /etc/sudoers.d/robk
     owner: root
     group: root
-    mode: 0440    
+    mode: 0440
 
 # Configure Linux Updates (Ubuntu)
 - name: Installing unattended-upgrades on Ubuntu Servers
@@ -70,4 +70,4 @@
     dest: /etc/apt/apt.conf.d/50unattended-upgrades
     owner: root
     group: root
-    mode: 0644  
+    mode: 0644      
