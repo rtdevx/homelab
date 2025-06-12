@@ -2,6 +2,11 @@
 pve:
   hosts:
 
+# Ansible hosts
+ansiblehosts:
+  hosts:
+    ux-anss1:
+
 # Raspberry Pi
 pi:
   hosts:
