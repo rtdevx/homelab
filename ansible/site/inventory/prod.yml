@@ -3,7 +3,12 @@ pve:
   hosts:
     pve1:
     pve2:
-    pve3:    
+    pve3:
+
+# Ansible hosts
+ansiblehosts:
+  hosts:
+    ux-ansp1:      
 
 # Raspberry Pi
 pi:
