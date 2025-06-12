@@ -4,14 +4,20 @@
   roles:
     - base
 
-# pve hosts are excluded so they are patched sequentially (serial: 1)
-# Controlling playbook execution: https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_strategies.html
+# Apply patches
+#- hosts: all:!pve
+#  become: true
+#  roles:
+#    - apply_patches
+
+# !!!pve hosts are excluded so they are patched sequentially (serial: 1)
+# !!!Controlling playbook execution: https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_strategies.html
 
 - hosts: pve
   become: true
   serial: 1
   roles:
-    - base    
+    - apply_patches  
 
 # Install Software
 - hosts: all:!pve:!pi
