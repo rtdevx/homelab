@@ -36,6 +36,12 @@ k3swrk:
     k3s-wrkp2:
       ansible_host: 192.168.20.46
 
+k3s:
+  children:
+    k3smgr:
+    k3scpl:
+    k3swrk:      
+
 # Docker
 dockermgrs:
   hosts:
