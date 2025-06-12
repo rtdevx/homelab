@@ -1,4 +1,0 @@
-  - name: Reboot after update
-    reboot:
-      msg: Rebooting...
-    when: updated.changed
