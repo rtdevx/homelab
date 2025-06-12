@@ -1,5 +1,4 @@
 # Apply base role
-
 - hosts: all:!pve
   become: true
   roles:
@@ -15,7 +14,6 @@
     - base    
 
 # Install Software
-
 - hosts: all:!pve:!pi
   become: true
   tasks:
@@ -25,9 +23,26 @@
         - qemu-guest-agent
       state: latest
 
-# Configure Docker
-
+# Install Docker, initialize swarm and join mgrs and workers
 - hosts: dockerhosts
   become: true
   roles:
     - docker_install
+
+- name: Init Docker Swarm
+  hosts: dockermgrs[0]
+  become: true
+  roles:
+    - docker_swarm_init
+
+- name: Join Managers
+  hosts: dockermgrs
+  become: true
+  roles:
+    - docker_swarm_join_mgr
+
+- name: Join Workers
+  hosts: dockerworkers
+  become: true
+  roles:
+    - docker_swarm_join_worker
