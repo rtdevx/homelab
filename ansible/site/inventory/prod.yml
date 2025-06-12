@@ -14,12 +14,21 @@ pi:
     pi4:
 
 # Docker
-dockerhosts:
-  children:
-    pi:
+dockermgrs:
   hosts:
     swr-mgrp1:
+      ansible_host: 192.168.20.31 #Hosts are in DNS. IP address only required for Docker Swarm Init (role: docker_swarm_init).
+
+dockerworkers:
+  hosts:
     swr-nodep1:
+      ansible_host: 192.168.20.34 #Hosts are in DNS. IP address only required for Docker Swarm Init (role: docker_swarm_init).
     swr-nodep2:
+      ansible_host: 192.168.20.35 #Hosts are in DNS. IP address only required for Docker Swarm Init (role: docker_swarm_init).
+
+dockerhosts:
+  children:
+    dockermgrs:
+    dockerworkers:
   vars:
     nfs_docker: 192.168.20.5:/NFS/dockerp
