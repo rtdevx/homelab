@@ -24,23 +24,27 @@ k3smgr:
     k3s-mgrp1:
       ansible_host: 192.168.20.40
 
-k3scpl:
+k3ssvr:
   hosts:
-    k3s-cplp1:
+    k3s-srvp1:
       ansible_host: 192.168.20.41
+    k3s-srvp2:
+      ansible_host: 192.168.20.42
+    k3s-srvp3:
+      ansible_host: 192.168.20.43            
 
-k3swrk:
+k3sagt:
   hosts:
-    k3s-wrkp1:
+    k3s-agtp1:
       ansible_host: 192.168.20.45
-    k3s-wrkp2:
+    k3s-agtp2:
       ansible_host: 192.168.20.46
 
 k3s:
   children:
     k3smgr:
-    k3scpl:
-    k3swrk:      
+    k3ssvr:
+    k3sagt:   
 
 # Docker
 dockermgrs:
