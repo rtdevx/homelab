@@ -161,6 +161,15 @@ start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vsc
 start-process code -windowstyle Hidden -ArgumentList "--install-extension redhat.vscode-yaml --force" -PassThru -Wait
 start-process code -windowstyle Hidden -ArgumentList "--install-extension github.copilot --force" -PassThru -Wait
 start-process code -windowstyle Hidden -ArgumentList "--install-extension github.copilot-chat --force" -PassThru -Wait
+start-process code -windowstyle Hidden -ArgumentList "--install-extension johnpapa.vscode-peacock --force" -PassThru -Wait
+start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-azuretools.vscode-docker --force" -PassThru -Wait
+start-process code -windowstyle Hidden -ArgumentList "--install-extension esbenp.prettier-vscode --force" -PassThru -Wait
+start-process code -windowstyle Hidden -ArgumentList "--install-extension eamodio.gitlens --force" -PassThru -Wait
+start-process code -windowstyle Hidden -ArgumentList "--install-extension formulahendry.code-runner --force" -PassThru -Wait
+start-process code -windowstyle Hidden -ArgumentList "--install-extension ms-vsliveshare.vsliveshare --force" -PassThru -Wait
+start-process code -windowstyle Hidden -ArgumentList "--install-extension pkief.material-icon-theme --force" -PassThru -Wait
+start-process code -windowstyle Hidden -ArgumentList "--install-extension tomoki1207.pdf --force" -PassThru -Wait
+start-process code -windowstyle Hidden -ArgumentList "--install-extension mechatroner.rainbow-csv --force" -PassThru -Wait
 
 #Set Windows to show known file extensions
 Write-Host `n"Setting Windows to show file extensions." -ForegroundColor Green
