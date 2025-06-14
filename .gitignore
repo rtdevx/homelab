@@ -9,3 +9,7 @@
 *.swp
 *.DS_Store
 Thumbs.db
+
+# Ignore dotfiles
+ .vscode/
+ .git/
