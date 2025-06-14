@@ -10,6 +10,9 @@
 
 # Configure keepalived
 ## Check if config file is already configured and has the right values
+
+#TODO: Get the config file SHA hash and compare it with the existing one. If different, then update the file.
+
 - name: Check if 'lb_state' is already configured
   command: grep '    state {{ lb_state }}' /etc/keepalived/keepalived.conf
   register: lb_state_check
@@ -71,6 +74,9 @@
 
 # Configure haproxy
 ## Check if config file is already configured and has the right values
+
+#TODO: Get the config file SHA hash and compare it with the existing one. If different, then update the file.
+
 - name: Check if 'haproxy control-plane-1' is already configured
   command: grep '    server control-plane-1 {{ hostvars[groups['k3ssvr'][0]].ansible_host }}:6443 check' /etc/haproxy/haproxy.cfg
   register: haproxy_cpl1_check
