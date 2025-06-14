@@ -1,0 +1,11 @@
+# K3s prerequisuites
+- hosts: k3s
+  become: true
+  roles:
+    - k3s_configure_prereq
+
+# K3s HA Proxy LB
+- hosts: k3slb
+  become: true
+  roles:
+    - k3s_configure_haproxy

@@ -1,5 +1,4 @@
 # Add user ansible
-
 - name: Add User ansible
   tags: always
   user: 
@@ -26,7 +25,6 @@
     mode: 0440
 
 # Add user robk
-
 - name: Add User robk
   tags: always
   user: 

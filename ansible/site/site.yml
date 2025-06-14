@@ -11,4 +11,7 @@
 - import_playbook: install_linux_software.yml
 
 # Install Docker, initialize swarm and join mgrs and workers
-- import_playbook: configure_docker.yml
+#- import_playbook: configure_docker.yml
+
+# Install K3s
+- import_playbook: configure_k3s.yml
