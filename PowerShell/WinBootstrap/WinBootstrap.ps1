@@ -170,6 +170,7 @@ start-process code -windowstyle Hidden -ArgumentList "--install-extension pkief.
 start-process code -windowstyle Hidden -ArgumentList "--install-extension tomoki1207.pdf --force" -PassThru -Wait
 start-process code -windowstyle Hidden -ArgumentList "--install-extension mechatroner.rainbow-csv --force" -PassThru -Wait
 start-process code -windowstyle Hidden -ArgumentList "--install-extension aaron-bond.better-comments --force" -PassThru -Wait
+start-process code -windowstyle Hidden -ArgumentList "--install-extension hnw.vscode-auto-open-markdown-preview --force" -PassThru -Wait
 
 #Set Windows to show known file extensions
 Write-Host `n"Setting Windows to show file extensions." -ForegroundColor Green
