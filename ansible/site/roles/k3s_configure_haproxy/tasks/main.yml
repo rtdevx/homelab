@@ -13,19 +13,19 @@
 - name: Check if 'lb_state' is already configured
   command: grep '    state {{ lb_state }}' /etc/keepalived/keepalived.conf
   register: lb_state_check
-  ignore_errors: yes
+  ignore_errors: true
   changed_when: false  # Ensures task is marked as "ok" instead of "changed"
   
 - name: Check if 'lb_priority' is already configured
   command: grep '    priority {{ lb_priority }}' /etc/keepalived/keepalived.conf
   register: lb_priority_check
-  ignore_errors: yes
+  ignore_errors: true
   changed_when: false  # Ensures task is marked as "ok" instead of "changed"
 
 - name: Check if 'lb_vip' is already configured
   command: grep '        {{ lb_vip }}' /etc/keepalived/keepalived.conf
   register: lb_vip_check
-  ignore_errors: yes
+  ignore_errors: true
   changed_when: false  # Ensures task is marked as "ok" instead of "changed"
 
 ## Configure keepalived if above conditions are not met
@@ -74,19 +74,19 @@
 - name: Check if 'haproxy control-plane-1' is already configured
   command: grep '    server control-plane-1 {{ hostvars[groups['k3ssvr'][0]].ansible_host }}:6443 check' /etc/haproxy/haproxy.cfg
   register: haproxy_cpl1_check
-  ignore_errors: yes
+  ignore_errors: true
   changed_when: false  # Ensures task is marked as "ok" instead of "changed"
 
 - name: Check if 'haproxy control-plane-2' is already configured
   command: grep '    server control-plane-2 {{ hostvars[groups['k3ssvr'][1]].ansible_host }}:6443 check' /etc/haproxy/haproxy.cfg
   register: haproxy_cpl2_check
-  ignore_errors: yes
+  ignore_errors: true
   changed_when: false  # Ensures task is marked as "ok" instead of "changed"
 
 - name: Check if 'haproxy control-plane-3' is already configured
   command: grep '    server control-plane-3 {{ hostvars[groups['k3ssvr'][2]].ansible_host }}:6443 check' /etc/haproxy/haproxy.cfg
   register: haproxy_cpl3_check
-  ignore_errors: yes
+  ignore_errors: true
   changed_when: false  # Ensures task is marked as "ok" instead of "changed"
 
 ## Configure haproxy if above conditions are not met
