@@ -1,0 +1,81 @@
+# Install haproxy and keepalived
+- name: Install haproxy and keepalived
+  tags: k3s
+  apt:
+    name:
+      - haproxy
+      - keepalived
+    state: latest
+    update_cache: true
+
+# Configure keepalived
+- name: Configure keepalived
+  tags: k3s
+  copy:
+    src: keepalived.conf
+    dest: /etc/keepalived/keepalived.conf
+    owner: root
+    group: root
+    mode: 0440
+
+- name: Update keepalived state
+  tags: k3s
+  lineinfile:
+    path: /etc/keepalived/keepalived.conf
+    regexp: '^    state'
+    line: '    state {{ lb_state }}'
+#  notify: Restart keepalived
+
+- name: Update keepalived priority
+  tags: k3s
+  lineinfile:
+    path: /etc/keepalived/keepalived.conf
+    regexp: '^    priority'
+    line: '    state {{ lb_priority }}'
+#  notify: Restart keepalived   
+
+- name: Update keepalived vip
+  tags: k3s
+  lineinfile:
+    path: /etc/keepalived/keepalived.conf
+    regexp: '^        lb_vip'
+    line: '        state {{ lb_vip }}/23'
+#  notify: Restart keepalived
+
+# Configure haproxy
+- name: Configure haproxy
+  tags: k3s
+  copy:
+    src: haproxy.cfg
+    dest: /etc/haproxy/haproxy.cfg
+    owner: root
+    group: root
+    mode: 0440
+
+- name: Update haproxy control-plane-1
+  tags: k3s
+  lineinfile:
+    path: /etc/haproxy/haproxy.cfg
+    regexp: '^    server control-plane-1'
+    line: "    server control-plane-1 {{ hostvars[groups['k3ssvr'][0]].ansible_host }}:6443 check"
+#  notify: Restart haproxy
+
+- name: Update haproxy control-plane-2
+  tags: k3s
+  lineinfile:
+    path: /etc/haproxy/haproxy.cfg
+    regexp: '^    server control-plane-2'
+    line: "    server control-plane-2 {{ hostvars[groups['k3ssvr'][1]].ansible_host }}:6443 check"
+#  notify: Restart haproxy
+
+- name: Update haproxy control-plane-3
+  tags: k3s
+  lineinfile:
+    path: /etc/haproxy/haproxy.cfg
+    regexp: '^    server control-plane-3'
+    line: "    server control-plane-3 {{ hostvars[groups['k3ssvr'][2]].ansible_host }}:6443 check"
+#  notify: Restart haproxy  
+
+      
+
+      

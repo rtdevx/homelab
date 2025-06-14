@@ -1,0 +1,9 @@
+- name: "Restart keepalived"
+  service:
+    name: "keepalived"
+    state: restarted
+
+- name: "Restart haproxy"
+  service:
+    name: "haproxy"
+    state: restarted    

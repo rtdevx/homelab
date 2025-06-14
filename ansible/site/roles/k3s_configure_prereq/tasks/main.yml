@@ -1,0 +1,18 @@
+# Add user k3s
+- name: Add User k3s
+  tags: always
+  user: 
+    name: k3s
+    uid: 1006
+    state: present
+#    groups: sudo
+    comment: "Add User k3s"
+    shell: /bin/bash 
+
+# Disable swap
+- name: Disable swap
+  mount:
+    name: "{{ item }}"
+    fstype: swap
+    state: absent
+  loop: ["none", "swap"]
