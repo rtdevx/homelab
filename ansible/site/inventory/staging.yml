@@ -41,16 +41,16 @@ k3ssvr:
       lb_vip: 192.168.20.39
       lb_url: k3s-vips
       lb_url_fqdn: k3s-vips.skynetx.uk      
-    k3s-srvs2:
-      ansible_host: 192.168.20.52
-      lb_vip: 192.168.20.39
-      lb_url: k3s-vips
-      lb_url_fqdn: k3s-vips.skynetx.uk      
-    k3s-srvs3:
-      ansible_host: 192.168.20.53
-      lb_vip: 192.168.20.39
-      lb_url: k3s-vips
-      lb_url_fqdn: k3s-vips.skynetx.uk                  
+#    k3s-srvs2:
+#      ansible_host: 192.168.20.52
+#      lb_vip: 192.168.20.39
+#      lb_url: k3s-vips
+#      lb_url_fqdn: k3s-vips.skynetx.uk      
+#    k3s-srvs3:
+#      ansible_host: 192.168.20.53
+#      lb_vip: 192.168.20.39
+#      lb_url: k3s-vips
+#      lb_url_fqdn: k3s-vips.skynetx.uk                  
 
 k3sagt:
   hosts:
