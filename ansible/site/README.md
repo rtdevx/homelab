@@ -1,4 +1,3 @@
-
 Script can install and configure 1-node OR 3-node HA K3s cluster with 2 LB's in front.
 If for any reason descaling or removing nodes is required:
 
@@ -30,3 +29,5 @@ Configuration items in the script needed changing depending on the scenario:
 
  1. Comment or comment out Server Nodes from inventory (group k3ssvr).
  2. Update _main.yml_ in _k3s_configure_haproxy_ role. Select (uncomment) the relevant role depending on the scenario (HA or Single node).
+ 3. `rm -rf /etc/haproxy/haproxy.cfg` to ensure fresh file gets copied and updated accordingly.
+ 4. Run the playbook.
