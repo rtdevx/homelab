@@ -18,6 +18,8 @@ pi:
     pi3:
     pi4:
 
+# optimize: Variables are being duplicated here. Should be moved to a group_vars in the future. May affect "k3s_initialize_control_plane_join" role.
+
 # K3s
 k3smgr:
   hosts:
@@ -30,21 +32,32 @@ k3slb:
       lb_state: MASTER
       lb_priority: 200      
       lb_vip: 192.168.20.30
-      lb_url: k3s-vipp               
+      lb_url: k3s-vipp
+      lb_url_fqdn: k3s-vipp.skynetx.uk                     
     k3s-lbp2:
       lb_state: BACKUP
       lb_priority: 100      
       lb_vip: 192.168.20.30
-      lb_url: k3s-vipp      
+      lb_url: k3s-vipp
+      lb_url_fqdn: k3s-vipp.skynetx.uk            
 
 k3ssvr:
   hosts:
     k3s-srvp1:
       ansible_host: 192.168.20.41
+      lb_vip: 192.168.20.30
+      lb_url: k3s-vipp
+      lb_url_fqdn: k3s-vipp.skynetx.uk       
     k3s-srvp2:
       ansible_host: 192.168.20.42
+      lb_vip: 192.168.20.30
+      lb_url: k3s-vipp
+      lb_url_fqdn: k3s-vipp.skynetx.uk       
     k3s-srvp3:
-      ansible_host: 192.168.20.43            
+      ansible_host: 192.168.20.43
+      lb_vip: 192.168.20.30
+      lb_url: k3s-vipp
+      lb_url_fqdn: k3s-vipp.skynetx.uk                   
 
 k3sagt:
   hosts:

@@ -1,3 +1,4 @@
+---
 # Add user ansible
 - name: Add User ansible
   tags: always
@@ -49,3 +50,11 @@
     owner: root
     group: root
     mode: 0440
+
+# Install Software
+- name: Installing Default software on All Debian and Ubuntu hosts
+  tags: always,apt
+  apt:
+    name:
+      - fail2ban
+    state: latest    

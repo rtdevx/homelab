@@ -1,3 +1,4 @@
+---
 # Add user k3s
 - name: Add User k3s
   tags: always
