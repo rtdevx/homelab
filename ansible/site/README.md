@@ -26,5 +26,7 @@ sudo /usr/local/bin/k3s-agent-uninstall.sh && sudo rm -rf /etc/rancher
 
 I still keep 2 LB's in front for flexibility and so Control Plane Servers can be added in the future. This is to ensure K3s cluster scaling out can be done quickly.
 
+Configuration items in the script needed changing depending on the scenario:
+
  1. Comment or comment out Server Nodes from inventory (group k3ssvr).
  2. Update _main.yml_ in _k3s_configure_haproxy_ role. Select (uncomment) the relevant role depending on the scenario (HA or Single node).
