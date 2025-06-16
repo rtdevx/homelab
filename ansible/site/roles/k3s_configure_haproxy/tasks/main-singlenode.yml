@@ -1,0 +1,166 @@
+---
+
+# info: Apt install haproxy and keepalived
+
+- name: Install haproxy and keepalived
+  tags: k3s,lb
+  apt:
+    name:
+      - haproxy
+      - keepalived
+    state: present
+    update_cache: true
+
+# info: Configure keepalived
+
+# todo: Get the config file SHA hash and compare it with the existing one. If different, then update the file.
+
+## Check if config file is already configured and has the right values
+- name: Check if keepalived.conf exists
+  tags: k3s,lb
+  stat:
+    path: /etc/keepalived/keepalived.conf
+  register: keepalived_conf_stat
+
+- name: Create /etc/keepalived if it does not exist
+  tags: k3s,lb
+  file:
+    path: /etc/keepalived
+    state: directory
+    mode: '0755'
+  when: 
+    - not keepalived_conf_stat.stat.exists    
+
+- name: Touch keepalived.conf if doesn't exist
+  tags: k3s,lb
+  file:
+    path: /etc/keepalived/keepalived.conf
+    state: touch
+    mode: 0440
+  when: 
+    - not keepalived_conf_stat.stat.exists
+
+- name: Check if "lb_state" is already configured
+  tags: k3s,lb
+  command: grep "    state {{ lb_state }}" /etc/keepalived/keepalived.conf
+  register: lb_state_check
+  ignore_errors: true
+  changed_when: false  # Ensure task is marked as "ok" instead of "changed" in the output
+  failed_when: false  # Suppress output error if grep doesn't find a match
+
+- name: Check if "lb_priority" is already configured
+  tags: k3s,lb
+  command: grep "    priority {{ lb_priority }}" /etc/keepalived/keepalived.conf
+  register: lb_priority_check
+  ignore_errors: true
+  changed_when: false  # Ensure task is marked as "ok" instead of "changed" in the output
+  failed_when: false  # Suppress output error if grep doesn't find a match
+
+- name: Check if "lb_vip" is already configured
+  tags: k3s,lb
+  command: grep "        {{ lb_vip }}" /etc/keepalived/keepalived.conf
+  register: lb_vip_check
+  ignore_errors: true
+  changed_when: false  # Ensure task is marked as "ok" instead of "changed" in the output
+  failed_when: false  # Suppress output error if grep doesn't find a match
+
+# Copy keepalived.conf if doesn't exist
+- name: Configure keepalived
+  tags: k3s,lb
+  copy:
+    src: keepalived.conf
+    dest: /etc/keepalived/keepalived.conf
+    owner: root
+    group: root
+    mode: 0440  
+  when: > # note: Copy the config file if it doesn't exist OR if grep didn't find a match. File will be updated with the correct values.
+    (not keepalived_conf_stat.stat.exists) or    
+    (lb_state_check.rc != 0) or
+    (lb_priority_check.rc != 0) or
+    (lb_vip_check.rc != 0)
+
+# Update LB State
+- name: Update keepalived lb_state
+  tags: k3s,lb
+  lineinfile:
+    path: /etc/keepalived/keepalived.conf
+    regexp: "^    state"
+    line: "    state {{ lb_state }}"
+  notify: Restart keepalived
+
+# Update Priority
+- name: Update keepalived priority
+  tags: k3s,lb
+  lineinfile:
+    path: /etc/keepalived/keepalived.conf
+    regexp: "^    priority"
+    line: "    priority {{ lb_priority }}"
+  notify: Restart keepalived
+
+# Update LB VIP address
+- name: Update keepalived vip
+  tags: k3s,lb
+  lineinfile:
+    path: /etc/keepalived/keepalived.conf
+    regexp: "        lb_vip"
+    line: "        {{ lb_vip }}/23"
+  notify: Restart keepalived
+
+# info: Configure haproxy
+
+# todo: Get the config file SHA hash and compare it with the existing one. If different, then update the file.
+
+## Check if config file is already configured and has the right values
+- name: Check if haproxy.cfg exists
+  tags: k3s,lb
+  stat:
+    path: /etc/haproxy/haproxy.cfg
+  register: haproxy_cfg_stat
+
+- name: Create /etc/haproxy if it does not exist
+  tags: k3s,lb
+  file:
+    path: /etc/haproxy
+    state: directory
+    mode: '0755'
+  when: 
+    - not haproxy_cfg_stat.stat.exists
+
+- name: Touch haproxy.cfg if doesn't exist
+  tags: k3s,lb
+  file:
+    path: /etc/haproxy/haproxy.cfg
+    state: touch
+    mode: 0440
+  when: 
+    - not haproxy_cfg_stat.stat.exists
+
+- name: Check if 'haproxy control-plane-1' is already configured
+  tags: k3s,lb
+  command: grep '    server control-plane-1 {{ hostvars[groups['k3ssvr'][0]].ansible_host }}:6443 check' /etc/haproxy/haproxy.cfg
+  register: haproxy_cpl1_check
+  ignore_errors: true
+  changed_when: false  # Ensure task is marked as "ok" instead of "changed" in the output
+  failed_when: false  # Suppress output error if grep doesn't find a match
+
+# Copy haproxy.cfg if doesn't exist
+- name: Configure haproxy
+  tags: k3s,lb
+  copy:
+    src: haproxy-singlenode.cfg
+    dest: /etc/haproxy/haproxy.cfg
+    owner: root
+    group: root
+    mode: 0440
+  when: > # note: Copy the config file if it doesn't exist OR if grep didn't find a match. File will be updated with the correct values.
+    (not haproxy_cfg_stat.stat.exists) or
+    (haproxy_cpl1_check.rc != 0)
+
+# Update haproxy control-plane-1
+- name: Update haproxy control-plane-1
+  tags: k3s,lb
+  lineinfile:
+    path: /etc/haproxy/haproxy.cfg
+    regexp: '^    server control-plane-1'
+    line: "    server control-plane-1 {{ hostvars[groups['k3ssvr'][0]].ansible_host }}:6443 check"
+  notify: Restart haproxy
