@@ -1,0 +1,16 @@
+---
+- name: Check if file /etc/rancher/node/password exists
+  stat:
+    path: "/etc/rancher/node/password"
+  register: file_password
+
+- name: Join K3s Cluster - Agents
+  shell: |
+    curl -sfL https://get.k3s.io | K3S_TOKEN={{ k3s_cluster_token }} sh -s - agent \
+      --server https://{{ hostvars[groups['k3ssvr'][0]].ansible_host }}:6443
+  when: 
+    - file_password.stat.exists == false
+
+# todo: k3s_cluster_token is being used in PROD and STAGING environments. Tokens should be separated.
+
+# ? Currently only file check is done. Is there a better way to check if k3s is already initialized?

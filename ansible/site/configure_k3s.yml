@@ -1,3 +1,4 @@
+---
 # K3s prerequisuites
 - hosts: k3s
   become: true
@@ -9,3 +10,29 @@
   become: true
   roles:
     - k3s_configure_haproxy
+
+# Initialize K3s Control Plane
+- hosts: k3ssvr[0]
+  become: true
+  roles:
+    - k3s_initialize_control_plane
+  vars_files:
+    - roles/k3s_initialize_control_plane/vars/secrets.encrypted
+
+# Join K3s Control Plane Servers
+- hosts: k3ssvr[1:2]
+  become: true
+  roles:
+    - k3s_initialize_join_svr
+  vars_files:
+    - roles/k3s_initialize_control_plane/vars/secrets.encrypted
+# note: vars_files (encrypted secrets) are not stored in this role but in the role where the cluster is being initialized (k3s_initialize_control_plane).
+
+# Join K3s Agent Nodes
+- hosts: k3sagt
+  become: true
+  roles:
+    - k3s_initialize_join_agt
+  vars_files:
+    - roles/k3s_initialize_control_plane/vars/secrets.encrypted    
+# note: vars_files (encrypted secrets) are not stored in this role but in the role where the cluster is being initialized (k3s_initialize_control_plane).

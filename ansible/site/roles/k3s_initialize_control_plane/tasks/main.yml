@@ -1,0 +1,24 @@
+---
+- name: Check if file /etc/rancher/k3s/k3s.yaml exists
+  stat:
+    path: "/etc/rancher/k3s/k3s.yaml"
+  register: file_k3s_yaml
+
+- name: Initialize K3s Control Plane
+  shell: |
+    curl -sfL https://get.k3s.io | K3S_TOKEN={{ k3s_cluster_token }} sh -s - server \
+      --cluster-init \
+      --tls-san={{ lb_vip }} \
+      --tls-san={{ lb_url }} \
+      --tls-san={{ lb_url_fqdn }}
+
+# hack: Register option must be validated / better understood.
+
+  register: k3s_init_result
+  changed_when: k3s_init_result.stdout != "" # This is a hack to ensure that the task is marked as changed if the output is not empty.
+
+  when: 
+    - file_k3s_yaml.stat.exists == false
+
+# todo: Currenly only file check is done. Is there a better way to check if k3s is already initialized?
+ 

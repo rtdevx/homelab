@@ -1,3 +1,4 @@
+---
 # Install Docker, initialize swarm and join mgrs and workers
 - hosts: dockerhosts
   become: true

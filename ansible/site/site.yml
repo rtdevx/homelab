@@ -1,17 +1,43 @@
+---
+
+# info: Linux Baseline
+
 # Apply base role
 - hosts: all:!pve
   become: true
   roles:
     - base
 
-# Apply Linux patches
-- import_playbook: apply_linux_patches.yml
+# Install Software on Proxmox VMs
+- hosts: all:!pve:!pi
+  tags: apt
+  become: true
+  tasks:
+  - name: Installing qemu-guest-agent on Ubuntu Proxmox VMs
+    apt:
+      name:
+        - qemu-guest-agent
+      state: latest
 
-# Install Linux Software
-- import_playbook: install_linux_software.yml
+# info: Linux patching
+
+# Apply Linux patches to Proxmox servers
+- hosts: pve
+  become: true
+  serial: 1 # note: pve hosts are patched sequentially (serial: 1)
+  roles:
+    - apply_patches    
+ 
+# Configure Linux patches for Linux (Ubuntu) servers
+- hosts: all:!pve
+  become: true
+  roles:
+    - configure_patches
+
+# info: Role-Specific Playbooks
 
 # Install Docker, initialize swarm and join mgrs and workers
-#- import_playbook: configure_docker.yml
+# - import_playbook: configure_docker.yml
 
 # Install K3s
 - import_playbook: configure_k3s.yml

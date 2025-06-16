@@ -1,3 +1,4 @@
+---
 # Centos
 - name: Install updates (CentOS)
   tags: always
@@ -16,7 +17,7 @@
     upgrade: dist
     update_cache: yes
   when: ansible_distribution == "Ubuntu"
-#  register: updated
+  register: updated
   notify: 
     - Reboot after update
 
