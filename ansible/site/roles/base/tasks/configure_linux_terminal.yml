@@ -1,0 +1,86 @@
+---
+# info: Download Nerd Fonts
+- name: Configure Terminal for Linux hosts
+# debug:
+#   msg: "This task runs on selected nodes"
+  block:
+    - name: Download Nerd Fonts
+      get_url:
+        url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Hack.tar.xz
+        dest: /tmp/nerd-fonts.tar.xz
+        mode: '0701'
+
+    - name: Unarchive Nerd Fonts
+      unarchive:
+        src: /tmp/nerd-fonts.tar.xz
+        dest: /usr/local/share/fonts
+        remote_src: yes
+
+    - name: Install Starship Cross-Shell Prompt with Snap
+      community.general.snap:
+        name: starship
+        channel: latest/edge
+        
+    - name: Update the font cache
+      shell: |
+        fc-cache -f -v
+      changed_when: false  # Ensure task is marked as "ok" instead of "changed" in the output
+
+  become: true
+
+#info: Gather facts about non-system users
+- name: Gather non-system user list
+  shell: |
+    awk -F: '($3 >= 1000) && ($7 != "/usr/sbin/nologin") && ($7 != "/bin/false") {print $1}' /etc/passwd
+  register: user_list
+  changed_when: false  # Ensure task is marked as "ok" instead of "changed" in the output  
+
+- name: Set fact for existing non-system users
+  set_fact:
+    existing_users: "{{ user_list.stdout_lines }}"
+
+# info: Configure Starship
+- name: Download starship.toml config file
+  get_url:
+    url: https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/terminal/starship.toml
+    dest: /tmp/starship.toml
+    mode: '0644'
+  become: true  
+
+- name: Ensure .config directory exists for each user (required for Starship)
+  file:
+    path: "/home/{{ item }}/.config"
+    state: directory
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: '0755'
+  loop: "{{ existing_users }}"
+  become: true
+
+- name: Copy starship.toml to each non-system user
+  copy:
+    src: /tmp/starship.toml
+    dest: "/home/{{ item }}/.config/starship.toml"
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: '0644'
+    remote_src: yes
+  loop: "{{ existing_users }}"
+
+# info: Configure .bashrc
+- name: Download /etc/skel
+  get_url:
+    url: https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/linux/etc/skel/bashrc
+    dest: /etc/skel/.bashrc
+    mode: '0644'
+  become: true    
+
+- name: Copy .bashrc to each non-system user
+  copy:
+    src: /etc/skel/.bashrc
+    dest: "/home/{{ item }}/.bashrc"
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: '0644'
+    remote_src: yes
+  loop: "{{ existing_users }}"
