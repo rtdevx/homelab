@@ -41,3 +41,9 @@
 
 # Install K3s
 - import_playbook: configure_k3s.yml
+
+# todo: Ensure k3s user can run kubectl commands without sudo
+# todo: Update k3s user's alias to type k instead of k3s kubectl
+# todo: Install k9s on the manager node and make it available to k3s user
+# todo: Install kubectl on the manager node and make it available to k3s user
+# todo: Ensure kubectl can be run agains the VIP IP address from the manager node

@@ -57,4 +57,11 @@
   apt:
     name:
       - fail2ban
-    state: latest    
+      - fontconfig # note: required for task: configure_linux_terminal.yml
+    state: latest
+
+# info: Configure Starship prompt
+
+# Configure Terminal for Linux hosts
+- import_tasks: configure_linux_terminal.yml
+#  when: inventory_hostname in groups['linuxtest']
