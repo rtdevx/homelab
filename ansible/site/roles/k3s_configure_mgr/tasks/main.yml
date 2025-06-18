@@ -1,0 +1,33 @@
+---
+# info: Apt install kubectl and k9s
+
+- name: Install kubectl with Snap
+  snap:
+    name: kubectl
+    classic: true
+#  become: true
+
+- name: Install k9s with Snap
+  snap:
+    name: k9s
+#  become: true
+
+# ! After installing k9s with snap on Ubuntu 24.04 LTS, ==Command 'k9s' not found== error is displayed.
+# ! This can be fixed with `sudo ln -s /snap/k9s/current/bin/k9s /snap/bin/` command.
+# !  Issue is described here: https://github.com/derailed/k9s/issues/2128
+
+- name: Check if k9s symbolic link exists
+  stat:
+    path: /snap/bin/k9s
+  register: k9s_bin_stat
+
+- name: Create a symbolic link for k9s (to fix Command 'k9s' not found error)
+  shell: |
+    ln -s /snap/k9s/current/bin/k9s /snap/bin/
+  become: true    
+  changed_when: false  # Ensure task is marked as "ok" instead of "changed" in the output  
+  when: 
+    - not k9s_bin_stat.stat.exists
+
+# info: Configure kubectl for K3s Manager
+    

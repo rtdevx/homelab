@@ -1,5 +1,4 @@
 ---
-
 # info: Apt install haproxy and keepalived
 
 - name: Install haproxy and keepalived

@@ -36,3 +36,9 @@
   vars_files:
     - roles/k3s_initialize_control_plane/vars/secrets.encrypted    
 # note: vars_files (encrypted secrets) are not stored in this role but in the role where the cluster is being initialized (k3s_initialize_control_plane).
+
+# Configure K3s Manager
+- hosts: k3smgr
+  become: true
+  roles:
+    - k3s_configure_mgr
