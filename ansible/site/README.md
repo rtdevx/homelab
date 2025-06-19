@@ -32,7 +32,9 @@ Configuration items in the script needed changing depending on the scenario:
  3. `rm -rf /etc/haproxy/haproxy.cfg` to ensure fresh file gets copied and updated accordingly.
  4. Run the playbook.
 
- This playbook will install Load Balancer (HAProxy) for K3s User to connect to the Control Plane Server Nodes as well as all the Server and Agent nodes and it will build the K3s cluster. It will configure the manager server to allow connectivity from K3s User location to the Load Balancer (left of below pic).
+ This playbook will install Load Balancer (HAProxy) for K3s User to connect to the Control Plane Server Nodes as well as all the Server and Agent nodes and it will build the K3s cluster.
+ 
+ It will also configure the manager server to allow connectivity from K3s User location to the Load Balancer (left of below pic).
 
  External Traffic to PODS will be managed via Kubernetes.
 
