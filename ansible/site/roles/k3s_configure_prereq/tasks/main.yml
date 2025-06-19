@@ -10,6 +10,12 @@
     comment: "Add User k3s"
     shell: /bin/bash 
 
+- name: Update authorized_keys for user k3s
+  tags: always
+  authorized_key:
+    user: k3s
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICYVRwAP6t4rT84ycDrkdB8jALqceokGMVOUjrOC9z+f k3s"
+
 # Disable swap
 - name: Disable swap
   mount:
