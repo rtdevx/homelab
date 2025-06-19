@@ -43,6 +43,15 @@
   roles:
     - k3s_configure_mgr
 
+# ! NOT WORKING YET
+
+- name: Check if /home/k3s/.kube/config exists on the manager server
+  tags: k3s,lb
+  hosts: k3smgr  
+  stat:
+    path: /home/k3s/.kube/config
+  register: kubeconfig_stat
+
 - name: Transfer file between remote hosts using fetch
   hosts: k3ssvr[0]
   tasks:
@@ -51,12 +60,13 @@
         src: /etc/rancher/k3s/k3s.yaml
         dest: /tmp/k3s.yaml
         flat: yes
-  become: true        
+  become: true
+  when: kubeconfig_stat.stat.exists == false        
 
 - name: Copy file to destination server
   hosts: k3smgr
   tasks:
-    - name: Copy file to backup server
+    - name: Copy k3s.yaml file to the manager server
       copy:
         src: /tmp/k3s.yaml
         dest: /home/k3s/.kube/config
@@ -64,6 +74,7 @@
         group: k3s
         mode: '0644'
   become: true
+  when: kubeconfig_stat.stat.exists == false  
 
 - name: Check if "/home/k3s/.kube/config" is already configured
   tags: k3s,lb
