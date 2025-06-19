@@ -8,7 +8,8 @@ pve:
 # Ansible hosts
 ansiblehosts:
   hosts:
-    ux-ansp1:      
+    ux-anss1: # info: Prod Ansible Control Node is running playbooks against Staging Ansible Control Node and vice versa.
+      ansible_host:
 
 # Raspberry Pi
 pi:
