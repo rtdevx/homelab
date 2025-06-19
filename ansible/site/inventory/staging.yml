@@ -18,6 +18,7 @@ k3smgr:
   hosts:
     k3s-mgrs1:
       ansible_host: 192.168.20.50
+      lb_vip: 192.168.20.39
 
 k3slb:
   hosts:
