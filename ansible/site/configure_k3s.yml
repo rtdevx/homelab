@@ -37,7 +37,7 @@
     - roles/k3s_initialize_control_plane/vars/secrets.encrypted    
 # note: vars_files (encrypted secrets) are not stored in this role but in the role where the cluster is being initialized (k3s_initialize_control_plane).
 
-# Configure K3s Manager
+# info: Configure K3s Manager
 - hosts: k3smgr
   become: true
   roles:
@@ -64,3 +64,27 @@
         group: k3s
         mode: '0644'
   become: true
+
+- name: Check if "/home/k3s/.kube/config" is already configured
+  tags: k3s,lb
+  hosts: k3smgr
+  tasks:
+    - name: Check if kubeconfig file exists
+      command: 'grep "    server: https://127.0.0.1:6443" /home/k3s/.kube/config'
+      register: kubeconfig_vip_check
+      ignore_errors: true
+      changed_when: false  # Ensure task is marked as "ok" instead of "changed" in the output
+      failed_when: false  # Suppress output error if grep doesn't find a match
+  
+# Update LB State
+- name: Update /home/k3s/.kube/config LB address
+  tags: k3s,lb
+  hosts: k3smgr
+  tasks:
+    - name: Update LB address in kubeconfig
+      lineinfile:
+        path: /home/k3s/.kube/config
+        regexp: "^    server"
+        line: "    server: https://{{ lb_vip }}:6443"
+      when: kubeconfig_vip_check.rc != 0 
+  become: true          
