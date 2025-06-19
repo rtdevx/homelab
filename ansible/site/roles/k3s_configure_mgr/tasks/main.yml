@@ -41,27 +41,3 @@
     group: "k3s"
     mode: '0755'  
   become: true
-
-# ! NOT WORKING YET
-
-- name: Transfer file between remote hosts using fetch
-  hosts: k3ssvr[0]
-  tasks:
-    - name: Fetch file from source server
-      fetch:
-        src: /etc/rancher/k3s/k3s.yaml
-        dest: /tmp/k3s.yaml
-        flat: yes
-
-- name: Copy file to destination server
-  hosts: k3smgr
-  tasks:
-    - name: Copy file to backup server
-      copy:
-        src: /tmp/k3s.yaml
-        dest: /etc/rancher/k3s/k3s.yaml
-        owner: root
-        group: root
-        mode: '0644'
-
-# ! NOT WORKING YET        
