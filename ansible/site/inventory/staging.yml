@@ -69,12 +69,12 @@ k3s:
     k3sagt:
 
 #Linux Test Servers
-linuxtest:
-  hosts:
-    ux-test1:
-      ansible_host: 192.168.20.241
-    ux-test2:
-      ansible_host: 192.168.20.242
+#linuxtest:
+#  hosts:
+#    ux-test1:
+#      ansible_host: 192.168.20.241
+#    ux-test2:
+#      ansible_host: 192.168.20.242
 
 # Docker
 #dockermgrs:
