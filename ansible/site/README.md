@@ -34,4 +34,6 @@ Configuration items in the script needed changing depending on the scenario:
 
  This playbook will install Load Balancer (HAProxy) for K3s User to connect to the Control Plane Server Nodes as well as all the Server and Agent nodes and it will build the K3s cluster.
 
+ External Traffic to PODS will be managed via Kubernetes.
+
  ![K3s Architecture](./assets/k3s-architecture-ha-server-676852353.png)
