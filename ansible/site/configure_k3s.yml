@@ -38,21 +38,29 @@
 # note: vars_files (encrypted secrets) are not stored in this role but in the role where the cluster is being initialized (k3s_initialize_control_plane).
 
 # info: Configure K3s Manager
+
+# Execute k3s_configure_mgr role on the K3s manager server (Install and configure kubectl,k9s)
 - hosts: k3smgr
   become: true
   roles:
     - k3s_configure_mgr
 
-# ! NOT WORKING YET
+# Check if k3s.yaml file exists on the K3s server and fetch it to the temporary location if it does not exist
 
-#- name: Check if /home/k3s/.kube/config exists on the manager server
-#  tags: k3s,lb
-#  hosts: k3smgr  
-#  stat:
-#    path: /home/k3s/.kube/config
-#  register: kubeconfig_stat
+# @high Should /tmp be changed to something else so the file is not lost after reboot and is only accessible by root?
+# @low Can the checksum of the downloaded file be verified to ensure integrity?
 
-- name: Transfer file between remote hosts using fetch
+- name: Check if /tmp/k3s.yaml exists on the K3s server
+  tags: k3s,mgr
+  hosts: k3ssvr[0]
+  tasks:
+  - name: Check if /tmp/k3s.yaml exists on the K3s server
+    stat:
+      path: /tmp/k3s.yaml
+    register: k3syaml_stat
+  become: true
+
+- name: Fetch /etc/rancher/k3s/k3s.yaml from the K3s server to Temporary location
   hosts: k3ssvr[0]
   tasks:
     - name: Fetch file from source server
@@ -60,8 +68,19 @@
         src: /etc/rancher/k3s/k3s.yaml
         dest: /tmp/k3s.yaml
         flat: yes
+      become: true
+      when: k3syaml_stat.stat.exists == false
+
+# Check if /home/k3s/.kube/config exists on the manager server, copy and rename it if it does not exist
+- name: Check if /home/k3s/.kube/config exists on the manager server
+  tags: k3s,mgr
+  hosts: k3smgr 
+  tasks:
+  - name: Check if kubeconfig file exists
+    stat:
+      path: /home/k3s/.kube/config
+    register: kubeconfig_stat
   become: true
-#  when: kubeconfig_stat.stat.exists == false        
 
 - name: Copy file to destination server
   hosts: k3smgr
@@ -73,9 +92,10 @@
         owner: k3s
         group: k3s
         mode: '0644'
-  become: true
-#  when: kubeconfig_stat.stat.exists == false  
+      become: true
+      when: kubeconfig_stat.stat.exists == false  
 
+# Configure K3s Manager kubeconfig file
 - name: Check if "/home/k3s/.kube/config" is already configured
   tags: k3s,lb
   hosts: k3smgr
@@ -86,8 +106,7 @@
       ignore_errors: true
       changed_when: false  # Ensure task is marked as "ok" instead of "changed" in the output
       failed_when: false  # Suppress output error if grep doesn't find a match
-  
-# Update LB State
+
 - name: Update /home/k3s/.kube/config LB address
   tags: k3s,lb
   hosts: k3smgr
