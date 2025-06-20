@@ -41,3 +41,6 @@
 
 # Install K3s
 - import_playbook: configure_k3s.yml
+
+# todo: roles -> base -> configure_linux_terminal.yml - file integrity check
+# todo: roles -> configure_k3s.yml - file integrity check

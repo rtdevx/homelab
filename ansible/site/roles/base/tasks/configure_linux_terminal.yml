@@ -1,8 +1,10 @@
 ---
 # info: Download Nerd Fonts
 - name: Configure Terminal for Linux hosts
-# debug:
-#   msg: "This task runs on selected nodes"
+
+# @high Should /tmp be changed to something else so the file is not lost after reboot and is only accessible by root?
+# @low Can the checksum of the downloaded file be verified to ensure integrity?
+
   block:
     - name: Download Nerd Fonts
       get_url:

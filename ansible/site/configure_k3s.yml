@@ -46,6 +46,10 @@
     - k3s_configure_mgr
 
 # Check if k3s.yaml file exists on the K3s server and fetch it to the temporary location if it does not exist
+
+# @high Should /tmp be changed to something else so the file is not lost after reboot and is only accessible by root?
+# @low Can the checksum of the downloaded file be verified to ensure integrity?
+
 - name: Check if /tmp/k3s.yaml exists on the K3s server
   tags: k3s,mgr
   hosts: k3ssvr[0]
