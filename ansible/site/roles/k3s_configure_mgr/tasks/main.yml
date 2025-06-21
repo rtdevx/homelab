@@ -39,5 +39,5 @@
     state: directory
     owner: "k3s"
     group: "k3s"
-    mode: '0755'  
+    mode: '0700'  
   become: true

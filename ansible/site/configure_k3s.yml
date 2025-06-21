@@ -91,7 +91,7 @@
         dest: /home/k3s/.kube/config
         owner: k3s
         group: k3s
-        mode: '0644'
+        mode: '0600'
       become: true
       when: kubeconfig_stat.stat.exists == false  
 
