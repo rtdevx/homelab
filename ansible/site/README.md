@@ -72,15 +72,30 @@ Here are my commands to run in order to initialize (bootstrap) the Flux controll
 ### Staging
 
 ```bash
+sudo su - k3s
+
 flux bootstrap git --url=ssh://git@github.com/rtdevx/kubernetes.git --branch=staging --private-key-file=/home/k3s/.ssh/id_rsa_git_k8s --password=<SSH-KEY-PASSWORD> --path=clusters/staging
 ```
 
 ### Main (Production)
 
 ```bash
+sudo su - k3s
+
 flux bootstrap git --url=ssh://git@github.com/rtdevx/kubernetes.git --branch=main --private-key-file=/home/k3s/.ssh/id_rsa_git_k8s --password=<SSH-KEY-PASSWORD> --path=clusters/production
 ```
 
 After Flux is initialized, flux-system namespace has been created and you can see additional PODs running in the cluster (helm-controller, kustomize-controller, notification-controller, source-controller).
 
-![K3s Flux Installed](./assets/ks-k9s-pods-flux.png)
+![K3s Flux Installed](./assets/k9s-pods-flux.png)
+
+Note new files appeared in GitGub repository.
+
+![New files appeared in Git repository](./assets/k8s-git-flux.png)
+
+---
+
+<h1 style="font-size:3vw;"><p align="center">
+<mark>MILESTONE: Kubernetes cluster is now being managed with Git!</mark>
+</p>
+</h1>
