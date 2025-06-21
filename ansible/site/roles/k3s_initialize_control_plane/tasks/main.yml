@@ -8,10 +8,11 @@
   shell: |
     curl -sfL https://get.k3s.io | K3S_TOKEN={{ k3s_cluster_token }} sh -s - server \
       --cluster-init \
-      --disable-helm-controller \ # note: helm-controller is being disabled because Flux is used for package management. Flux has it's own helm controller.
+      --disable-helm-controller \ 
       --tls-san={{ lb_vip }} \
       --tls-san={{ lb_url }} \
       --tls-san={{ lb_url_fqdn }}
+# note: helm-controller is being disabled because Flux is used for package management. Flux has it's own helm controller.        
 
 # hack: Register option must be validated / better understood.
 
