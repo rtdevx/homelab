@@ -1,0 +1,10 @@
+---
+
+# info: Configure Kubernetes
+
+- hosts: k3smgr
+  become: true
+  roles:
+    - k8s_configure_gitops_flux
+  vars_files:
+    - roles/k8s_configure_gitops_flux/vars/secrets.encrypted

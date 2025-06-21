@@ -1,0 +1,24 @@
+---
+- name: Install FluxCD on K3s Manager
+  shell: |
+    curl -s https://fluxcd.io/install.sh | sudo bash
+  become: true
+
+- name: Copy Github SSH key for Flux
+  copy:
+    src: id_rsa_git_k8s
+    dest: /home/k3s/.ssh/id_rsa_git_k8s
+    owner: k3s
+    group: k3s
+    mode: 0600
+  become: true
+
+#- name: Bootstrap GitHub
+#  shell: |
+#    flux bootstrap git \
+#      --url=ssh://git@github.com/rtdevx/kubernetes.git \
+#      --branch={{ flux_git_branch }} \
+#      --private-key-file=/home/k3s/.ssh/id_rsa_git_k8s \
+#      --password={{ id_rsa_git_k8s_passphrase }} \
+#      --path=clusters/{{ flux_git_repo }}
+ 

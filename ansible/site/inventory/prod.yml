@@ -26,7 +26,7 @@ k3smgr:
   hosts:
     k3s-mgrp1:
       ansible_host: 192.168.20.40
-      lb_vip: 192.168.20.30
+      lb_vip: 192.168.20.30      
 
 k3slb:
   hosts:
@@ -49,7 +49,7 @@ k3ssvr:
       ansible_host: 192.168.20.41
       lb_vip: 192.168.20.30
       lb_url: k3s-vipp
-      lb_url_fqdn: k3s-vipp.skynetx.uk
+      lb_url_fqdn: k3s-vipp.skynetx.uk     
 # note: Uncomment the following lines if you have more servers in the k3s cluster.             
 #    k3s-srvp2:
 #      ansible_host: 192.168.20.42
