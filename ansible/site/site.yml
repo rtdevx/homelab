@@ -36,11 +36,20 @@
 
 # info: Role-Specific Playbooks
 
+# info: Docker
+
 # Install Docker, initialize swarm and join mgrs and workers
 # - import_playbook: configure_docker.yml
+
+# info: K3s
 
 # Install K3s
 - import_playbook: configure_k3s.yml
 
 # todo: roles -> base -> configure_linux_terminal.yml - file integrity check
 # todo: roles -> configure_k3s.yml - file integrity check
+
+# info: Kubernetes-specific Playbooks
+
+- import_playbook: configure_k8s.yml
+
