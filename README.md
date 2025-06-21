@@ -19,9 +19,6 @@ My goal is to use GitOps approach and practices when working with Kubernetes and
 
 ![Proxmox Virtual Environment](./ansible/site/assets/pve_summary.png)
 
----
 ## More details:
 
 https://github.com/rtdevx/homelab/tree/main/ansible/site#readme
-
----
