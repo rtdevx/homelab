@@ -95,7 +95,7 @@ Note new files appeared in GitGub repository.
 
 ---
 
-<h1 style="font-size:3vw;"><p align="center">
-<mark>MILESTONE: Kubernetes cluster is now being managed with Git!</mark>
+<h2 style="font-size:3vw;"><p align="center">
+<mark>MILESTONE: Kubernetes deployments are now being managed with FluxCD and GitHub...</mark>
 </p>
-</h1>
+</h2>
