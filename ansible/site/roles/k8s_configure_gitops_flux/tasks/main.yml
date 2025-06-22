@@ -13,7 +13,17 @@
     mode: 0600
   become: true
 
-#- name: Bootstrap GitHub
+- name: Download SSH Config for Flux
+  get_url:
+    url: https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/ssh/config_flux
+    dest: /home/k3s/.ssh/config
+    owner: k3s
+    group: k3s    
+    mode: '0600'
+
+# note: FluxCD must be bootstrapped manually. There is an interactive prompt. Couldn't find anything in the documentation to automate this.
+
+#- name: FluxCD Bootstrap GitHub
 #  shell: |
 #    flux bootstrap git \
 #      --url=ssh://git@github.com/rtdevx/kubernetes.git \
@@ -21,4 +31,4 @@
 #      --private-key-file=/home/k3s/.ssh/id_rsa_git_k8s \
 #      --password={{ id_rsa_git_k8s_passphrase }} \
 #      --path=clusters/{{ flux_git_repo }}
- 
+#  become: true 

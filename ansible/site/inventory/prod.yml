@@ -26,7 +26,9 @@ k3smgr:
   hosts:
     k3s-mgrp1:
       ansible_host: 192.168.20.40
-      lb_vip: 192.168.20.30      
+      lb_vip: 192.168.20.30
+      flux_git_branch: main # note: FluxCD must be bootstrapped manually.
+      flux_git_repo: production # note: FluxCD must be bootstrapped manually.
 
 k3slb:
   hosts:
