@@ -4,8 +4,6 @@ I am running 3-node HA Proxmox cluster that is running K3s clusters (Production 
 
 All Linux machines, building Kubernetes K3s (HA or single node cluster), K3s agents join, starships terminal setup and few more bits and bobs are fully automated with **Ansible**.
 
-My goal is to use GitOps approach and practices when working with Kubernetes and have everything automated and stored in GitHub.
-
 ## Hardware:
 
 - 3x Lenovo ThinkCentre M720Q
@@ -19,6 +17,6 @@ My goal is to use GitOps approach and practices when working with Kubernetes and
 
 ![Proxmox Virtual Environment](./ansible/site/assets/pve_summary.png)
 
-## More details:
+## K3s Kubernetes cluster configuration with Ansible:
 
 https://github.com/rtdevx/homelab/tree/main/ansible/site#readme
