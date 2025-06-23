@@ -58,6 +58,7 @@
     name:
       - fail2ban
       - fontconfig # note: required for task: configure_linux_terminal.yml
+      - tree
     state: latest
 
 # info: Configure Starship prompt
