@@ -45,6 +45,7 @@
 # info: Enable kubectl shell auto-completion for k3s user
 
 # note: https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#enable-kubectl-autocompletion
+# note: "complete -o default -F __start_kubectl k" string added to bashrc file (role: base)
 
 - name: Install bash-completion
   tags: k3s
