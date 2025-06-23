@@ -41,3 +41,27 @@
     group: "k3s"
     mode: '0700'  
   become: true
+
+# info: Enable kubectl shell auto-completion for k3s user
+
+# note: https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#enable-kubectl-autocompletion
+
+- name: Install bash-completion
+  tags: k3s
+  apt:
+    name:
+      - bash-completion
+    state: present
+    update_cache: true
+
+- name: Configure bash-completion
+  shell: |
+    kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl > /dev/null    
+  changed_when: false
+
+- name: Set permissions for kubectl completion file
+  file:
+    path: /etc/bash_completion.d/kubectl
+    owner: root
+    group: root
+    mode: '0644'
