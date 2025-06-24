@@ -1,2 +1,0 @@
-machine:
-    type: worker # Defines the role of the machine within the cluster.
