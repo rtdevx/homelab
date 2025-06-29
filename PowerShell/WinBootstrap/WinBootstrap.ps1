@@ -132,8 +132,9 @@ Invoke-WebRequest -Uri $ScriptUrl -OutFile $ScriptPath
 
 # Create the Scheduled Task using schtasks
 schtasks /Create /TN "$TaskFolder\$TaskName" /F /TR "powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File $ScriptPath" `
-/SC ONIDLE /RU "SYSTEM"
+#/SC ONIDLE /RU "SYSTEM"
 #/SC ONEVENT /EC Security /MO "4800" /RU "SYSTEM"
+/SC ONEVENT /EC System /MO "259" /RU "SYSTEM" # Run task when NTP Client provider periodic status runs.
 
 Write-Host "Scheduled Task '$TaskName' created in folder '$TaskFolder', executing script from '$ScriptPath'."
 
