@@ -70,6 +70,7 @@ $apps = @(
     @{name = "mcmilk.7zip-zstd" },
     @{name = "Rufus.Rufus" },    
     @{name = "NordSecurity.NordVPN" },
+    @{name = "Cloudflare.cloudflared" },    
     @{name = "Notepad++.Notepad++" },  
     @{name = "DominikReichl.KeePass" },    
     @{name = "Git.Git" }, 
