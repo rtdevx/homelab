@@ -71,6 +71,7 @@ $apps = @(
     @{name = "Rufus.Rufus" },    
     @{name = "NordSecurity.NordVPN" },
     @{name = "Cloudflare.cloudflared" },    
+    @{name = "Cloudflare.Warp" },    
     @{name = "Notepad++.Notepad++" },  
     @{name = "DominikReichl.KeePass" },    
     @{name = "Git.Git" }, 
