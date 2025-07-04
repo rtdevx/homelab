@@ -78,6 +78,7 @@ $apps = @(
     @{name = "OpenJS.NodeJS.LTS" },     
     @{name = "Microsoft.VisualStudioCode" }, 
     @{name = "WinDirStat.WinDirStat" },
+    @{name = "ShiningLight.OpenSSL" },
     @{name = "Google.Chrome" }, 
     @{name = "Mozilla.Firefox" }, 
     @{name = "QNAP.Qsync" },
