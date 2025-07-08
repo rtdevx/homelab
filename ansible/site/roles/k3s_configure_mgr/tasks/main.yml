@@ -68,11 +68,21 @@
     mode: '0644'
 
 # info: Install sops and age for secrets management
+
+# todo: Currently sops is not installed via apt, but via ansible-galaxy collection community.sops. Change if available via apt.
+
 - name: Install sops and age for secrets management
   tags: apt
   apt:
     name:
-      - sops # note: Encryption tool for managing secrets
+#      - sops # note: Encryption tool for managing secrets
       - age # note: Tool for generating public/private key pairs for encryption
     state: present
-    update_cache: true    
+    update_cache: true
+
+- name: Install SOPS using community.sops role
+  include_role:
+    name: community.sops.install # note: Collection is installed via "configure_ansible_hosts.yml" playbook on ansiblehosts
+  vars:
+    sops_source: github         # or 'system' if available via apt
+    sops_version: latest        # or specify a version like '3.8.1'

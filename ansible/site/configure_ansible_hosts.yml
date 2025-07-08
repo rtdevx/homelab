@@ -1,0 +1,11 @@
+---
+
+# info: Ansible Hosts
+
+- name: Install required ansible-galaxy collections
+  hosts: ansiblehosts
+  tasks:
+  - name: Install sops ansible-galaxy collection
+    shell: |
+      ansible-galaxy collection install community.sops # note: collection used in "k3s_configure_mgr" role for installing sops
+    become: true
