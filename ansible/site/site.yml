@@ -36,6 +36,10 @@
 
 # info: Role-Specific Playbooks
 
+# info: Ansible Hosts
+
+- import_playbook: configure_ansible_hosts.yml
+
 # info: Docker
 
 # Install Docker, initialize swarm and join mgrs and workers
