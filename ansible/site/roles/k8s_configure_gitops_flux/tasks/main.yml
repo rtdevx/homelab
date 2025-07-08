@@ -1,4 +1,7 @@
 ---
+
+# todo: Ensure FluxCD is latest version and task is marked as "ok" instead of "changed" in the output
+
 - name: Install FluxCD on K3s Manager
   shell: |
     curl -s https://fluxcd.io/install.sh | sudo bash
