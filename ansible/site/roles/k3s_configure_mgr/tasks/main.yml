@@ -82,7 +82,7 @@
 
 - name: Install SOPS using community.sops role
   include_role:
-    name: community.sops.install
+    name: community.sops.install # note: Collection is installed via "configure_ansible_hosts.yml" playbook on ansiblehosts
   vars:
     sops_source: github         # or 'system' if available via apt
     sops_version: latest        # or specify a version like '3.8.1'
