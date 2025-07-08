@@ -48,7 +48,7 @@
 # note: "complete -o default -F __start_kubectl k" string added to bashrc file (role: base)
 
 - name: Install bash-completion
-  tags: k3s
+  tags: k3s,apt
   apt:
     name:
       - bash-completion
@@ -66,3 +66,13 @@
     owner: root
     group: root
     mode: '0644'
+
+# info: Install sops and age for secrets management
+- name: Install sops and age for secrets management
+  tags: apt
+  apt:
+    name:
+      - sops
+      - age
+    state: present
+    update_cache: true    
