@@ -71,6 +71,8 @@
 
 # todo: Currently sops is not installed via apt, but via ansible-galaxy collection community.sops. Change if available via apt.
 
+# note: sops is integrated with flux so doesn't have to be installed in the cluster. Installing on the manager for managing secrets from outside the cluster.
+
 - name: Install sops and age for secrets management
   tags: apt
   apt:
