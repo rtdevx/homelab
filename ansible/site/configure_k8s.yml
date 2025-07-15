@@ -8,3 +8,8 @@
     - k8s_configure_gitops_flux
   vars_files:
     - roles/k8s_configure_gitops_flux/vars/secrets.encrypted
+
+- hosts: k3smgr,k3ssvr,k3sagt
+  become: true
+  roles:
+    - k8s_configure_encryption    
