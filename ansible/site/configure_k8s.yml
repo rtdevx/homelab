@@ -2,6 +2,8 @@
 
 # info: Configure Kubernetes
 
+# info: Configure Flux GitOps for Kubernetes
+
 - hosts: k3smgr
   become: true
   roles:
@@ -9,7 +11,10 @@
   vars_files:
     - roles/k8s_configure_gitops_flux/vars/secrets.encrypted
 
+# info: Configure Kubernetes cluster with encryption and storage protocols
+
 - hosts: k3smgr,k3ssvr,k3sagt
   become: true
   roles:
-    - k8s_configure_encryption    
+    - k8s_configure_encryption
+    - k8s_configure_storage
