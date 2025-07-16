@@ -1,0 +1,10 @@
+---
+
+# info: Apt install iscsi protocol packages
+
+- name: Install open-iscsi
+  apt:
+    name:
+      - open-iscsi
+    state: present
+    update_cache: true
