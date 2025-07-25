@@ -21,3 +21,5 @@
   vars:
     sops_source: github         # or 'system' if available via apt
     sops_version: latest        # or specify a version like '3.8.1'
+
+# todo: Inject private key into secrets in flux-system namespace for age decryption

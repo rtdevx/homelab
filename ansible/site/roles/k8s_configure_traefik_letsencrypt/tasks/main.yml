@@ -1,0 +1,56 @@
+---
+# info: Backup the existing Traefik configuration file
+
+- name: Create /root/backup if it does not exist
+  tags: traefik,backup
+  file:
+    path: /root/backup
+    state: directory
+    mode: '0600'
+
+- name: Check if traefik.yaml.bak backup file exists
+  tags: traefik,backup
+  stat:
+    path: /root/backup/traefik.yaml.bak
+  register: traefik_yaml_bkp_stat
+
+- name: Get sha1sum of the traefik configuration file
+  stat:
+    path: /var/lib/rancher/k3s/server/manifests/traefik.yaml
+    checksum_algorithm: sha1
+    get_checksum: yes
+  register: traefik_orig_sha1
+
+- name: Get sha1sum of the traefik backup configuration file
+  stat:
+    path: /root/backup/traefik.yaml.bak
+    checksum_algorithm: sha1
+    get_checksum: yes
+  register: traefik_bkp_sha1
+  when: 
+    - traefik_yaml_bkp_stat.stat.exists
+
+- name: Backup existing Traefik backup configuration file if it's different than the original
+  tags: traefik,backup
+  copy:
+    src: /root/backup/traefik.yaml.bak
+    dest: /root/backup/traefik.yaml.bak.{{ ansible_date_time.iso8601_basic_short }}
+    mode: '0600'
+    remote_src: yes
+  when: >- 
+    (traefik_yaml_bkp_stat.stat.exists) and
+    (traefik_orig_sha1.stat.checksum != traefik_bkp_sha1.stat.checksum)
+
+- name: Backup existing Traefik configuration file
+  tags: traefik,backup
+  copy:
+    src: /var/lib/rancher/k3s/server/manifests/traefik.yaml
+    dest: /root/backup/traefik.yaml.bak
+    mode: '0600'    
+    remote_src: yes
+  when: >- # note: Backup the file if backup doesn't exist OR if grep didn't find a version match between original and backup. File will be updated with the correct values.
+    (not traefik_yaml_bkp_stat.stat.exists) or
+    (traefik_orig_sha1.stat.checksum != traefik_bkp_sha1.stat.checksum)
+
+# info: Add Let's Encrypt configuration to Traefik
+

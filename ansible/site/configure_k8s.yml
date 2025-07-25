@@ -18,3 +18,10 @@
   roles:
     - k8s_configure_encryption
     - k8s_configure_storage
+
+# info: Configure trafik ingress controller with Let's Encrypt
+
+- hosts: k3ssvr[0]
+  become: true
+  roles:
+    - k8s_configure_traefik_letsencrypt
