@@ -54,3 +54,4 @@
 
 # info: Add Let's Encrypt configuration to Traefik
 
+# note: Skipping this task for now. See "Upgrading K3s" documentation for more details.
