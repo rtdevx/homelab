@@ -79,7 +79,7 @@ $apps = @(
     @{name = "OpenJS.NodeJS.LTS" },     
     @{name = "Microsoft.VisualStudioCode" }, 
     @{name = "WinDirStat.WinDirStat" },
-    @{name = "ShiningLight.OpenSSL" },
+#    @{name = "ShiningLight.OpenSSL" },
     @{name = "Google.Chrome" }, 
     @{name = "Mozilla.Firefox" }, 
     @{name = "QNAP.Qsync" },
@@ -136,11 +136,7 @@ Invoke-WebRequest -Uri $ScriptUrl -OutFile $ScriptPath
 # Create the Scheduled Task using schtasks
 schtasks /Create /TN "$TaskFolder\$TaskName" /F /TR "powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File $ScriptPath" `
 /SC ONEVENT /EC System /MO *[System/EventID=44] /RU "SYSTEM"
-#/SC ONEVENT /EC System /RU "SYSTEM" /MO "44"
 #/SC ONIDLE /RU "SYSTEM" /I 1
-#/SC ONEVENT /EC System /MO "44" /RU "SYSTEM"
-#/SC ONEVENT /EC System /MO "259" /RU "SYSTEM"
-#/SC ONEVENT /EC Security /MO "4800" /RU "SYSTEM"
 
 Write-Host "Scheduled Task '$TaskName' created in folder '$TaskFolder', executing script from '$ScriptPath'."
 
