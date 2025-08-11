@@ -56,6 +56,13 @@ $UserAccount = Get-LocalUser -Name $NewAdmin
 $UserAccount | Set-LocalUser -Password $Password
 } else { Write-Host `n" User 'Administrator' doesn't exist."`n -ForegroundColor Yellow } 
 
+#Create logs folder
+$LogsFolder = "C:\Logs"
+
+If(!(Test-Path -PathType container $LogsFolder)) {
+    New-Item -ItemType Directory -Path $LogsFolder      
+}
+
 ### WINGET ###
 
 #Upgrade existing winget packages
