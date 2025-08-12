@@ -81,7 +81,8 @@ $apps = @(
     @{name = "Cloudflare.Warp" },  
     @{name = "Amazon.AWSCLI" }, 
     @{name = "Hashicorp.Terraform" },    
-    @{name = "Notepad++.Notepad++" },    
+    @{name = "Notepad++.Notepad++" },
+    @{name = "hello-efficiency-inc.raven-reader" },       
     @{name = "DominikReichl.KeePass" },    
     @{name = "Git.Git" }, 
     @{name = "OpenJS.NodeJS.LTS" },     
@@ -116,10 +117,6 @@ Foreach ($app in $apps) {
 #Some apps don't support -- scope machine
 Write-Output `n"Installing Trading View (default scope)."`n
 winget install -e --id TradingView.TradingViewDesktop
-#Write-Output `n"QuiteRSS (default scope)."`n
-#winget install -e --id QuiteRSS.QuiteRSS
-#Write-Output `n"OpenSSL (default scope)."`n
-#winget install -e --id ShiningLight.OpenSSL
 #Write-Output `n"Discord (default scope)."`n
 #winget install -e --id Discord.Discord
 
