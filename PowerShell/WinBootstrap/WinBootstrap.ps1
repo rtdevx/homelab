@@ -96,7 +96,7 @@ $apps = @(
     @{name = "Lenovo.SystemUpdate" },
     @{name = "GNU.Wget2" },
     @{name = "Obsidian.Obsidian" },
-    @{name = "Hugo.Hugo" },    
+    @{name = "Hugo.Hugo.Extended" },    
     @{name = "Zoom.Zoom" },    
     # Starthip Cross-Shell Prompt for Windows Terminal (https://starship.rs/)
     @{name = "Starship.Starship" }
