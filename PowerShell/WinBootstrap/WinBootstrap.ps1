@@ -184,6 +184,7 @@ start-process code -windowstyle Hidden -ArgumentList "--install-extension tomoki
 start-process code -windowstyle Hidden -ArgumentList "--install-extension mechatroner.rainbow-csv --force" -PassThru -Wait
 start-process code -windowstyle Hidden -ArgumentList "--install-extension aaron-bond.better-comments --force" -PassThru -Wait
 start-process code -windowstyle Hidden -ArgumentList "--install-extension hnw.vscode-auto-open-markdown-preview --force" -PassThru -Wait
+start-process code -windowstyle Hidden -ArgumentList "--install-extension HashiCorp.terraform --force" -PassThru -Wait
 
 # todo: https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/vscode/settings.json can be copied to C:\Users\robk\AppData\Roaming\Code\User\settings.json in order to make Better Comments work out of the box. Should be applied automatically on a schedule or during update.
 
