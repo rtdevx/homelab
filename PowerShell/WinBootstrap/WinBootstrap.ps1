@@ -78,6 +78,7 @@ $apps = @(
     @{name = "Rufus.Rufus" },
     @{name = "GnuPG.Gpg4win" },    
     #@{name = "NordSecurity.NordVPN" },
+    @{name = "ProtonTechnologies.ProtonVPN" },    
     @{name = "Cloudflare.cloudflared" },    
     @{name = "Cloudflare.Warp" },  
     @{name = "Amazon.AWSCLI" }, 
