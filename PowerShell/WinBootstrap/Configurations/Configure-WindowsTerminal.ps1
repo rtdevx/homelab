@@ -32,8 +32,8 @@ If(-not($Content | Select-String -Pattern "Terminal-Icons")) {
 Write-Host `n"Enabling IntelliSense in Windows Terminal."`n -ForegroundColor Green
 If(-not($Content | Select-String -Pattern "PSReadLine")) {
         
-    Add-Content -Path $PROFILE -Value "Install-Module -Name PSReadLine -Scope CurrentUser"
-    Add-Content -Path $PROFILE -Value "Import-Module PSReadLine -Force"
+    Add-Content -Path $PROFILE -Value "Install-Module -Name PSReadLine -Scope CurrentUser -Force -SkipPublisherCheck"
+    Add-Content -Path $PROFILE -Value "Import-Module PSReadLine"
     Add-Content -Path $PROFILE -Value "Set-PSReadLineOption -PredictionSource History"
     
 } else { Write-Host "Intellisense is already installed. Skipping." -ForegroundColor Yellow }
