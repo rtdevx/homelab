@@ -73,7 +73,8 @@ Write-Output `n"Installing Apps"`n
 $apps = @(
     @{name = "Microsoft.DotNet.SDK.7" }, 
     @{name = "Microsoft.DotNet.DesktopRuntime.8" },
-    @{name = "Microsoft.PowerToys" },     
+    @{name = "Microsoft.PowerToys" },   
+    @{name = "Microsoft.WindowsTerminal" },      
     @{name = "mcmilk.7zip-zstd" },
     @{name = "Rufus.Rufus" },
     @{name = "GnuPG.Gpg4win" },    
