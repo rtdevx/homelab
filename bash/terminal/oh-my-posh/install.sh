@@ -2,14 +2,14 @@
 # Execute: curl https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/bash/terminal/oh-my-posh/install.sh | bash
 
 # Variables
-poshtheme="gruvbox.omp.json"
+poshtheme="gruvbox.omp.json" # themes: https://ohmyposh.dev/docs/themes
 
 # Exit on error
 set -e
 
 echo "Installing pre-resquisites..."
 
-sudo apt update && sudo apt install -y git curl zip unzip
+sudo apt update && sudo apt install -y git curl zip unzip #zsh
 
 echo "Installing Oh My Posh..."
 
@@ -29,7 +29,7 @@ chmod u+rw ~/.poshthemes/*.json
 # Add Oh My Posh init to .bashrc
 if ! grep -q "oh-my-posh init bash" ~/.bashrc; then
   # themes: https://ohmyposh.dev/docs/themes
-  echo 'eval "$(oh-my-posh init bash --config ~/.poshthemes/$poshtheme)"' >> ~/.bashrc
+  echo 'eval "$(oh-my-posh init bash --config ~/.poshthemes/${poshtheme})"' >> ~/.bashrc
   echo "Oh My Posh configuration added to .bashrc"
 fi
 
