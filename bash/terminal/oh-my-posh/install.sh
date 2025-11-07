@@ -33,7 +33,7 @@ fi
 # INFO: Install Oh My Posh
 echo "Installing Oh My Posh..."
 export PATH=$HOME/.local/bin:$PATH
-curl -s https://ohmyposh.dev/install.sh | zsh -s -- -d ~/.local/bin
+curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.local/bin
 
 # INFO: Set up theme
 mkdir -p ~/.poshthemes
