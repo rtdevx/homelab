@@ -2,7 +2,7 @@
 # Execute: curl https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/bash/terminal/oh-my-posh/install.sh | bash
 
 # Variables
-poshtheme="clean-detailed.omp.json" # themes: https://ohmyposh.dev/docs/themes
+poshtheme="powerlevel10k_rainbow.omp.json" # themes: https://ohmyposh.dev/docs/themes
 #powerlevel10k_rainbow.omp.json, quick-term.omp.json, spaceship.omp.json, clean-detailed.omp.json
 
 # Exit on error
@@ -38,6 +38,9 @@ else
 fi
 
 echo "Oh My Posh configuration updated in .profile"
+
+# Enabling upgrades
+oh-my-posh enable upgrade
 
 # Installing Hack Nerd Font specifically. Matches Windows terminal settings.
 oh-my-posh font install hack
