@@ -27,10 +27,22 @@ curl -s https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/m
 chmod u+rw ~/.poshthemes/*.json
 
 # Add Oh My Posh init to .profile
-if ! grep -q "oh-my-posh init bash" ~/.profile; then
-  echo "eval \"\$(oh-my-posh init bash --config ~/.poshthemes/$poshtheme)\"" >> ~/.profile
-  echo "Oh My Posh configuration added to .profile"
+#if ! grep -q "oh-my-posh init bash" ~/.profile; then
+#  echo "eval \"\$(oh-my-posh init bash --config ~/.poshthemes/$poshtheme)\"" >> ~/.profile
+#  echo "Oh My Posh configuration added to .profile"
+#fi
+
+# Define the line to inject
+newline="eval \"\$(oh-my-posh init bash --config ~/.poshthemes/$poshtheme)\""
+
+# If the line exists, replace it; otherwise, append it
+if grep -q "oh-my-posh init bash" ~/.profile; then
+  sed -i "s|^eval .*oh-my-posh init bash.*|$newline|" ~/.profile
+else
+  echo "$newline" >> ~/.profile
 fi
+
+echo "Oh My Posh configuration updated in .profile"
 
 # Installing Hack Nerd Font specifically. Matches Windows terminal settings.
 oh-my-posh font install hack
