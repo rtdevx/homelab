@@ -2,19 +2,19 @@
 # Execute: curl https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/bash/terminal/oh-my-posh/install.sh | bash
 
 # INFO: Variables
-poshtheme="quick-term.omp.json" # themes: https://ohmyposh.dev/docs/themes
+poshtheme="powerlevel10k_rainbow.omp.json" # themes: https://ohmyposh.dev/docs/themes
 #powerlevel10k_rainbow.omp.json, quick-term.omp.json, spaceship.omp.json, clean-detailed.omp.json
 
 # Exit on error
 set -e
 
+# INFO: Install pre-requisites
 echo "Installing pre-resquisites..."
 
-sudo apt update && sudo apt install -y git curl zip unzip zsh
-
-echo "Installing Oh My Posh..."
+sudo apt update && sudo apt upgrade -y && sudo apt install -y git curl zip unzip zsh
 
 # INFO: Install Oh My Posh
+echo "Installing Oh My Posh..."
 export PATH=$HOME/.local/bin:$PATH
 curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.local/bin
 
