@@ -29,7 +29,7 @@ chmod u+rw ~/.poshthemes/*.json
 # Add Oh My Posh init to .bashrc
 if ! grep -q "oh-my-posh init bash" ~/.bashrc; then
   #echo 'eval "$(oh-my-posh init bash --config ~/.poshthemes/${poshtheme})"' >> ~/.bashrc
-  echo "eval \"\$(oh-my-posh init bash --config ~/.poshthemes/\${poshtheme})\"" >> ~/.bashrc
+  echo "eval \"\$(oh-my-posh init bash --config ~/.poshthemes/$poshtheme)\"" >> ~/.bashrc
   echo "Oh My Posh configuration added to .bashrc"
 fi
 
