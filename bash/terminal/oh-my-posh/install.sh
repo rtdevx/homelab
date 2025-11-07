@@ -13,6 +13,23 @@ echo "Installing pre-resquisites..."
 
 sudo apt update && sudo apt upgrade -y && sudo apt install -y git curl zip unzip zsh
 
+# INFO: Set default shell
+echo "Setting default shell to zsh..."
+
+# Get current shell from /etc/passwd
+currentshell=$(getent passwd "$USER" | cut -d: -f7)
+
+# Desired shell
+targetshell="/bin/zsh"
+
+# Compare and update if needed
+if [ "$currentshell" != "$targetshell" ]; then
+  echo "Changing shell to Zsh..."
+  chsh -s "$targetshell"
+else
+  echo "Shell is already set to Zsh. Skipping."
+fi
+
 # INFO: Install Oh My Posh
 echo "Installing Oh My Posh..."
 export PATH=$HOME/.local/bin:$PATH
@@ -41,22 +58,5 @@ oh-my-posh enable upgrade
 
 # INFO: Installing Hack Nerd Font specifically. Matches Windows terminal settings.
 oh-my-posh font install hack
-
-# INFO: Set default shell
-echo "Setting default shell to zsh..."
-
-# Get current shell from /etc/passwd
-currentshell=$(getent passwd "$USER" | cut -d: -f7)
-
-# Desired shell
-targetshell="/bin/zsh"
-
-# Compare and update if needed
-if [ "$currentshell" != "$targetshell" ]; then
-  echo "Changing shell to Zsh..."
-  chsh -s "$targetshell"
-else
-  echo "Shell is already set to Zsh. Skipping."
-fi
 
 echo "Installation complete. Restart your terminal or run 'source ~/.zshrc' to apply changes."
