@@ -1,7 +1,7 @@
 #!/bin/bash
 # Execute: curl https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/bash/terminal/oh-my-posh/install.sh | bash
 
-# Variables
+# INFO: Variables
 poshtheme="quick-term.omp.json" # themes: https://ohmyposh.dev/docs/themes
 #powerlevel10k_rainbow.omp.json, quick-term.omp.json, spaceship.omp.json, clean-detailed.omp.json
 
@@ -14,17 +14,14 @@ sudo apt update && sudo apt install -y git curl zip unzip zsh
 
 echo "Installing Oh My Posh..."
 
-# Add Oh My Posh to PATH (if needed)
+# INFO: Install Oh My Posh
 export PATH=$HOME/.local/bin:$PATH
-
-# Install Oh My Posh binary
 curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.local/bin
 
-# Download theme
+# INFO: Set up theme
 mkdir -p ~/.poshthemes
 curl -s https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/$poshtheme -o ~/.poshthemes/$poshtheme
 
-# Make sure themes are readable
 chmod u+rw ~/.poshthemes/*.json
 
 # Define the line to inject
@@ -39,15 +36,27 @@ fi
 
 echo "Oh My Posh configuration updated in .profile"
 
-# Enabling upgrades
+# INFO: Enable Oh My Posh upgrades
 oh-my-posh enable upgrade
 
-# Installing Hack Nerd Font specifically. Matches Windows terminal settings.
+# INFO: Installing Hack Nerd Font specifically. Matches Windows terminal settings.
 oh-my-posh font install hack
 
-# Set default shell
+# INFO: Set default shell
 echo "Setting default shell to zsh..."
-chsh -s /bin/zsh
-#chsh -s /bin/bash $USER
 
-echo "Installation complete. Restart your terminal or run 'source ~/.bashrc' to apply changes."
+# Get current shell from /etc/passwd
+currentshell=$(getent passwd "$USER" | cut -d: -f7)
+
+# Desired shell
+targetshell="/bin/zsh"
+
+# Compare and update if needed
+if [ "$currentshell" != "$targetshell" ]; then
+  echo "Changing shell to Zsh..."
+  chsh -s "$targetshell"
+else
+  echo "Shell is already set to Zsh. Skipping."
+fi
+
+echo "Installation complete. Restart your terminal or run 'source ~/.zshrc' to apply changes."
