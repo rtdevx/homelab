@@ -26,7 +26,7 @@ chmod u+rw ~/.poshthemes/*.json
 
 # Add Oh My Posh init to .bashrc
 if ! grep -q "oh-my-posh init bash" ~/.bashrc; then
-  echo 'eval "$(oh-my-posh init bash --config ~/.poshthemes/jandedobbeleer.omp.json)"' >> ~/.bashrc
+  echo 'eval "$(oh-my-posh init bash --config https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/gruvbox.omp.json)"' >> ~/.bashrc
   echo "Oh My Posh configuration added to .bashrc"
 fi
 
@@ -36,6 +36,9 @@ mkdir ~/tmp
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip -O ~/tmp/nerd-fonts.zip
 sudo unzip ~/tmp/nerd-fonts.zip -d /usr/share/fonts/nerd-fonts
 sudo fc-cache -v -f /usr/share/fonts
+
+# Installing Hack Nerd Font specifically. Matches Windows terminal settings.
+oh-my-posh font install hack
 
 # Set ZSH as your default shell
 chsh -s /bin/zsh $USER
