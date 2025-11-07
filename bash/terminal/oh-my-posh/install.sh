@@ -2,7 +2,7 @@
 # Execute: curl https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/bash/terminal/oh-my-posh/install.sh | bash
 
 # Variables
-poshtheme="gruvbox.omp.json" # themes: https://ohmyposh.dev/docs/themes
+poshtheme="powerlevel10k_rainbow.omp.json" # themes: https://ohmyposh.dev/docs/themes
 
 # Exit on error
 set -e
