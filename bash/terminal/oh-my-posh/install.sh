@@ -2,8 +2,8 @@
 # Execute: curl https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/bash/terminal/oh-my-posh/install.sh | bash
 
 # Variables
-#poshtheme="powerlevel10k_rainbow.omp.json" # themes: https://ohmyposh.dev/docs/themes
-poshtheme="quick-term.omp.json" # themes: https://ohmyposh.dev/docs/themes
+poshtheme="spaceship.omp.json" # themes: https://ohmyposh.dev/docs/themes
+#powerlevel10k_rainbow.omp.json, quick-term.omp.json, spaceship.omp.json
 
 # Exit on error
 set -e
@@ -26,12 +26,6 @@ curl -s https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/m
 
 # Make sure themes are readable
 chmod u+rw ~/.poshthemes/*.json
-
-# Add Oh My Posh init to .profile
-#if ! grep -q "oh-my-posh init bash" ~/.profile; then
-#  echo "eval \"\$(oh-my-posh init bash --config ~/.poshthemes/$poshtheme)\"" >> ~/.profile
-#  echo "Oh My Posh configuration added to .profile"
-#fi
 
 # Define the line to inject
 newline="eval \"\$(oh-my-posh init bash --config ~/.poshthemes/$poshtheme)\""
