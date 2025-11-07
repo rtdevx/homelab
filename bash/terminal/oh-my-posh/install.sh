@@ -1,5 +1,5 @@
-#!/bin/bash
-# Execute: curl https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/bash/terminal/oh-my-posh/install.sh | bash
+#!/bin/zsh
+# Execute: curl https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/zsh/terminal/oh-my-posh/install.sh | zsh
 
 # INFO: Variables
 poshtheme="powerlevel10k_rainbow.omp.json" # themes: https://ohmyposh.dev/docs/themes
@@ -16,7 +16,7 @@ sudo apt update && sudo apt upgrade -y && sudo apt install -y git curl zip unzip
 # INFO: Install Oh My Posh
 echo "Installing Oh My Posh..."
 export PATH=$HOME/.local/bin:$PATH
-curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.local/bin
+curl -s https://ohmyposh.dev/install.sh | zsh -s -- -d ~/.local/bin
 
 # INFO: Set up theme
 mkdir -p ~/.poshthemes
@@ -25,11 +25,11 @@ curl -s https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/m
 chmod u+rw ~/.poshthemes/*.json
 
 # Define the line to inject
-newline="eval \"\$(oh-my-posh init bash --config ~/.poshthemes/$poshtheme)\""
+newline="eval \"\$(oh-my-posh init zsh --config ~/.poshthemes/$poshtheme)\""
 
 # If the line exists, replace it; otherwise, append it
-if grep -q "oh-my-posh init bash" ~/.profile; then
-  sed -i "s|^eval .*oh-my-posh init bash.*|$newline|" ~/.profile
+if grep -q "oh-my-posh init zsh" ~/.profile; then
+  sed -i "s|^eval .*oh-my-posh init zsh.*|$newline|" ~/.profile
 else
   echo "$newline" >> ~/.profile
 fi
