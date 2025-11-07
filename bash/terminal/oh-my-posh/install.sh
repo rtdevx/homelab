@@ -26,13 +26,14 @@ chmod u+rw ~/.poshthemes/*.json
 
 # Add Oh My Posh init to .bashrc
 if ! grep -q "oh-my-posh init bash" ~/.bashrc; then
+  # themes: https://ohmyposh.dev/docs/themes
   echo 'eval "$(oh-my-posh init bash --config https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/gruvbox.omp.json)"' >> ~/.bashrc
   echo "Oh My Posh configuration added to .bashrc"
 fi
 
 # Install Nerd Fonts
 
-mkdir ~/tmp
+mkdir -p ~/tmp
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip -O ~/tmp/nerd-fonts.zip
 sudo unzip ~/tmp/nerd-fonts.zip -d /usr/share/fonts/nerd-fonts
 sudo fc-cache -v -f /usr/share/fonts
