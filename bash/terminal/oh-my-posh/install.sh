@@ -15,10 +15,10 @@ sudo apt update && sudo apt install -y git curl zip unzip zsh
 echo "Installing Oh My Posh..."
 
 # Install Oh My Posh binary
-curl -s https://ohmyposh.dev/install.sh | bash
+curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/bin
 
 # Add Oh My Posh to PATH (if needed)
-export PATH=$HOME/.local/bin:$PATH
+#export PATH=$HOME/.local/bin:$PATH
 
 # Download theme
 mkdir -p ~/.poshthemes
