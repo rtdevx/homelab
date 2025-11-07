@@ -26,11 +26,10 @@ curl -s https://ohmyposh.dev/themes/$poshtheme -o ~/.poshthemes/$poshtheme
 # Make sure themes are readable
 chmod u+rw ~/.poshthemes/*.json
 
-# Add Oh My Posh init to .bashrc
-if ! grep -q "oh-my-posh init bash" ~/.bashrc; then
-  #echo 'eval "$(oh-my-posh init bash --config ~/.poshthemes/${poshtheme})"' >> ~/.bashrc
-  echo "eval \"\$(oh-my-posh init bash --config ~/.poshthemes/$poshtheme)\"" >> ~/.bashrc
-  echo "Oh My Posh configuration added to .bashrc"
+# Add Oh My Posh init to .profile
+if ! grep -q "oh-my-posh init bash" ~/.profile; then
+  echo "eval \"\$(oh-my-posh init bash --config ~/.poshthemes/$poshtheme)\"" >> ~/.profile
+  echo "Oh My Posh configuration added to .profile"
 fi
 
 # Installing Hack Nerd Font specifically. Matches Windows terminal settings.
