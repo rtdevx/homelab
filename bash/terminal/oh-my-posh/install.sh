@@ -1,6 +1,10 @@
 #!/bin/bash
-
 # Execute: curl https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/bash/terminal/oh-my-posh/install.sh | bash
+
+# Variables
+
+poshtheme="gruvbox.omp.json"
+
 
 # Exit on error
 set -e
@@ -19,7 +23,7 @@ export PATH=$HOME/.local/bin:$PATH
 
 # Download theme
 mkdir -p ~/.poshthemes
-curl -s https://ohmyposh.dev/themes/gruvbox.omp.json -o ~/.poshthemes/gruvbox.omp.json
+curl -s https://ohmyposh.dev/themes/$poshtheme -o ~/.poshthemes/$poshtheme
 
 # Make sure themes are readable
 chmod u+rw ~/.poshthemes/*.json
@@ -27,7 +31,7 @@ chmod u+rw ~/.poshthemes/*.json
 # Add Oh My Posh init to .bashrc
 if ! grep -q "oh-my-posh init bash" ~/.bashrc; then
   # themes: https://ohmyposh.dev/docs/themes
-  echo 'eval "$(oh-my-posh init bash --config ~/.poshthemes/gruvbox.omp.json)"' >> ~/.bashrc
+  echo 'eval "$(oh-my-posh init bash --config ~/.poshthemes/$poshtheme)"' >> ~/.bashrc
   echo "Oh My Posh configuration added to .bashrc"
 fi
 
