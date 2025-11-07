@@ -21,7 +21,7 @@ export PATH=$HOME/.local/bin:$PATH
 
 # Download theme
 mkdir -p ~/.poshthemes
-curl -s https://ohmyposh.dev/themes/$poshtheme -o ~/.poshthemes/$poshtheme
+curl -s https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/$poshtheme -o ~/.poshthemes/$poshtheme
 
 # Make sure themes are readable
 chmod u+rw ~/.poshthemes/*.json
