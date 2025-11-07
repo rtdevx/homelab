@@ -1,7 +1,17 @@
 #!/bin/bash
 
+# Execute: curl https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/bash/terminal/oh-my-posh/install.sh | bash
+
 # Exit on error
 set -e
+
+echo "Installing pre-resquisites..."
+
+# Update package list
+sudo apt update
+
+# Install packages
+sudo apt install -y unzip
 
 echo "Installing Oh My Posh..."
 
