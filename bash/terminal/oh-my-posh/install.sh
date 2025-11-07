@@ -46,7 +46,8 @@ oh-my-posh enable upgrade
 oh-my-posh font install hack
 
 # Set default shell
-sudo chsh -s /bin/zsh $USER
+echo "Setting default shell to zsh..."
+chsh -s /bin/zsh $USER
 #chsh -s /bin/bash $USER
 
 echo "Installation complete. Restart your terminal or run 'source ~/.bashrc' to apply changes."
