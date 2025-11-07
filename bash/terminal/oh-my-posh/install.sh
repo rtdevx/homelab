@@ -7,11 +7,7 @@ set -e
 
 echo "Installing pre-resquisites..."
 
-# Update package list
-sudo apt update
-
-# Install packages
-sudo apt install -y unzip
+sudo apt update && sudo apt install -y git curl zsh zip unzip
 
 echo "Installing Oh My Posh..."
 
@@ -33,5 +29,15 @@ if ! grep -q "oh-my-posh init bash" ~/.bashrc; then
   echo 'eval "$(oh-my-posh init bash --config ~/.poshthemes/jandedobbeleer.omp.json)"' >> ~/.bashrc
   echo "Oh My Posh configuration added to .bashrc"
 fi
+
+# Install Nerd Fonts
+
+mkdir ~/tmp
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip -O ~/tmp/nerd-fonts.zip
+sudo unzip ~/tmp/nerd-fonts.zip -d /usr/share/fonts/nerd-fonts
+sudo fc-cache -v -f /usr/share/fonts
+
+# Set ZSH as your default shell
+chsh -s /bin/zsh $USER
 
 echo "Installation complete. Restart your terminal or run 'source ~/.bashrc' to apply changes."
