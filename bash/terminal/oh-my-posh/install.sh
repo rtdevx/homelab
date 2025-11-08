@@ -42,7 +42,7 @@ curl -s https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/m
 chmod u+rw ~/.poshthemes/*.json
 
 # Define the line to inject
-newline="eval \"\$(oh-my-posh --init --shell zsh --config ~/.poshthemes/$poshtheme)\""
+newline="eval \"\$(oh-my-posh init zsh --config ~/.poshthemes/$poshtheme)\""
 
 # If the line exists, replace it; otherwise, append it
 if grep -q "oh-my-posh init zsh" ~/.profile; then
