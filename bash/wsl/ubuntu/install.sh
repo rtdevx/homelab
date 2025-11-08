@@ -185,3 +185,71 @@ for REPO_URL in "${REPO_URLS[@]}"; do
         echo "Failed to clone $REPO_URL"
     fi
 done
+
+# INFO: Configure VSCode settings
+
+# Check if VS Code CLI is available
+if ! command -v code &> /dev/null; then
+    echo "VS Code CLI 'code' not found. Please install VS Code and ensure 'code' is in your PATH."
+    exit 1
+fi
+
+# List of extensions to install
+extensions=(
+  redhat.vscode-yaml
+  github.copilot
+  github.copilot-chat
+  johnpapa.vscode-peacock
+  ms-azuretools.vscode-docker
+  esbenp.prettier-vscode
+  eamodio.gitlens
+  formulahendry.code-runner
+  ms-vsliveshare.vsliveshare
+  pkief.material-icon-theme
+  tomoki1207.pdf
+  mechatroner.rainbow-csv
+  aaron-bond.better-comments
+  hnw.vscode-auto-open-markdown-preview
+  HashiCorp.terraform
+)
+
+# Loop through and install each extension
+for ext in "${extensions[@]}"; do
+    echo "Installing: $ext"
+    code --install-extension "$ext" --force
+done
+
+echo "All extensions installed."
+
+# INFO: Configure zsh aliases and settings
+
+echo "Configuring zsh aliases and settings..."
+# Define aliases and settings
+zsh_config='
+# Aliases
+alias ll="ls -la"
+alias gs="git status"
+alias gp="git pull"
+alias gc="git commit"
+alias gco="git checkout"
+alias k="kubectl"
+alias kns="kubectl config set-context --current --namespace"
+'
+# Append to .zshrc if not already present
+if ! grep -Fxq "# Aliases" ~/.zshrc; then
+  echo "$zsh_config" >> ~/.zshrc
+  echo "Added aliases and settings to ~/.zshrc"
+else
+  echo "Aliases and settings already exist in ~/.zshrc"
+fi  
+
+# Enable zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+
+# Append source line to .zshrc if not already present
+if ! grep -Fxq "source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ~/.zshrc; then
+  echo "source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc
+  echo "Enabled zsh-autosuggestions in ~/.zshrc"
+else
+  echo "zsh-autosuggestions already enabled in ~/.zshrc"
+fi
