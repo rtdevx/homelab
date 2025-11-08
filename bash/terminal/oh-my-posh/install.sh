@@ -32,7 +32,22 @@ fi
 
 # INFO: Install Oh My Posh
 echo "Installing Oh My Posh..."
+
+# Ensure ~/.local/bin is in PATH
 export PATH=$HOME/.local/bin:$PATH
+
+homepath='export PATH=$HOME/.local/bin:$PATH'
+
+for file in ~/.zshrc ~/.zprofile; do
+  if ! grep -Fxq "$homepath" "$file"; then
+    echo "$homepath" >> "$file"
+    echo "Added PATH export to $file"
+  else
+    echo "PATH export already exists in $file"
+  fi
+done
+
+# Install Oh My Posh
 curl -s https://ohmyposh.dev/install.sh | bash
 
 # INFO: Set up theme
