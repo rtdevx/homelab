@@ -124,6 +124,10 @@ sudo apt install -y terraform
 # Verify installation
 terraform --version
 
+# INFO: Install AWS CLI
+
+sudo snap install aws-cli --classic
+
 # INFO: Configure git
 
 echo "Configuring git..."
