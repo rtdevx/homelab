@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 # Execute: curl https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/bash/wsl/ubuntu/install.sh | bash
 
 # INFO: Install Oh My Posh on WSL Ubuntu with zsh
