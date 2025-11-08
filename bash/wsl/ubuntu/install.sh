@@ -250,7 +250,13 @@ else
 fi  
 
 # Enable zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+#if [ ! -d "$HOME/.zsh/zsh-autosuggestions" ]; then
+#  git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.zsh/zsh-autosuggestions"
+#fi
+
+# Remove existing directory to ensure fresh clone
+rm -rf "$HOME/.zsh/zsh-autosuggestions"
+git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.zsh/zsh-autosuggestions"
 
 # Append source line to .zshrc if not already present
 if ! grep -Fxq "source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ~/.zshrc; then
