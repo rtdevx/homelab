@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Execute: curl https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/bash/motd/install.sh | bash
 
 # Disable all current default MOTD’s daemon scripts
