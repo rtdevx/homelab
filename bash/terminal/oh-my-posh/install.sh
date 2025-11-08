@@ -82,6 +82,24 @@ fi
 
 echo "Oh My Posh configuration updated in .zshrc"
 
+# INFO: Install zsh-autosuggestions plugin
+
+echo "Installing zsh-autosuggestions plugin..."
+
+# Define the plugin block
+plugin_block='plugins=(
+zsh-autosuggestions
+git
+)'
+
+# Check if the block exists in ~/.zshrc
+if ! grep -Fxq "plugins=(" ~/.zshrc || ! grep -Fxq "zsh-autosuggestions" ~/.zshrc || ! grep -Fxq "git" ~/.zshrc; then
+  echo "$plugin_block" >> ~/.zshrc
+  echo "Plugin block added to ~/.zshrc"
+else
+  echo "Plugin block already exists in ~/.zshrc"
+fi
+
 
 # INFO: Enable Oh My Posh upgrades
 oh-my-posh enable upgrade
