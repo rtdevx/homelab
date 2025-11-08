@@ -95,6 +95,11 @@ oh-my-posh font install hack
 
 echo "Oh My Posh installation complete. Please restart your terminal to see the changes."
 
+# INFO: Configure Ubuntu unattended upgrades
+
+sudo apt update
+sudo apt install unattended-upgrades -y
+
 # INFO: Installing terraform
 
 echo "Installing Terraform..."
