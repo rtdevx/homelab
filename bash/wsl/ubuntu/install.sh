@@ -4,8 +4,8 @@
 # INFO: Install Oh My Posh on WSL Ubuntu with zsh
 
 # INFO: Variables
-poshtheme="cloud-context.omp.json" # themes: https://ohmyposh.dev/docs/themes
-#powerlevel10k_rainbow.omp.json, quick-term.omp.json, spaceship.omp.json, clean-detailed.omp.json, amro.omp.json, blue-owl.omp.json, cloud-context.omp.json,
+poshtheme="blue-owl.omp.json" # themes: https://ohmyposh.dev/docs/themes
+#powerlevel10k_rainbow.omp.json, quick-term.omp.json, spaceship.omp.json, clean-detailed.omp.json, amro.omp.json, blue-owl.omp.json
 
 # Exit on error
 set -e
