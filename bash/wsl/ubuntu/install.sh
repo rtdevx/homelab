@@ -100,7 +100,7 @@ echo "Oh My Posh installation complete. Please restart your terminal to see the 
 echo "Configuring unattended upgrades..."
 
 sudo apt install unattended-upgrades -y
-curl -s https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/linux/apt/apt.conf.d/50unattended-upgrades -o /etc/apt/apt.conf.d/50unattended-upgrades
+sudo curl -s https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/linux/apt/apt.conf.d/50unattended-upgrades -o /etc/apt/apt.conf.d/50unattended-upgrades
 
 # INFO: Installing terraform
 
