@@ -149,10 +149,8 @@ echo "Configuring git..."
 git config --global user.name "RobK"
 git config --global user.email johndoe@example.com
 
-mkdir -p ~/git
-
 # Define the parent directory
-PARENT_DIR=~/git
+PARENT_DIR=~/git/public
 
 # Create the parent directory if it doesn't exist
 mkdir -p "$PARENT_DIR"
