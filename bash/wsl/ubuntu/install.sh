@@ -129,6 +129,19 @@ terraform --version
 echo "Installing AWS CLI..."
 sudo snap install aws-cli --classic
 
+echo "Adding $HOME/.local/bin to PATH in zsh configuration files..."
+
+line='export PATH=$PATH:/snap/bin'
+file="$HOME/.zshrc"
+
+# Check if the exact line exists
+if ! grep -Fxq "$line" "$file"; then
+  echo "$line" >> "$file"
+  echo "Added PATH export to $file"
+else
+  echo "PATH export already exists in $file"
+fi
+
 # INFO: Configure git
 
 echo "Configuring git..."
