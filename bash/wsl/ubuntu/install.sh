@@ -151,14 +151,16 @@ REPO_URLS=(
 
 # Clone each repository
 for REPO_URL in "${REPO_URLS[@]}"; do
-    # Extract the folder name from the URL
     FOLDER_NAME=$(basename "$REPO_URL" .git)
-    echo "Cloning $REPO_URL into $PARENT_DIR/$FOLDER_NAME..."
-    
-    git clone "$REPO_URL" "$FOLDER_NAME"
+    DEST="$PARENT_DIR/$FOLDER_NAME"
 
-    # Check for success
-    if [ $? -eq 0 ]; then
+    if [ -d "$DEST" ]; then
+        echo "Skipping clone: $DEST already exists."
+        continue
+    fi
+
+    echo "Cloning $REPO_URL into $DEST..."
+    if git clone "$REPO_URL" "$DEST"; then
         echo "Successfully cloned $REPO_URL into $FOLDER_NAME"
     else
         echo "Failed to clone $REPO_URL"
