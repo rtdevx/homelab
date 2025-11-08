@@ -186,7 +186,8 @@ for REPO_URL in "${REPO_URLS[@]}"; do
     fi
 done
 
-# Configure ssh
+# INFO: Configure ssh
+
 echo "Configuring SSH..."
 curl -s https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/ssh/config -o $HOME/.ssh/config
 chmod 600 $HOME/.ssh/config
