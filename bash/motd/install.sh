@@ -1,5 +1,9 @@
 #!/bin/sh
+# Execute: curl https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/bash/motd/install.sh | bash
+
 sudo chmod -x /etc/update-motd.d/*
 sudo apt update && sudo apt install inxi screenfetch ansiweather
 
-wget -O /tmp/Ubuntu.iso https://releases.ubuntu.com/20.04/ubuntu-20.04-desktop-amd64.iso  
+wget -O /etc/update-motd.d/01-custom https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/bash/motd/01-custom
+
+sudo chmod +x /etc/update-motd.d/01-custom
