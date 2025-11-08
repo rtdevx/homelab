@@ -106,8 +106,10 @@ echo "Installing Terraform..."
 # Install required packages
 sudo apt install -y wget gnupg2
 
-# Add the HashiCorp GPG key
-wget -O -N - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+# Add the HashiCorp GPG key (overwrite)
+wget -qO- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+sudo chmod 644 /usr/share/keyrings/hashicorp-archive-keyring.gpg
+
 
 # Add the official HashiCorp repository
 echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
