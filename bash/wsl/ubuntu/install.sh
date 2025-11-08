@@ -126,6 +126,7 @@ terraform --version
 
 # INFO: Install AWS CLI
 
+echo "Installing AWS CLI..."
 sudo snap install aws-cli --classic
 
 # INFO: Configure git
