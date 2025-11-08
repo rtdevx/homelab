@@ -126,6 +126,9 @@ terraform --version
 
 echo "Configuring git..."
 
+git config --global user.name "RobK"
+git config --global user.email johndoe@example.com
+
 mkdir -p ~/git
 
 # Define the parent directory
