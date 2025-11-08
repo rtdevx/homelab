@@ -97,7 +97,6 @@ echo "Oh My Posh installation complete. Please restart your terminal to see the 
 
 # INFO: Configure Ubuntu unattended upgrades
 
-sudo apt update
 sudo apt install unattended-upgrades -y
 
 # INFO: Installing terraform
@@ -108,13 +107,10 @@ echo "Installing Terraform..."
 sudo apt install -y wget gnupg2
 
 # Add the HashiCorp GPG key
-wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+wget -O -N - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
 
 # Add the official HashiCorp repository
 echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-
-# Update package lists again
-sudo apt update
 
 # Install Terraform
 sudo apt install -y terraform
