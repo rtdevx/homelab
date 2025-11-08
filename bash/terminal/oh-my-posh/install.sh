@@ -24,10 +24,10 @@ targetshell="/bin/zsh"
 
 # Compare and update if needed
 if [ "$currentshell" != "$targetshell" ]; then
-  echo "Changing shell to Zsh..."
+  echo "Changing shell to $targetshell"
   chsh -s "$targetshell"
 else
-  echo "Shell is already set to Zsh. Skipping."
+  echo "Shell is already set to $targetshell. Skipping."
 fi
 
 # INFO: Install Oh My Posh
