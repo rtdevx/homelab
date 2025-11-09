@@ -15,6 +15,10 @@ echo "Installing oh-my-posh pre-resquisites..."
 
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt install -y git curl zip unzip zsh zsh-autosuggestions
 
+# Install Other packages
+echo "Installing Other packages..."
+sudo apt install -y htop tree neofetch wget apt-transport-https ca-certificates software-properties-common gnupg lsb-release hugo
+
 # Set default shell
 echo "Setting default shell to $targetshell"
 
