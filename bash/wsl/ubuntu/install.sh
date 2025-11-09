@@ -202,11 +202,11 @@ fi
 
 # List of extensions to install
 extensions=(
-  vscode.powershell
-  vscode-remote.remote-ssh
-  vscode.remote-server
-  vscode-remote.remote-wsl
-  vscode-remote.vscode-remote-extensionpack
+  ms-vscode.powershell
+  ms-vscode-remote.remote-ssh
+  ms-vscode.remote-server
+  ms-vscode-remote.remote-wsl
+  ms-vscode-remote.vscode-remote-extensionpack
   redhat.vscode-yaml
   github.copilot
   github.copilot-chat
