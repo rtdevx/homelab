@@ -194,6 +194,10 @@ chmod 600 $HOME/.ssh/config
 
 # INFO: Configure VSCode settings
 
+# Install VSCode
+echo "Installing VS Code..."
+sudo apt install -y code
+
 # Check if VS Code CLI is available
 if ! command -v code &> /dev/null; then
     echo "VS Code CLI 'code' not found. Please install VS Code and ensure 'code' is in your PATH."
