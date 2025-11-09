@@ -13,7 +13,7 @@ set -e
 # Install Oh My Posh pre-requisites
 echo "Installing oh-my-posh pre-resquisites..."
 
-sudo apt update && sudo apt upgrade -y && sudo apt autoremove && sudo apt install -y git curl zip unzip zsh zsh-autosuggestions
+sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt install -y git curl zip unzip zsh zsh-autosuggestions
 
 # Set default shell
 echo "Setting default shell to $targetshell"
