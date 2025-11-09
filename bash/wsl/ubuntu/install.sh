@@ -200,7 +200,22 @@ echo "Installing VS Code..."
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor | sudo tee /usr/share/keyrings/microsoft.gpg > /dev/null
 sudo chmod 644 /usr/share/keyrings/microsoft.gpg
 
-sudo apt update && sudo apt install -y code
+# Define the target file path
+SOURCE_FILE="/etc/apt/sources.list.d/vscode.sources"
+
+# Create the file with the desired repository configuration
+sudo tee "$SOURCE_FILE" > /dev/null <<EOF
+Types: deb
+URIs: https://packages.microsoft.com/repos/code
+Suites: stable
+Components: main
+Architectures: amd64,arm64,armhf
+Signed-By: /usr/share/keyrings/microsoft.gpg
+EOF
+
+echo "Repository configuration written to $SOURCE_FILE"
+
+sudo apt update && sudo apt install -y apt-transport-https code
 
 # Check if VS Code CLI is available
 if ! command -v code &> /dev/null; then
