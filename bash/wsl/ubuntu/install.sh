@@ -196,7 +196,11 @@ chmod 600 $HOME/.ssh/config
 
 # Install VSCode
 echo "Installing VS Code..."
-sudo apt install -y code
+
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor | sudo tee /usr/share/keyrings/microsoft.gpg > /dev/null
+sudo chmod 644 /usr/share/keyrings/microsoft.gpg
+
+sudo apt update && sudo apt install -y code
 
 # Check if VS Code CLI is available
 if ! command -v code &> /dev/null; then
