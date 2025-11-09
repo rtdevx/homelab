@@ -215,7 +215,7 @@ EOF
 
 echo "Repository configuration written to $SOURCE_FILE"
 
-sudo apt update && sudo apt install -y apt-transport-https code
+#sudo apt update && sudo apt install -y apt-transport-https code # Not required for WSL
 
 # Check if VS Code CLI is available
 if ! command -v code &> /dev/null; then
