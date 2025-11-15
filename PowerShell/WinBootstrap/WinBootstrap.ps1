@@ -101,7 +101,7 @@ $apps = @(
     @{name = "Obsidian.Obsidian" },
     @{name = "Hugo.Hugo.Extended" },    
     @{name = "Zoom.Zoom" }, 
-    @{name = "TeamViewer.TeamViewer" },    
+    #@{name = "TeamViewer.TeamViewer" },    
     # Starthip Cross-Shell Prompt for Windows Terminal (https://starship.rs/)
     @{name = "Starship.Starship" }
 );
