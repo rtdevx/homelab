@@ -102,6 +102,7 @@ $apps = @(
     @{name = "Hugo.Hugo.Extended" },    
     @{name = "Zoom.Zoom" },
     @{name = "GOG.Galaxy" }, 
+    @{name = "Valve.Steam" },     
     #@{name = "TeamViewer.TeamViewer" },    
     # Starthip Cross-Shell Prompt for Windows Terminal (https://starship.rs/)
     @{name = "Starship.Starship" }
