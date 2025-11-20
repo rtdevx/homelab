@@ -126,8 +126,8 @@ Write-Output `n"Installing Trading View (default scope)."`n
 winget install -e --id TradingView.TradingViewDesktop
 #Write-Output `n"Discord (default scope)."`n
 #winget install -e --id Discord.Discord
-Write-Output `n"Microsoft.DotNet.DesktopRuntime.7 (default scope)."`n
-winget install -e --id Microsoft.DotNet.DesktopRuntime.7
+Write-Output `n"Microsoft.DotNet.DesktopRuntime.5 (default scope). Used by Dell Display Manager software."`n
+winget install -e --id Microsoft.DotNet.DesktopRuntime.5
 
 
 #Refresh Environment Variables after installing software
