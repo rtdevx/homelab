@@ -72,8 +72,7 @@ Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw
 Write-Output `n"Installing Apps"`n
 $apps = @(
     @{name = "Microsoft.DotNet.SDK.7" }, 
-    @{name = "Microsoft.DotNet.DesktopRuntime.8" },
-    @{name = "Microsoft.DotNet.DesktopRuntime.7" },    
+    @{name = "Microsoft.DotNet.DesktopRuntime.8" },   
     @{name = "Microsoft.PowerToys" },   
     @{name = "Microsoft.WindowsTerminal" },      
     @{name = "mcmilk.7zip-zstd" },
@@ -127,6 +126,9 @@ Write-Output `n"Installing Trading View (default scope)."`n
 winget install -e --id TradingView.TradingViewDesktop
 #Write-Output `n"Discord (default scope)."`n
 #winget install -e --id Discord.Discord
+Write-Output `n"Microsoft.DotNet.DesktopRuntime.7 (default scope)."`n
+winget install -e --id Microsoft.DotNet.DesktopRuntime.7
+
 
 #Refresh Environment Variables after installing software
 RefreshPath
