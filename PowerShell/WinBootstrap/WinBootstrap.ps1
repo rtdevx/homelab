@@ -98,6 +98,7 @@ $apps = @(
     @{name = "Garmin.Express" },
     @{name = "mRemoteNG.mRemoteNG" },
     @{name = "Lenovo.SystemUpdate" },
+    @{name = "Dell.DisplayManager" },    
     @{name = "Obsidian.Obsidian" },
     @{name = "Hugo.Hugo.Extended" },    
     @{name = "Zoom.Zoom" },
