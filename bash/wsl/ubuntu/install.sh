@@ -170,6 +170,7 @@ REPO_URLS=(
     "git@github.com:rtdevx/kubernetes.git"
     "git@github.com:rtdevx/dotfiles.git"
     "git@github.com:rtdevx/terraform.git"
+    "git@github.com:rtdevx/terraform-iac-aws-cp1.git"
     "git@github.com:rtdevx/rtdevx.github.io.git"
 )
 
