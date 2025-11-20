@@ -100,7 +100,8 @@ $apps = @(
     @{name = "Lenovo.SystemUpdate" },
     @{name = "Obsidian.Obsidian" },
     @{name = "Hugo.Hugo.Extended" },    
-    @{name = "Zoom.Zoom" }, 
+    @{name = "Zoom.Zoom" },
+    @{name = "GOG.Galaxy" }, 
     #@{name = "TeamViewer.TeamViewer" },    
     # Starthip Cross-Shell Prompt for Windows Terminal (https://starship.rs/)
     @{name = "Starship.Starship" }
