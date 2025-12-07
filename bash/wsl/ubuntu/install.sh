@@ -240,6 +240,7 @@ extensions=(
   redhat.vscode-yaml
   github.copilot
   github.copilot-chat
+  GitHub.vscode-github-actions
   johnpapa.vscode-peacock
   ms-azuretools.vscode-docker
   esbenp.prettier-vscode
