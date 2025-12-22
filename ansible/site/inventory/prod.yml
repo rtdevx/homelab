@@ -64,12 +64,12 @@ k3ssvr:
 #      lb_url: k3s-vipp
 #      lb_url_fqdn: k3s-vipp.skynetx.uk                   
 
-k3sagt:
-  hosts:
-    k3s-agtp1:
-      ansible_host: 192.168.20.45
-    k3s-agtp2:
-      ansible_host: 192.168.20.46
+#k3sagt:
+#  hosts:
+#    k3s-agtp1:
+#      ansible_host: 192.168.20.45
+#    k3s-agtp2:
+#      ansible_host: 192.168.20.46
 
 k3s:
   children:
