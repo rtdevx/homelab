@@ -172,7 +172,8 @@ REPO_URLS=(
     "git@github.com:rtdevx/terraform.git"
     "git@github.com:rtdevx/terraform-core.git"
     "git@github.com:rtdevx/terraform-iac-aws-cp1.git"
-    git@github.com:rtdevx/cicd-gh-actions-course.git
+    "git@github.com:rtdevx/cicd-gh-actions-course.git"
+    "git@github.com:rtdevx/docker-course-40.git"
     "git@github.com:rtdevx/rtdevx.github.io.git"
 )
 
