@@ -56,19 +56,19 @@ k3ssvr:
 #      lb_url: k3s-vips
 #      lb_url_fqdn: k3s-vips.skynetx.uk                  
 
-k3sagt:
-  hosts:
-    k3s-agts1:
-      ansible_host: 192.168.20.55
-    k3s-agts2:
-      ansible_host: 192.168.20.56
+#k3sagt:
+#  hosts:
+#    k3s-agts1:
+#      ansible_host: 192.168.20.55
+#    k3s-agts2:
+#      ansible_host: 192.168.20.56
 
 k3s:
   children:
     k3smgr:
     k3slb:
     k3ssvr:
-    k3sagt:
+#    k3sagt:
 
 #Linux Test Servers
 #linuxtest:
