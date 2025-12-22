@@ -79,10 +79,10 @@ k3s:
 #      ansible_host: 192.168.20.242
 
 # Docker
-#dockermgrs:
-#  hosts:
-#    swr-mgrs1:
-#      ansible_host: 192.168.20.97 #Hosts are in DNS. IP address only required for Docker Swarm Init (role: docker_swarm_init).
+dockermgrs:
+  hosts:
+    swr-mgrs1:
+      ansible_host: 192.168.20.97 #Hosts are in DNS. IP address only required for Docker Swarm Init (role: docker_swarm_init).
 
 #dockerworkers:
 #  hosts:
@@ -92,8 +92,8 @@ k3s:
 #      ansible_host: 192.168.20.99 #Hosts are in DNS. IP address only required for Docker Swarm Init (role: docker_swarm_init).
 
 #dockerhosts:
-#  children:
-#    dockermgrs:
+  children:
+    dockermgrs:
 #    dockerworkers:
-#  vars:
-#    nfs_docker: 192.168.20.5:/NFS/dockers
+  vars:
+    nfs_docker: 192.168.20.5:/NFS/dockers

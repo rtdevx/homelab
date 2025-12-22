@@ -64,25 +64,25 @@ k3ssvr:
 #      lb_url: k3s-vipp
 #      lb_url_fqdn: k3s-vipp.skynetx.uk                   
 
-k3sagt:
-  hosts:
-    k3s-agtp1:
-      ansible_host: 192.168.20.45
-    k3s-agtp2:
-      ansible_host: 192.168.20.46
+#k3sagt:
+#  hosts:
+#    k3s-agtp1:
+#      ansible_host: 192.168.20.45
+#    k3s-agtp2:
+#      ansible_host: 192.168.20.46
 
 k3s:
   children:
     k3smgr:
     k3slb:     
     k3ssvr:
-    k3sagt:   
+#    k3sagt:   
 
 # Docker
-#dockermgrs:
-#  hosts:
-#    swr-mgrp1:
-#      ansible_host: 192.168.20.91 #Hosts are in DNS. IP address only required for Docker Swarm Init (role: docker_swarm_init).
+dockermgrs:
+  hosts:
+    swr-mgrp1:
+      ansible_host: 192.168.20.91 #Hosts are in DNS. IP address only required for Docker Swarm Init (role: docker_swarm_init).
 
 #dockerworkers:
 #  hosts:
@@ -92,8 +92,8 @@ k3s:
 #      ansible_host: 192.168.20.95 #Hosts are in DNS. IP address only required for Docker Swarm Init (role: docker_swarm_init).
 
 #dockerhosts:
-#  children:
-#    dockermgrs:
+  children:
+    dockermgrs:
 #    dockerworkers:
-#  vars:
-#    nfs_docker: 192.168.20.5:/NFS/dockerp
+  vars:
+    nfs_docker: 192.168.20.5:/NFS/dockerp
