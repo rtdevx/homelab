@@ -68,7 +68,7 @@ k3s:
     k3smgr:
     k3slb:
     k3ssvr:
-    k3sagt:
+#    k3sagt:
 
 #Linux Test Servers
 #linuxtest:
