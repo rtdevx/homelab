@@ -91,7 +91,7 @@ dockermgrs:
 #    swr-nodep2:
 #      ansible_host: 192.168.20.95 #Hosts are in DNS. IP address only required for Docker Swarm Init (role: docker_swarm_init).
 
-dockerhosts:
+#dockerhosts:
   children:
     dockermgrs:
 #    dockerworkers:

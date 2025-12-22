@@ -72,7 +72,7 @@ Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw
 Write-Output `n"Installing Apps"`n
 $apps = @(
     @{name = "Microsoft.DotNet.SDK.7" }, 
-    @{name = "Microsoft.DotNet.DesktopRuntime.8" },
+    @{name = "Microsoft.DotNet.DesktopRuntime.8" },   
     @{name = "Microsoft.PowerToys" },   
     @{name = "Microsoft.WindowsTerminal" },      
     @{name = "mcmilk.7zip-zstd" },
@@ -98,9 +98,13 @@ $apps = @(
     @{name = "Garmin.Express" },
     @{name = "mRemoteNG.mRemoteNG" },
     @{name = "Lenovo.SystemUpdate" },
+    @{name = "Dell.DisplayManager" },    
     @{name = "Obsidian.Obsidian" },
     @{name = "Hugo.Hugo.Extended" },    
-    @{name = "Zoom.Zoom" },    
+    @{name = "Zoom.Zoom" },
+    @{name = "GOG.Galaxy" }, 
+    @{name = "Valve.Steam" },     
+    #@{name = "TeamViewer.TeamViewer" },    
     # Starthip Cross-Shell Prompt for Windows Terminal (https://starship.rs/)
     @{name = "Starship.Starship" }
 );
@@ -122,6 +126,9 @@ Write-Output `n"Installing Trading View (default scope)."`n
 winget install -e --id TradingView.TradingViewDesktop
 #Write-Output `n"Discord (default scope)."`n
 #winget install -e --id Discord.Discord
+Write-Output `n"Microsoft.DotNet.DesktopRuntime.5 (default scope). Used by Dell Display Manager software."`n
+winget install -e --id Microsoft.DotNet.DesktopRuntime.5
+
 
 #Refresh Environment Variables after installing software
 RefreshPath
