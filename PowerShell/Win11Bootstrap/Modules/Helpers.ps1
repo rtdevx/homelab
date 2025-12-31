@@ -45,7 +45,6 @@ function Invoke-Module {
     . $modulePath
 }
 
-
 # ------------------------------------------------------------
 # Refresh-Path
 # Reload PATH after winget installs
