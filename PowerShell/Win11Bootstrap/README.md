@@ -25,7 +25,7 @@ Run elavated shell and then: `Invoke-WebRequest -UseBasicParsing 'https://raw.gi
 # Architecture
 
 PowerShell/
-└── WinBootstrap/
+└── Win11Bootstrap/
     ├── main.ps1                        # Thin Loader (installing pre-requisites, executing main bootstrap script)
     ├── WinBootstrap.ps1                # Main orchestrator
     ├── Modules/
