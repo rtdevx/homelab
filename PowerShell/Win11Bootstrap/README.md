@@ -1,5 +1,23 @@
 # Usage
 
+After fresh Windows 11 have been installed...
+
+## Manual Steps
+
+1. Windows Update > Advanced options > Receive updated for other Microsoft products - set to ON
+2. Apply Windows Updates
+3. Log in to OneDrive
+  a. Download the content to local drive
+4. System > Advanced > Terminal > PowerShell
+  a. Change execution policy to allow local PowerSHell scripts to run without signing - set to ON
+  b. Enable Sudo - set to ON
+5. System > Advanced > Terminal - select "Windows Terminal"
+
+```PowerShell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
+```
+## Execute PowerShell command
+
 `sudo PowerShell -Command "Invoke-Expression (Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/Win11Bootstrap/main.ps1')"`
 
 # Architecture
