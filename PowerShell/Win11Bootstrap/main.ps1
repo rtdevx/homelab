@@ -13,7 +13,7 @@ Write-Host "=== WinBootstrap Loader ==="
 # PowerShell version check
 if ($PSVersionTable.PSVersion.Major -lt 5) {
     Write-Error "PowerShell 5.0 or higher is required. Aborting."
-    exit 1
+    return
 }
 
 # Execution policy check (warn only)
@@ -38,15 +38,15 @@ function Test-WinGet {
 Write-Host "Checking winget availability..."
 
 if (-not (Test-WinGet)) {
-    Write-Warning "winget not found. Attempting to install App Installer from Microsoft Store..."
+    Write-Warning "winget not found. Attempting to open App Installer in Microsoft Store..."
 
     try {
         Start-Process "ms-windows-store://pdp/?productid=9NBLGGH4NNS1"
         Write-Host "Please install 'App Installer' from Microsoft Store, then re-run this script."
-        exit 1
+        return
     } catch {
         Write-Error "Failed to open Microsoft Store for App Installer. Install manually and re-run."
-        exit 1
+        return
     }
 }
 
@@ -76,7 +76,7 @@ for ($i = 1; $i -le $maxRetries; $i++) {
 
 if (-not $success) {
     Write-Error "Failed to download bootstrap script after $maxRetries attempts."
-    exit 1
+    return
 }
 
 Write-Host "Bootstrap script downloaded to: $TempFile"
@@ -92,7 +92,7 @@ try {
     Write-Error "Bootstrap script execution failed: $($_.Exception.Message)"
     Write-Warning "The temporary file has been preserved for debugging:"
     Write-Warning "  $TempFile"
-    exit 1
+    return
 }
 
 # ------------------------------------------------------------
