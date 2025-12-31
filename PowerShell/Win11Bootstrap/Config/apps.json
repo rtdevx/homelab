@@ -1,18 +1,54 @@
-[
-    {
-        "name": "Google Chrome",
-        "id": "Google.Chrome"
-    },
-    {
-        "name": "Visual Studio Code",
-        "id": "Microsoft.VisualStudioCode"
-    },
-    {
-        "name": "Git",
-        "id": "Git.Git"
-    },
-    {
-        "name": "7zip",
-        "id": "7zip.7zip"
-    }
-]
+{
+  "groups": {
+    "core": [
+      { "name": "Google Chrome", "id": "Google.Chrome" },
+      { "name": "Mozilla Firefox", "id": "Mozilla.Firefox" },
+      { "name": "7zip Zstandard", "id": "mcmilk.7zip-zstd" },
+      { "name": "PowerToys", "id": "Microsoft.PowerToys" },
+      { "name": "Windows Terminal", "id": "Microsoft.WindowsTerminal" }
+    ],
+
+    "dev": [
+      { "name": ".NET SDK 7", "id": "Microsoft.DotNet.SDK.7" },
+      { "name": ".NET Desktop Runtime 8", "id": "Microsoft.DotNet.DesktopRuntime.8" },
+      { "name": "NodeJS LTS", "id": "OpenJS.NodeJS.LTS" },
+      { "name": "Git", "id": "Git.Git" },
+      { "name": "Terraform", "id": "Hashicorp.Terraform" },
+      // Example: version‑pinned Terraform with dependency
+      // { "name": "Terraform", "id": "Hashicorp.Terraform", "version": "1.9.5", "dependsOn": ["Microsoft.DotNet.DesktopRuntime.8"] }
+      { "name": "Terraform Docs", "id": "Terraform-docs.Terraform-docs" },
+      { "name": "VS Code", "id": "Microsoft.VisualStudioCode" },
+      { "name": "Hugo Extended", "id": "Hugo.Hugo.Extended" },
+      { "name": "Starship Prompt", "id": "Starship.Starship" }
+    ],
+
+    "ops": [
+      {
+        "name": ".NET Desktop Runtime 5",
+        "id": "Microsoft.DotNet.DesktopRuntime.5"
+      },
+      {
+        "name": "Dell Display Manager",
+        "id": "Dell.DisplayManager",
+        "dependsOn": ["Microsoft.DotNet.DesktopRuntime.5"]
+      },
+      { "name": "AWS CLI", "id": "Amazon.AWSCLI" },
+      { "name": "mRemoteNG", "id": "mRemoteNG.mRemoteNG" },
+      { "name": "QNAP Qsync", "id": "QNAP.Qsync" },
+      { "name": "Lenovo System Update", "id": "Lenovo.SystemUpdate" }
+    ],
+
+    "personal": [
+      { "name": "Obsidian", "id": "Obsidian.Obsidian" },
+      { "name": "Raven Reader", "id": "hello-efficiency-inc.raven-reader" },
+      { "name": "KeePass", "id": "DominikReichl.KeePass" },
+      { "name": "ProtonVPN", "id": "ProtonTechnologies.ProtonVPN" },
+      { "name": "Zoom", "id": "Zoom.Zoom" },
+      { "name": "TradingView Desktop", "id": "TradingView.TradingViewDesktop" },
+      { "name": "Garmin Express", "id": "Garmin.Express" },
+      { "name": "Rufus", "id": "Rufus.Rufus" },
+      { "name": "WinDirStat", "id": "WinDirStat.WinDirStat" },
+      { "name": "Notepad++", "id": "Notepad++.Notepad++" }
+    ]
+  }
+}
