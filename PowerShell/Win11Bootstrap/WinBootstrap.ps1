@@ -7,6 +7,7 @@ Write-Host "=== Starting Windows Bootstrap ==="
 
 Invoke-Module "Setup-SystemRestore"
 Invoke-Module "Install-WingetApps"
+Invoke-Module "Install-StoreApps"
 Invoke-Module "Install-VSCodeExtensions"
 Invoke-Module "Setup-GitHub"
 Invoke-Module "Configure-Windows"
