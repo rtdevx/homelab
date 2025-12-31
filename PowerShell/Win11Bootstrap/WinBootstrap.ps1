@@ -1,3 +1,5 @@
+$BootstrapRoot = Split-Path -Parent $MyInvocation.MyCommand.Path . "$BootstrapRoot/Modules/Helpers.ps1"
+
 # Load helpers
 . "$PSScriptRoot/Modules/Helpers.ps1"
 
