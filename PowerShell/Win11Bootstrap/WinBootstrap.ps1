@@ -1,7 +1,7 @@
-$BootstrapRoot = Split-Path -Parent $MyInvocation.MyCommand.Path . "$BootstrapRoot/Modules/Helpers.ps1"
+$BootstrapRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 # Load helpers
-. "$PSScriptRoot/Modules/Helpers.ps1"
+. "$BootstrapRoot/Modules/Helpers.ps1"
 
 Write-Host "=== Starting Windows Bootstrap ==="
 
