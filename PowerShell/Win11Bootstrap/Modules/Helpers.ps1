@@ -33,8 +33,7 @@ function Invoke-Module {
         [string]$Name
     )
 
-    # Always resolve relative to the orchestrator's folder
-    $modulePath = Join-Path $PSScriptRoot "Modules/$Name.ps1"
+    $modulePath = Join-Path $BootstrapRoot "Modules/$Name.ps1"
 
     if (-not (Test-Path $modulePath)) {
         Write-Log "Module not found: $modulePath" "ERROR"
