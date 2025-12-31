@@ -40,7 +40,13 @@ foreach ($app in $apps) {
 # Check if already installed (exact match)
 $installed = winget list --id $id --exact --source winget 2>$null
 
-if ($installed -and ($installed -notmatch "No installed package")) {
+# Winget returns a table header when installed
+$hasHeader = $installed -match "Name\s+Id\s+Version"
+
+# Winget returns this message when NOT installed
+$notInstalledMessage = $installed -match "No installed package"
+
+if ($hasHeader -and -not $notInstalledMessage) {
     Write-Log "Already installed: $name"
     continue
 }
