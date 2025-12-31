@@ -15,7 +15,7 @@
       { "name": "Git", "id": "Git.Git" },
       { "name": "Terraform", "id": "Hashicorp.Terraform" },
       // Example: version‑pinned Terraform with dependency
-      // { "name": "Terraform", "id": "Hashicorp.Terraform", "version": "1.9.5", "dependsOn": ["Microsoft.DotNet.DesktopRuntime.8"] }
+      // { "name": "Terraform", "id": "Hashicorp.Terraform", "version": "1.9.5", "dependsOn": ["Microsoft.DotNet.DesktopRuntime.8"] },
       { "name": "Terraform Docs", "id": "Terraform-docs.Terraform-docs" },
       { "name": "VS Code", "id": "Microsoft.VisualStudioCode" },
       { "name": "Hugo Extended", "id": "Hugo.Hugo.Extended" },
