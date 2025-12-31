@@ -1,1 +1,18 @@
-# Winget package list
+[
+    {
+        "name": "Google Chrome",
+        "id": "Google.Chrome"
+    },
+    {
+        "name": "Visual Studio Code",
+        "id": "Microsoft.VisualStudioCode"
+    },
+    {
+        "name": "Git",
+        "id": "Git.Git"
+    },
+    {
+        "name": "7zip",
+        "id": "7zip.7zip"
+    }
+]
