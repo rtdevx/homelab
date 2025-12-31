@@ -37,13 +37,13 @@ foreach ($app in $apps) {
 
     Write-Log "Checking installation status for: $name ($id)"
 
-    # Check if already installed
-    $installed = winget list --id $id --source winget 2>$null
+# Check if already installed (exact match)
+$installed = winget list --id $id --exact --source winget 2>$null
 
-    if ($installed) {
-        Write-Log "Already installed: $name"
-        continue
-    }
+if ($installed -and ($installed -notmatch "No installed package")) {
+    Write-Log "Already installed: $name"
+    continue
+}
 
     Write-Log "Installing: $name ($id)"
 
