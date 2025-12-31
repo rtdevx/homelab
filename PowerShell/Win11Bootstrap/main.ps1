@@ -1,7 +1,6 @@
 # =====================================================================
 #  WinBootstrap Thin Loader
-#  Downloads and executes the main bootstrap script from GitHub
-#  using a temporary file for easy debugging.
+#  Downloads and executes the full bootstrap bundle from GitHub.
 # =====================================================================
 
 Write-Host "=== WinBootstrap Loader ==="
@@ -10,13 +9,11 @@ Write-Host "=== WinBootstrap Loader ==="
 # 1. Environment Sanity Checks
 # ------------------------------------------------------------
 
-# PowerShell version check
 if ($PSVersionTable.PSVersion.Major -lt 5) {
     Write-Error "PowerShell 5.0 or higher is required. Aborting."
     return
 }
 
-# Execution policy check (warn only)
 $policy = Get-ExecutionPolicy
 if ($policy -in @("Restricted", "Undefined")) {
     Write-Warning "Execution policy is '$policy'. You may need to allow script execution."
@@ -53,57 +50,64 @@ if (-not (Test-WinGet)) {
 Write-Host "winget is available."
 
 # ------------------------------------------------------------
-# 3. Download Main Bootstrap Script
+# 3. Download and Extract Bootstrap Bundle
 # ------------------------------------------------------------
 
-$BootstrapUrl = "https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/Win11Bootstrap/WinBootstrap.ps1"
-$TempFile = Join-Path $env:TEMP "WinBootstrap.ps1"
+$ZipUrl = "https://github.com/rtdevx/homelab/archive/refs/heads/main.zip"
+$TempRoot = Join-Path $env:TEMP "WinBootstrap"
+$ZipPath = Join-Path $TempRoot "bootstrap.zip"
 
-Write-Host "Downloading main bootstrap script..."
-$maxRetries = 3
-$success = $false
-
-for ($i = 1; $i -le $maxRetries; $i++) {
-    try {
-        Invoke-WebRequest -Uri $BootstrapUrl -OutFile $TempFile -UseBasicParsing -ErrorAction Stop
-        $success = $true
-        break
-    } catch {
-        Write-Warning "Download attempt $i failed: $($_.Exception.Message)"
-        Start-Sleep -Seconds 2
-    }
+# Clean previous temp folder
+if (Test-Path $TempRoot) {
+    Remove-Item $TempRoot -Recurse -Force
 }
+New-Item -ItemType Directory -Path $TempRoot | Out-Null
 
-if (-not $success) {
-    Write-Error "Failed to download bootstrap script after $maxRetries attempts."
+Write-Host "Downloading bootstrap bundle..."
+try {
+    Invoke-WebRequest -Uri $ZipUrl -OutFile $ZipPath -UseBasicParsing -ErrorAction Stop
+} catch {
+    Write-Error "Failed to download bootstrap bundle: $($_.Exception.Message)"
     return
 }
 
-Write-Host "Bootstrap script downloaded to: $TempFile"
-
-# ------------------------------------------------------------
-# 4. Execute Bootstrap Script
-# ------------------------------------------------------------
-
+Write-Host "Extracting bootstrap bundle..."
+Add-Type -AssemblyName System.IO.Compression.FileSystem
 try {
-    Write-Host "Executing bootstrap script..."
-    & $TempFile
+    [System.IO.Compression.ZipFile]::ExtractToDirectory($ZipPath, $TempRoot)
+} catch {
+    Write-Error "Failed to extract bootstrap bundle: $($_.Exception.Message)"
+    return
+}
+
+# ------------------------------------------------------------
+# 4. Locate Win11Bootstrap Folder
+# ------------------------------------------------------------
+
+$BootstrapFolder = Join-Path $TempRoot "homelab-main\PowerShell\Win11Bootstrap"
+
+if (-not (Test-Path $BootstrapFolder)) {
+    Write-Error "Bootstrap folder not found inside extracted archive."
+    return
+}
+
+$BootstrapScript = Join-Path $BootstrapFolder "WinBootstrap.ps1"
+
+if (-not (Test-Path $BootstrapScript)) {
+    Write-Error "WinBootstrap.ps1 not found in bootstrap folder."
+    return
+}
+
+# ------------------------------------------------------------
+# 5. Execute Bootstrap Script
+# ------------------------------------------------------------
+
+Write-Host "Executing bootstrap script..."
+try {
+    & $BootstrapScript
 } catch {
     Write-Error "Bootstrap script execution failed: $($_.Exception.Message)"
-    Write-Warning "The temporary file has been preserved for debugging:"
-    Write-Warning "  $TempFile"
     return
-}
-
-# ------------------------------------------------------------
-# 5. Cleanup
-# ------------------------------------------------------------
-
-try {
-    Remove-Item $TempFile -Force
-    Write-Host "Temporary bootstrap file removed."
-} catch {
-    Write-Warning "Could not delete temporary file: $TempFile"
 }
 
 Write-Host "=== Bootstrap complete ==="
