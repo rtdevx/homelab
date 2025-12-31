@@ -43,7 +43,6 @@ Write-Host "Checking winget availability..."
 if (-not (Test-WinGet)) {
     Write-Warning "winget not found. Attempting to install App Installer from Microsoft Store..."
 
-    # Try to install App Installer (winget dependency)
     try {
         Start-Process "ms-windows-store://pdp/?productid=9NBLGGH4NNS1"
         Write-Host "Please install 'App Installer' from Microsoft Store, then re-run this script."
