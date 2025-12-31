@@ -28,18 +28,19 @@ function Write-Log {
 # Loads and executes a module from the Modules folder
 # ------------------------------------------------------------
 function Invoke-Module {
-    param(
-        [Parameter(Mandatory=$true)][string]$Name
+    param (
+        [Parameter(Mandatory)]
+        [string]$Name
     )
 
-    $modulePath = Join-Path $PSScriptRoot $Name
+    $modulePath = Join-Path $PSScriptRoot "Modules/$Name.ps1"
 
     if (-not (Test-Path $modulePath)) {
         Write-Log "Module not found: $modulePath" "ERROR"
         return
     }
 
-    Write-Log "Executing module: $Name"
+    Write-Log "Loading module: $Name"
     . $modulePath
 }
 
