@@ -29,7 +29,6 @@ try {
 
 # ------------------------------------------------------------
 # Select groups to install
-# (Later you can make this config-driven or interactive)
 # ------------------------------------------------------------
 $selectedGroups = @("core", "dev", "ops", "personal")
 
