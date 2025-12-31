@@ -110,3 +110,5 @@ try {
 }
 
 Write-Host "=== Bootstrap complete ==="
+
+Read-Host "Press ENTER to exit"
