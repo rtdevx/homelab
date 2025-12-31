@@ -1,1 +1,24 @@
-# VSCode Extensions
+{
+  "extensions": [
+    { "name": "PowerShell", "id": "ms-vscode.powershell" },
+    { "name": "Remote SSH", "id": "ms-vscode-remote.remote-ssh" },
+    { "name": "Remote Server", "id": "ms-vscode.remote-server" },
+    { "name": "Remote WSL", "id": "ms-vscode-remote.remote-wsl" },
+    { "name": "Remote Extension Pack", "id": "ms-vscode-remote.vscode-remote-extensionpack" },
+    { "name": "YAML", "id": "redhat.vscode-yaml" },
+    { "name": "GitHub Copilot", "id": "github.copilot" },
+    { "name": "GitHub Copilot Chat", "id": "github.copilot-chat" },
+    { "name": "Peacock", "id": "johnpapa.vscode-peacock" },
+    { "name": "Docker", "id": "ms-azuretools.vscode-docker" },
+    { "name": "Prettier", "id": "esbenp.prettier-vscode" },
+    { "name": "GitLens", "id": "eamodio.gitlens" },
+    { "name": "Code Runner", "id": "formulahendry.code-runner" },
+    { "name": "Live Share", "id": "ms-vsliveshare.vsliveshare" },
+    { "name": "Material Icon Theme", "id": "pkief.material-icon-theme" },
+    { "name": "PDF Viewer", "id": "tomoki1207.pdf" },
+    { "name": "Rainbow CSV", "id": "mechatroner.rainbow-csv" },
+    { "name": "Better Comments", "id": "aaron-bond.better-comments" },
+    { "name": "Auto Markdown Preview", "id": "hnw.vscode-auto-open-markdown-preview" },
+    { "name": "Terraform", "id": "HashiCorp.terraform" }
+  ]
+}
