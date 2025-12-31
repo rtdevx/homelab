@@ -51,7 +51,7 @@ foreach ($app in $apps) {
         winget install --id $id --silent --accept-package-agreements --accept-source-agreements
         Write-Log "Installed: $name"
     } catch {
-        Write-Log "Failed to install $name: $($_.Exception.Message)" "ERROR"
+        Write-Log "Failed to install ${name}: $($_.Exception.Message)" "ERROR"
     }
 }
 
