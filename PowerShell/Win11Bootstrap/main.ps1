@@ -109,5 +109,3 @@ try {
     Write-Error "Bootstrap script execution failed: $($_.Exception.Message)"
     return
 }
-
-Write-Host "=== Bootstrap complete ==="
