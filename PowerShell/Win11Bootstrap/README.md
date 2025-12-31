@@ -2,23 +2,14 @@
 After installing a fresh Windows 11 system, follow these steps to prepare the environment before running the bootstrap.
 
 # Manual Steps
-Windows Update → Advanced options → Receive updates for other Microsoft products → ON
 
-Apply all Windows Updates
-
-Log in to OneDrive
-
-Download your synced content to the local drive
-
-Settings → System → Advanced → Terminal → PowerShell
-
-Allow local PowerShell scripts (Execution Policy)
-
-Enable Sudo
-
-Settings → System → Advanced → Terminal
-
-Set default terminal to Windows Terminal
+1. `Windows Update → Advanced options → Receive updates for other Microsoft products` → ON
+2. Apply all Windows Updates
+3. `Settings → System → Advanced → Terminal → PowerShell`
+- Allow local PowerShell scripts (Execution Policy)
+- Enable Sudo
+5. `Settings → System → Advanced → Terminal`
+- Set default terminal to Windows Terminal
 
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
