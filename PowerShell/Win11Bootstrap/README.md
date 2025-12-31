@@ -1,6 +1,6 @@
 # Usage
 
-`sudo PowerShell -Command "Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/Win11Bootstrap/main.ps1')"`
+`sudo PowerShell -Command "Invoke-Expression (Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/Win11Bootstrap/main.ps1')"`
 
 # Architecture
 
