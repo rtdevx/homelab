@@ -6,10 +6,10 @@ After installing a fresh Windows 11 system, follow these steps to prepare the en
 1. `Windows Update → Advanced options → Receive updates for other Microsoft products` → ON
 2. Apply all Windows Updates
 3. `Settings → System → Advanced → Terminal → PowerShell`
-- Allow local PowerShell scripts (Execution Policy)
-- Enable Sudo
+    - Allow local PowerShell scripts (Execution Policy)
+    - Enable Sudo
 5. `Settings → System → Advanced → Terminal`
-- Set default terminal to Windows Terminal
+    - Set default terminal to Windows Terminal
 
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
