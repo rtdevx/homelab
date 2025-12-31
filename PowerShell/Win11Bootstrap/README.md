@@ -9,6 +9,7 @@ After installing a fresh Windows 11 system, follow these steps to prepare the en
 
     - Allow local PowerShell scripts (Execution Policy)
     - Enable Sudo
+      
 5. `Settings → System → Advanced → Terminal`
 
     - Set default terminal to Windows Terminal
