@@ -1,5 +1,12 @@
+# Usage
+
+sudo PowerShell -Command "Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/Win11Bootstrap/main.ps1')"
+
+# Architecture
+
 PowerShell/
 └── WinBootstrap/
+    ├── main.ps1                        # Thin Loader (installing pre-requisites, executing main bootstrap script)
     ├── WinBootstrap.ps1                # Main orchestrator
     ├── Modules/
     │   ├── Install-WingetApps.ps1
