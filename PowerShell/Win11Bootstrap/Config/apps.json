@@ -33,7 +33,8 @@
       { "name": "AWS CLI", "id": "Amazon.AWSCLI" },
       { "name": "mRemoteNG", "id": "mRemoteNG.mRemoteNG" },
       { "name": "QNAP Qsync", "id": "QNAP.Qsync" },
-      { "name": "Lenovo System Update", "id": "Lenovo.SystemUpdate" }
+      { "name": "Lenovo System Update", "id": "Lenovo.SystemUpdate" },
+      { "name": "Tailscale", "id": "tailscale.tailscale" }      
     ],
 
     "personal": [
