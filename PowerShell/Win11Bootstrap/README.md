@@ -18,7 +18,9 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
 ```
 ## Execute PowerShell command
 
-`sudo PowerShell -Command "Invoke-Expression (Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/Win11Bootstrap/main.ps1')"`
+<!-- `sudo PowerShell -Command "Invoke-Expression (Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/Win11Bootstrap/main.ps1')"` -->
+
+Run elavated shell and then: `Invoke-Expression (Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/Win11Bootstrap/main.ps1')`
 
 # Architecture
 
