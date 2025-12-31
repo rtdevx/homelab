@@ -14,10 +14,7 @@ Write-Host "=== WinBootstrap Loader ==="
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 # PowerShell version check
-if ($PSVersionTable.PSVersion.Major -lt 5) {
-    Write-Error "PowerShell 5.0 or higher is required. Aborting."
-    exit 1
-}
+if ($PSVersionTable.PSVersion.Major -lt 5) { Write-Error "PowerShell 5.0 or higher is required. Aborting." return }
 
 # Execution policy check (warn only)
 $policy = Get-ExecutionPolicy
