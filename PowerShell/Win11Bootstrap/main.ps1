@@ -24,33 +24,3 @@ $policy = Get-ExecutionPolicy
 if ($policy -in @("Restricted", "Undefined")) {
     Write-Warning "Execution policy is '$policy'. You may need to allow script execution."
 }
-
-# ------------------------------------------------------------
-# 2. Winget Health Check
-# ------------------------------------------------------------
-
-function Test-WinGet {
-    try {
-        winget --version | Out-Null
-        return $true
-    } catch {
-        return $false
-    }
-}
-
-Write-Host "Checking winget availability..."
-
-if (-not (Test-WinGet)) {
-    Write-Warning "winget not found. Attempting to install App Installer from Microsoft Store..."
-
-    try {
-        Start-Process "ms-windows-store://pdp/?productid=9NBLGGH4NNS1"
-        Write-Host "Please install 'App Installer' from Microsoft Store, then re-run this script."
-        exit 1
-    } catch {
-        Write-Error "Failed to open Microsoft Store for App Installer. Install manually and re-run."
-        exit 1
-    }
-}
-
-Write-Host "winget is available."
