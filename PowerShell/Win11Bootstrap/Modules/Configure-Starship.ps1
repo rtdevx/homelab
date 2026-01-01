@@ -56,9 +56,3 @@ try {
 }
 
 Write-Log "Starship configuration complete."
-
-Write-Log "DEBUG: UserProfile resolved to: $UserProfile"
-Write-Log "DEBUG: Target directory: $targetConfigDir"
-Write-Log "DEBUG: Target file: $targetConfigPath"
-Write-Log "DEBUG: Source file: $sourceConfigPath"
-
