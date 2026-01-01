@@ -45,10 +45,10 @@ function Invoke-Module {
 }
 
 # ------------------------------------------------------------
-# Refresh-Path
+# Update-PathEnvironment
 # Reload PATH after winget installs
 # ------------------------------------------------------------
-function Refresh-Path {
+function Update-PathEnvironment {
     Write-Log "Refreshing PATH environment variable"
     $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") +
                 ";" +
