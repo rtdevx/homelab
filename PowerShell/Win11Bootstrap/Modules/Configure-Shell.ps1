@@ -66,7 +66,6 @@ Write-Log "Writing deterministic PowerShell 7 profile..."
 
 Import-Module PSReadLine -Force
 Set-PSReadLineOption -PredictionSource History
-Set-PSReadLineOption -Font "Hack Nerd Font"
 
 Import-Module Terminal-Icons
 
