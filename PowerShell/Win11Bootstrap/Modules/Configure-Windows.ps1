@@ -28,19 +28,27 @@ catch {
 # ------------------------------------------------------------
 # 2. Power Plan
 # ------------------------------------------------------------
+
 Write-Log "Configuring Power Plan..."
 
 try {
-    # Set High Performance plan if available
-    $highPerf = powercfg -l | Select-String "High performance"
+    $plans = powercfg -l
 
-    if ($highPerf) {
+    $ultimate = $plans | Select-String "Ultimate performance"
+    $highPerf = $plans | Select-String "High performance"
+
+    if ($ultimate) {
+        $guid = ($ultimate -split '\s+')[3]
+        powercfg -setactive $guid
+        Write-Log "Ultimate Performance power plan activated."
+    }
+    elseif ($highPerf) {
         $guid = ($highPerf -split '\s+')[3]
         powercfg -setactive $guid
         Write-Log "High Performance power plan activated."
     }
     else {
-        Write-Log "High Performance power plan not found. Skipping." "WARN"
+        Write-Log "No High Performance or Ultimate Performance plan available. Leaving default plan active." "INFO"
     }
 }
 catch {
