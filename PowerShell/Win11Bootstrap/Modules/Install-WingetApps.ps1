@@ -11,6 +11,19 @@
 Write-Log "Starting Winget application installation..."
 
 # ------------------------------------------------------------
+# Refresh PATH for current session
+# ------------------------------------------------------------
+function Refresh-Path {
+    $machine = [System.Environment]::GetEnvironmentVariable("Path","Machine")
+    $user    = [System.Environment]::GetEnvironmentVariable("Path","User")
+
+    $combined = @($machine, $user) -join ";"
+    $env:Path = ($combined -split ";" | Where-Object { $_ -ne "" }) -join ";"
+
+    Write-Log "PATH refreshed for current session."
+}
+
+# ------------------------------------------------------------
 # Load configuration
 # ------------------------------------------------------------
 $configPath = Join-Path $BootstrapRoot "Config/apps.json"
@@ -146,5 +159,12 @@ foreach ($app in $apps) {
         Write-Log "Failed to install ${name}: $($_.Exception.Message)" "ERROR"
     }
 }
+
+Write-Log "Winget application installation complete."
+
+# ------------------------------------------------------------
+# Refresh PATH so newly installed apps are immediately available
+# ------------------------------------------------------------
+Refresh-Path
 
 Write-Log "Winget application installation complete."
