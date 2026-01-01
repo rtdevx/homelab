@@ -33,13 +33,13 @@ try {
 $selectedGroups = @("core", "dev", "ops", "personal")
 
 # ------------------------------------------------------------
-# Flatten selected groups into a single list
+# Flatten selected groups from the *winget* section
 # ------------------------------------------------------------
 $apps = foreach ($group in $selectedGroups) {
-    if ($config.groups.PSObject.Properties.Name -contains $group) {
-        $config.groups.$group
+    if ($config.winget.PSObject.Properties.Name -contains $group) {
+        $config.winget.$group
     } else {
-        Write-Log "Group not found in config: $group" "WARN"
+        Write-Log "Group not found in winget config: $group" "WARN"
     }
 }
 
