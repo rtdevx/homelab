@@ -3,9 +3,6 @@
     Consolidated Windows configuration:
       - System Restore
       - Power Plan
-      - Daily Winget Update Task
-      - Taskbar & Start Menu QoL
-      - Windows Update Behavior
 #>
 
 Write-Log "Starting Windows configuration..."
@@ -16,8 +13,12 @@ Write-Log "Starting Windows configuration..."
 Write-Log "Configuring System Restore..."
 
 try {
+    # Enable System Restore on system drive
     Enable-ComputerRestore -Drive "C:\" -ErrorAction Stop
+
+    # Create an initial restore point
     Checkpoint-Computer -Description "Initial Bootstrap Restore Point" -RestorePointType "MODIFY_SETTINGS"
+
     Write-Log "System Restore configured."
 }
 catch {
@@ -25,8 +26,9 @@ catch {
 }
 
 # ------------------------------------------------------------
-# 2. Power Plan (Ultimate > High Performance > Default)
+# 2. Power Plan
 # ------------------------------------------------------------
+
 Write-Log "Configuring Power Plan..."
 
 try {
@@ -52,6 +54,8 @@ try {
 catch {
     Write-Log "Failed to configure power plan: $($_.Exception.Message)" "WARN"
 }
+
+Write-Log "Windows configuration complete."
 
 # ------------------------------------------------------------
 # 3. Scheduled Task: Daily Winget Updater (Idle Trigger)
@@ -132,111 +136,3 @@ try {
 catch {
     Write-Log "Failed to configure winget update task: $($_.Exception.Message)" "WARN"
 }
-
-# ------------------------------------------------------------
-# 4. Taskbar & Start Menu Quality-of-Life
-# ------------------------------------------------------------
-
-# Disable Bing web search
-Write-Log "Disabling Bing web search in Start..."
-try {
-    New-Item -Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer" -Force | Out-Null
-    Set-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer" `
-                     -Name "DisableSearchBoxSuggestions" -Value 1 -Type DWord
-    Write-Log "Bing web search disabled."
-}
-catch {
-    Write-Log "Failed to disable Bing web search: $($_.Exception.Message)" "WARN"
-}
-
-# Disable suggested apps
-Write-Log "Disabling suggested apps in Start..."
-try {
-    New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Force | Out-Null
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" `
-                     -Name "SubscribedContent-338389Enabled" -Value 0 -Type DWord
-    Write-Log "Suggested apps disabled."
-}
-catch {
-    Write-Log "Failed to disable suggested apps: $($_.Exception.Message)" "WARN"
-}
-
-# Taskbar search icon only
-Write-Log "Setting taskbar search to icon only..."
-try {
-    New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Force | Out-Null
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" `
-                     -Name "SearchboxTaskbarMode" -Value 1 -Type DWord
-    Write-Log "Taskbar search set to icon only."
-}
-catch {
-    Write-Log "Failed to configure taskbar search: $($_.Exception.Message)" "WARN"
-}
-
-# Disable widgets
-Write-Log "Disabling taskbar widgets..."
-try {
-    New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Force | Out-Null
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
-                     -Name "TaskbarDa" -Value 0 -Type DWord
-    Write-Log "Taskbar widgets disabled."
-}
-catch {
-    Write-Log "Failed to disable taskbar widgets: $($_.Exception.Message)" "WARN"
-}
-
-# Disable chat
-Write-Log "Disabling taskbar chat..."
-try {
-    New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Force | Out-Null
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
-                     -Name "TaskbarMn" -Value 0 -Type DWord
-    Write-Log "Taskbar chat disabled."
-}
-catch {
-    Write-Log "Failed to disable taskbar chat: $($_.Exception.Message)" "WARN"
-}
-
-# ------------------------------------------------------------
-# 5. Windows Update Behavior
-# ------------------------------------------------------------
-
-# Disable automatic reboot
-Write-Log "Disabling automatic reboot after updates..."
-try {
-    New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate\AU" -Force | Out-Null
-    Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate\AU" `
-                     -Name "NoAutoRebootWithLoggedOnUsers" -Value 1 -Type DWord
-    Write-Log "Automatic reboot disabled."
-}
-catch {
-    Write-Log "Failed to disable automatic reboot: $($_.Exception.Message)" "WARN"
-}
-
-# Notify before restart
-Write-Log "Enabling notify-before-restart behavior..."
-try {
-    New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate" -Force | Out-Null
-    Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate" `
-                     -Name "SetAutoRestartNotificationDisable" -Value 0 -Type DWord
-    Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate" `
-                     -Name "SetAutoRestartNotificationSchedule" -Value 1 -Type DWord
-    Write-Log "Notify-before-restart enabled."
-}
-catch {
-    Write-Log "Failed to configure restart notifications: $($_.Exception.Message)" "WARN"
-}
-
-# Enable Microsoft Update
-Write-Log "Enabling Microsoft Update (other Microsoft products)..."
-try {
-    New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate" -Force | Out-Null
-    Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate" `
-                     -Name "AllowMUUpdateService" -Value 1 -Type DWord
-    Write-Log "Microsoft Update enabled."
-}
-catch {
-    Write-Log "Failed to enable Microsoft Update: $($_.Exception.Message)" "WARN"
-}
-
-Write-Log "Windows configuration complete."
