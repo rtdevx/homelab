@@ -67,9 +67,8 @@ function Install-NerdFont {
 # ------------------------------------------------------------
 # Fonts to install (config-driven in the future)
 # ------------------------------------------------------------
-$FontsToInstall = @(
-    "Hack"
-)
+
+$FontsToInstall = @("Hack", "FiraCode", "CascadiaCode")
 
 foreach ($font in $FontsToInstall) {
     Install-NerdFont -FontName $font
