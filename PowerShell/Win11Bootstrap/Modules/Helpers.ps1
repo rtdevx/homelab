@@ -53,6 +53,8 @@ function Update-PathEnvironment {
     $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") +
                 ";" +
                 [System.Environment]::GetEnvironmentVariable("Path","User")
+
+    Write-Log "PATH refreshed for current session."
 }
 
 # ------------------------------------------------------------
