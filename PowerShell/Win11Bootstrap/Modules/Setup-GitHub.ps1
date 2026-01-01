@@ -5,7 +5,7 @@
 .DESCRIPTION
     - Ensures a Git workspace folder exists under $HOME\git
     - Configures global Git identity (user.name, user.email)
-    - Ensures an SSH keypair exists (~/.ssh/id_ed25519)
+    - Ensures an SSH keypair exists (~/.ssh/id_rsa_git)
     - Ensures GitHub CLI (gh) is authenticated
     - Uploads SSH public key to GitHub if not already present
     - Downloads SSH config into ~/.ssh/config
@@ -62,11 +62,11 @@ if (-not (Test-Path $GitRoot)) {
 }
 
 # ------------------------------------------------------------
-# 4. Ensure SSH keypair exists
+# 4. Ensure SSH keypair exists (id_rsa_git)
 # ------------------------------------------------------------
 
 $sshPath = Join-Path $HOME ".ssh"
-$keyPath = Join-Path $sshPath "id_ed25519"
+$keyPath = Join-Path $sshPath "id_rsa_git"
 $pubKeyPath = "$keyPath.pub"
 
 if (-not (Test-Path $sshPath)) {
@@ -75,8 +75,8 @@ if (-not (Test-Path $sshPath)) {
 }
 
 if (-not (Test-Path $keyPath)) {
-    Write-Host "Generating SSH keypair (ed25519)..."
-    ssh-keygen -t ed25519 -C "$gitUserEmail" -f $keyPath -N "" | Out-Null
+    Write-Host "Generating SSH keypair (RSA 4096)..."
+    ssh-keygen -t rsa -b 4096 -C "$gitUserEmail" -f $keyPath -N "" | Out-Null
 } else {
     Write-Host "SSH key already exists at $keyPath"
 }
@@ -126,29 +126,18 @@ Write-Host "Checking if SSH key is already uploaded to GitHub..."
 $pubKeyContent = (Get-Content $pubKeyPath -Raw).Trim()
 
 $existingKeysJson = gh ssh-key list --json title,key 2>$null
-if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($existingKeysJson)) {
-    $existingKeys = @()
+$existingKeys = if ($LASTEXITCODE -eq 0 -and $existingKeysJson) {
+    $existingKeysJson | ConvertFrom-Json
+} else { @() }
+
+$alreadyUploaded = $existingKeys | Where-Object { $_.key.Trim() -eq $pubKeyContent }
+
+if ($alreadyUploaded) {
+    Write-Host "SSH key already uploaded to GitHub with title '$($alreadyUploaded.title)'."
 } else {
-    $existingKeys = $existingKeysJson | ConvertFrom-Json
-}
-
-$alreadyUploaded = $false
-foreach ($k in $existingKeys) {
-    if ($k.key.Trim() -eq $pubKeyContent) {
-        $alreadyUploaded = $true
-        Write-Host "SSH key already uploaded to GitHub with title '$($k.title)'."
-        break
-    }
-}
-
-if (-not $alreadyUploaded) {
     $keyTitle = $env:COMPUTERNAME
     Write-Host "Uploading SSH key to GitHub with title '$keyTitle'..."
     gh ssh-key add $pubKeyPath --title $keyTitle
-    if ($LASTEXITCODE -ne 0) {
-        Write-Error "Failed to upload SSH key to GitHub."
-        return
-    }
 }
 
 # ------------------------------------------------------------
@@ -156,7 +145,7 @@ if (-not $alreadyUploaded) {
 # ------------------------------------------------------------
 
 $sshConfigPath = Join-Path $sshPath "config"
-$sshConfigUrl = "https://raw.githubusercontent.com/rtdevx/dotfiles/main/ssh/config"
+$sshConfigUrl  = "https://raw.githubusercontent.com/rtdevx/dotfiles/main/ssh/config"
 
 Write-Host "Downloading SSH config from $sshConfigUrl to $sshConfigPath..."
 
@@ -168,24 +157,26 @@ try {
 }
 
 # ------------------------------------------------------------
-# 8. Secure .ssh folder and key files
+# 8. Secure .ssh folder and key files (correct ACLs)
 # ------------------------------------------------------------
 
 Write-Host "Securing .ssh folder and key files..."
 
+$aclUser = "$env:COMPUTERNAME\$env:UserName"
+
 try {
-    # Remove inheritance and grant full control to the current user on .ssh
-    icacls $sshPath /inheritance:r /grant:r "$env:UserName:(OI)(CI)F" | Out-Null
+    # .ssh folder
+    icacls $sshPath /inheritance:r /grant:r "$aclUser:(OI)(CI)F" | Out-Null
 
-    # Private key: full control for user only
-    icacls $keyPath /inheritance:r /grant:r "$env:UserName:F" | Out-Null
+    # Private key
+    icacls $keyPath /inheritance:r /grant:r "$aclUser:F" | Out-Null
 
-    # Public key: read for user
-    icacls $pubKeyPath /inheritance:r /grant:r "$env:UserName:R" | Out-Null
+    # Public key
+    icacls $pubKeyPath /inheritance:r /grant:r "$aclUser:R" | Out-Null
 
-    # SSH config: read/write for user
+    # SSH config
     if (Test-Path $sshConfigPath) {
-        icacls $sshConfigPath /inheritance:r /grant:r "$env:UserName:RW" | Out-Null
+        icacls $sshConfigPath /inheritance:r /grant:r "$aclUser:RW" | Out-Null
     }
 
     Write-Host "SSH permissions configured."
@@ -199,7 +190,6 @@ try {
 
 $repos = @(
     "git@github.com:rtdevx/homelab.git"
-    # Add more repositories here as needed
 )
 
 foreach ($repo in $repos) {
@@ -213,9 +203,6 @@ foreach ($repo in $repos) {
 
     Write-Host "Cloning $repo into $target..."
     git clone $repo $target
-    if ($LASTEXITCODE -ne 0) {
-        Write-Warning "Failed to clone $repo"
-    }
 }
 
 Write-Host "=== Setup-GitHub completed ==="
