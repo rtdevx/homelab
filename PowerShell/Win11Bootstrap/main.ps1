@@ -6,18 +6,6 @@
 Write-Host "=== WinBootstrap Loader ==="
 
 # ------------------------------------------------------------
-# Elevation check
-# ------------------------------------------------------------
-$IsAdmin = ([Security.Principal.WindowsPrincipal] 
-    [Security.Principal.WindowsIdentity]::GetCurrent()
-).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
-
-if (-not $IsAdmin) {
-    Write-Host "Please run this script as Administrator." -ForegroundColor Yellow
-    exit 1
-}
-
-# ------------------------------------------------------------
 # 1. Environment Sanity Checks
 # ------------------------------------------------------------
 
