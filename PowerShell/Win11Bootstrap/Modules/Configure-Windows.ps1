@@ -71,9 +71,15 @@ try {
         Unregister-ScheduledTask -TaskName $taskName -TaskPath $taskPath -Confirm:$false
     }
 
-    # Create folder if missing
-    if (-not (Get-ScheduledTask -TaskPath $taskPath -ErrorAction SilentlyContinue)) {
-        New-ScheduledTaskFolder -Path $taskPath | Out-Null
+    # Create folder if missing (COM API, works on all Windows versions)
+    $service = New-Object -ComObject "Schedule.Service"
+    $service.Connect()
+
+    $rootFolder = $service.GetFolder("\")
+    try {
+        $null = $rootFolder.GetFolder($taskPath)
+    } catch {
+        $rootFolder.CreateFolder($taskPath) | Out-Null
     }
 
     # Action: run PowerShell silently
