@@ -110,9 +110,3 @@ disabled = true
 
 [terraform]
 disabled = true
-
-# ------------------------------------------------------------
-# Font configuration (ensures Starship uses the correct Nerd Font)
-# ------------------------------------------------------------
-[font]
-family = "Hack Nerd Font"
