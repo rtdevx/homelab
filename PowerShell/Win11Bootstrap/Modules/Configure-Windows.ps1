@@ -197,12 +197,19 @@ Write-Log "Disabling taskbar widgets..."
 try {
     $path = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
 
-    if (Test-Path $path -and (Get-ItemProperty -Path $path -Name "TaskbarDa" -ErrorAction SilentlyContinue)) {
-        Set-ItemProperty -Path $path -Name "TaskbarDa" -Value 0 -Type DWord -ErrorAction Stop
-        Write-Log "Taskbar widgets disabled."
+    if (Test-Path $path) {
+        $value = Get-ItemProperty -Path $path -Name "TaskbarDa" -ErrorAction SilentlyContinue
+
+        if ($null -ne $value) {
+            Set-ItemProperty -Path $path -Name "TaskbarDa" -Value 0 -Type DWord -ErrorAction Stop
+            Write-Log "Taskbar widgets disabled."
+        }
+        else {
+            Write-Log "Taskbar widgets key not present. Skipping." "INFO"
+        }
     }
     else {
-        Write-Log "Taskbar widgets key not present. Skipping." "INFO"
+        Write-Log "Explorer Advanced key not found. Skipping widget toggle." "INFO"
     }
 }
 catch {
@@ -214,12 +221,19 @@ Write-Log "Disabling taskbar chat..."
 try {
     $path = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
 
-    if (Test-Path $path -and (Get-ItemProperty -Path $path -Name "TaskbarMn" -ErrorAction SilentlyContinue)) {
-        Set-ItemProperty -Path $path -Name "TaskbarMn" -Value 0 -Type DWord -ErrorAction Stop
-        Write-Log "Taskbar chat disabled."
+    if (Test-Path $path) {
+        $value = Get-ItemProperty -Path $path -Name "TaskbarMn" -ErrorAction SilentlyContinue
+
+        if ($null -ne $value) {
+            Set-ItemProperty -Path $path -Name "TaskbarMn" -Value 0 -Type DWord -ErrorAction Stop
+            Write-Log "Taskbar chat disabled."
+        }
+        else {
+            Write-Log "Taskbar chat key not present. Skipping." "INFO"
+        }
     }
     else {
-        Write-Log "Taskbar chat key not present. Skipping." "INFO"
+        Write-Log "Explorer Advanced key not found. Skipping chat toggle." "INFO"
     }
 }
 catch {
