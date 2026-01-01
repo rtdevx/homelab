@@ -166,17 +166,17 @@ $aclUser = "$env:COMPUTERNAME\$env:UserName"
 
 try {
     # .ssh folder
-    icacls $sshPath /inheritance:r /grant:r "$aclUser:(OI)(CI)F" | Out-Null
+    icacls $sshPath /inheritance:r /grant:r "${aclUser}:(OI)(CI)F" | Out-Null
 
     # Private key
-    icacls $keyPath /inheritance:r /grant:r "$aclUser:F" | Out-Null
+    icacls $keyPath /inheritance:r /grant:r "${aclUser}:F" | Out-Null
 
     # Public key
-    icacls $pubKeyPath /inheritance:r /grant:r "$aclUser:R" | Out-Null
+    icacls $pubKeyPath /inheritance:r /grant:r "${aclUser}:R" | Out-Null
 
     # SSH config
     if (Test-Path $sshConfigPath) {
-        icacls $sshConfigPath /inheritance:r /grant:r "$aclUser:RW" | Out-Null
+        icacls $sshConfigPath /inheritance:r /grant:r "${aclUser}:RW" | Out-Null
     }
 
     Write-Host "SSH permissions configured."
