@@ -5,7 +5,13 @@
 
 Write-Host "=== WinBootstrap Loader ==="
 
+# ------------------------------------------------------------
+# Elevation check
+# ------------------------------------------------------------
 
+$identity = [Security.Principal.WindowsIdentity]::GetCurrent()
+$principal = New-Object Security.Principal.WindowsPrincipal($identity)
+$IsAdmin = $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 
 # ------------------------------------------------------------
 # 1. Environment Sanity Checks
