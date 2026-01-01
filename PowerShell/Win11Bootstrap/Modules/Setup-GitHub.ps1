@@ -156,7 +156,7 @@ if (-not $alreadyUploaded) {
 # ------------------------------------------------------------
 
 $sshConfigPath = Join-Path $sshPath "config"
-$sshConfigUrl  = "https://raw.githubusercontent.com/rtdevx/homelab/main/ssh/config"
+$sshConfigUrl  = "https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/ssh/config"
 
 Write-Host "Downloading SSH config from $sshConfigUrl to $sshConfigPath..."
 
