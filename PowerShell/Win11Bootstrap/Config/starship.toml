@@ -1,0 +1,118 @@
+# ~/.config/starship.toml
+
+add_newline = true
+command_timeout = 1000
+
+format = """$env_var$os$username$hostname$kubernetes$directory$git_branch$git_status\
+$all$character"""
+
+# Drop ugly default prompt characters
+[character]
+success_symbol = ''
+error_symbol = ''
+
+# ------------------------------------------------------------
+# OS SYMBOLS (corrected Nerd Font icons)
+# ------------------------------------------------------------
+[os]
+format = '[$symbol](bold white) '
+disabled = false
+
+[os.symbols]
+Windows = ''   # Windows logo (correct)
+Arch = ''      # Arch Linux logo (correct)
+Ubuntu = ''    # Ubuntu logo (correct)
+Macos = ''     # macOS logo (correct)
+
+# ------------------------------------------------------------
+# Username
+# ------------------------------------------------------------
+[username]
+style_user = 'white bold'
+style_root = 'black bold'
+format = '[$user]($style) '
+disabled = false
+show_always = true
+
+# ------------------------------------------------------------
+# Hostname
+# ------------------------------------------------------------
+[hostname]
+ssh_only = false
+format = 'on [$hostname](bold yellow) '
+disabled = false
+
+# ------------------------------------------------------------
+# Directory
+# ------------------------------------------------------------
+[directory]
+truncation_length = 1
+truncation_symbol = '…/'
+home_symbol = ' ~'
+read_only_style = '197'
+read_only = '  '
+format = 'at [$path]($style)[$read_only]($read_only_style) '
+
+# ------------------------------------------------------------
+# Git Branch
+# ------------------------------------------------------------
+[git_branch]
+symbol = ' '
+format = 'via [$symbol$branch]($style)'
+truncation_symbol = '…/'
+style = 'bold green'
+
+# ------------------------------------------------------------
+# Git Status
+# ------------------------------------------------------------
+[git_status]
+format = '[$all_status$ahead_behind]($style) '
+style = 'bold green'
+conflicted = '🏳'
+up_to_date = ''
+untracked = ' '
+ahead = '⇡${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+behind = '⇣${count}'
+stashed = ' '
+modified = ' '
+staged = '[++\($count\)](green)'
+renamed = ' '
+deleted = ' '
+
+# ------------------------------------------------------------
+# Kubernetes
+# ------------------------------------------------------------
+[kubernetes]
+format = 'via [ $context\($namespace\)](bold purple) '
+disabled = false
+
+# ------------------------------------------------------------
+# Disable unused modules
+# ------------------------------------------------------------
+[vagrant]
+disabled = true
+
+[docker_context]
+disabled = true
+
+[helm]
+disabled = true
+
+[python]
+disabled = true
+
+[nodejs]
+disabled = true
+
+[ruby]
+disabled = true
+
+[terraform]
+disabled = true
+
+# ------------------------------------------------------------
+# Font configuration (ensures Starship uses the correct Nerd Font)
+# ------------------------------------------------------------
+[font]
+family = "Hack Nerd Font"
