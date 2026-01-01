@@ -163,33 +163,31 @@ Invoke-WebRequest `
     -UseBasicParsing
 
 # ------------------------------------------------------------
-# Install WSL (Ubuntu 24.04 LTS)
+# Install WSL (Ubuntu 24.04 LTS, minimal, no config)
 # ------------------------------------------------------------
 Write-Log "Ensuring WSL is installed..."
 
-# Check if WSL is already installed
-$WSLInstalled = wsl --status 2>$null
+# Check if WSL is available
+$WSLStatus = wsl --status 2>$null
 
 if ($LASTEXITCODE -ne 0) {
     Write-Log "WSL not detected. Installing WSL..."
     wsl --install --no-distribution
 }
 
-# Check if Ubuntu 24.04 is installed
-$UbuntuInstalled = wsl --list --online | Select-String "Ubuntu-24.04"
+# Check if Ubuntu 24.04 is available online
+$UbuntuOnline = wsl --list --online | Select-String "Ubuntu-24.04"
 
-if ($UbuntuInstalled) {
-    # Check if the distro is already registered
-    $Registered = wsl --list --verbose | Select-String "Ubuntu-24.04"
+# Check if Ubuntu 24.04 is already installed
+$UbuntuInstalled = wsl --list --verbose | Select-String "Ubuntu-24.04"
 
-    if (-not $Registered) {
-        Write-Log "Installing Ubuntu 24.04 LTS..."
-        wsl --install -d Ubuntu-24.04
-    } else {
-        Write-Log "Ubuntu 24.04 LTS already installed"
-    }
+if ($UbuntuOnline -and -not $UbuntuInstalled) {
+    Write-Log "Installing Ubuntu 24.04 LTS..."
+    wsl --install -d Ubuntu-24.04
+} elseif ($UbuntuInstalled) {
+    Write-Log "Ubuntu 24.04 LTS already installed"
 } else {
-    Write-Log "Ubuntu 24.04 not found in online list. Installing default Ubuntu..."
+    Write-Log "Ubuntu 24.04 not found online. Installing default Ubuntu..."
     wsl --install -d Ubuntu
 }
 
