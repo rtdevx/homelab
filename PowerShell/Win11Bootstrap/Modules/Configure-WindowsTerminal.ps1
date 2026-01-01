@@ -1,10 +1,9 @@
 <#
     Configure-WindowsTerminal.ps1
     - Loads Config/terminal.json as a template
+    - Loads Config/terminal-profiles.json for deterministic profiles
     - Loads Config/fonts.json to pick a Nerd Font
-    - Injects the font into profiles.defaults.font.face
-    - Backs up existing Windows Terminal settings.json
-    - Writes new settings.json
+    - Merges everything into a valid Windows Terminal settings.json
 #>
 
 Write-Log "Starting Windows Terminal configuration..."
@@ -13,12 +12,8 @@ Write-Log "Starting Windows Terminal configuration..."
 # Helper: Convert PSCustomObject tree to hashtables (PS 5.1 compatible)
 # ------------------------------------------------------------
 function ConvertTo-Hashtable {
-    param(
-        [Parameter(Mandatory)]
-        [object]$InputObject
-    )
+    param([Parameter(Mandatory)][object]$InputObject)
 
-    # Handle PSCustomObject (ConvertFrom-Json output)
     if ($InputObject -is [pscustomobject]) {
         $hash = @{}
         foreach ($prop in $InputObject.PSObject.Properties) {
@@ -27,7 +22,6 @@ function ConvertTo-Hashtable {
         return $hash
     }
 
-    # Handle hashtable/dictionary
     if ($InputObject -is [System.Collections.IDictionary]) {
         $hash = @{}
         foreach ($key in $InputObject.Keys) {
@@ -36,9 +30,7 @@ function ConvertTo-Hashtable {
         return $hash
     }
 
-    # Handle arrays/lists
-    if ($InputObject -is [System.Collections.IEnumerable] -and
-        -not ($InputObject -is [string])) {
+    if ($InputObject -is [System.Collections.IEnumerable] -and -not ($InputObject -is [string])) {
         $list = @()
         foreach ($item in $InputObject) {
             $list += ConvertTo-Hashtable $item
@@ -46,7 +38,6 @@ function ConvertTo-Hashtable {
         return $list
     }
 
-    # Primitive value
     return $InputObject
 }
 
@@ -58,23 +49,27 @@ if (-not $BootstrapRoot) {
     return
 }
 
-$terminalConfigPath = Join-Path $BootstrapRoot "Config\terminal.json"
-$fontsConfigPath    = Join-Path $BootstrapRoot "Config\fonts.json"
+$terminalConfigPath  = Join-Path $BootstrapRoot "Config\terminal.json"
+$profilesConfigPath  = Join-Path $BootstrapRoot "Config\terminal-profiles.json"
+$fontsConfigPath     = Join-Path $BootstrapRoot "Config\fonts.json"
 
 # ------------------------------------------------------------
-# Load terminal.json
+# Load terminal.json (template)
 # ------------------------------------------------------------
-if (-not (Test-Path $terminalConfigPath)) {
-    Write-Log "terminal.json not found at: $terminalConfigPath" "ERROR"
+try {
+    $terminalConfig = ConvertTo-Hashtable (Get-Content $terminalConfigPath -Raw | ConvertFrom-Json)
+} catch {
+    Write-Log "Failed to parse terminal.json: $($_.Exception.Message)" "ERROR"
     return
 }
 
+# ------------------------------------------------------------
+# Load terminal-profiles.json (deterministic profiles)
+# ------------------------------------------------------------
 try {
-    $terminalConfigRaw = Get-Content $terminalConfigPath -Raw
-    $terminalConfigObj = $terminalConfigRaw | ConvertFrom-Json
-    $terminalConfig    = ConvertTo-Hashtable $terminalConfigObj
+    $profilesConfig = ConvertTo-Hashtable (Get-Content $profilesConfigPath -Raw | ConvertFrom-Json)
 } catch {
-    Write-Log "Failed to parse terminal.json: $($_.Exception.Message)" "ERROR"
+    Write-Log "Failed to parse terminal-profiles.json: $($_.Exception.Message)" "ERROR"
     return
 }
 
@@ -85,50 +80,27 @@ $fontName = $null
 
 if (Test-Path $fontsConfigPath) {
     try {
-        $fontsRaw = Get-Content $fontsConfigPath -Raw
-        $fontsObj = $fontsRaw | ConvertFrom-Json
-        $fonts    = ConvertTo-Hashtable $fontsObj
-
+        $fonts = ConvertTo-Hashtable (Get-Content $fontsConfigPath -Raw | ConvertFrom-Json)
         if ($fonts -and $fonts.fonts -and $fonts.fonts.Count -gt 0) {
-            # Pick the first font in the list for Terminal
             $fontName = $fonts.fonts[0]
             Write-Log "Using Nerd Font for Terminal: $fontName"
-        } else {
-            Write-Log "fonts.json found but no fonts defined. Using default Terminal font." "WARN"
         }
     } catch {
         Write-Log "Failed to parse fonts.json: $($_.Exception.Message)" "ERROR"
     }
-} else {
-    Write-Log "fonts.json not found. Using default Terminal font." "WARN"
 }
 
 # ------------------------------------------------------------
-# Inject Nerd Font into profiles.defaults (modern schema)
+# Merge profiles into template
 # ------------------------------------------------------------
+$terminalConfig.profiles = $profilesConfig.profiles
+
+# Inject Nerd Font into defaults
 if ($fontName) {
-    if (-not $terminalConfig.ContainsKey('profiles')) {
-        Write-Log "terminal.json missing 'profiles' section." "ERROR"
-    } else {
-        # Ensure profiles is an object-like structure
-        if ($terminalConfig.profiles -is [System.Collections.IEnumerable] -and
-            -not ($terminalConfig.profiles -is [System.Collections.IDictionary])) {
-            # If profiles is an array, wrap it in an object under 'list'
-            $terminalConfig.profiles = @{ list = $terminalConfig.profiles }
-        }
-
-        if (-not $terminalConfig.profiles.ContainsKey('defaults')) {
-            $terminalConfig.profiles.defaults = @{}
-        }
-
-        if (-not $terminalConfig.profiles.defaults.ContainsKey('font')) {
-            $terminalConfig.profiles.defaults.font = @{}
-        }
-
-        $terminalConfig.profiles.defaults.font.face = $fontName
-
-        Write-Log "Applied Nerd Font to Terminal profiles.defaults."
+    if (-not $terminalConfig.profiles.defaults.font) {
+        $terminalConfig.profiles.defaults.font = @{}
     }
+    $terminalConfig.profiles.defaults.font.face = $fontName
 }
 
 # ------------------------------------------------------------
@@ -143,16 +115,12 @@ if (-not (Test-Path $wtPackageRoot)) {
 }
 
 # ------------------------------------------------------------
-# Backup existing settings.json (if present)
+# Backup existing settings.json
 # ------------------------------------------------------------
 if (Test-Path $wtSettingsPath) {
     $backupPath = "$wtSettingsPath.bak"
-    try {
-        Copy-Item -Path $wtSettingsPath -Destination $backupPath -Force
-        Write-Log "Backed up existing settings.json to: $backupPath"
-    } catch {
-        Write-Log "Failed to back up existing settings.json: $($_.Exception.Message)" "ERROR"
-    }
+    Copy-Item -Path $wtSettingsPath -Destination $backupPath -Force
+    Write-Log "Backed up existing settings.json to: $backupPath"
 }
 
 # ------------------------------------------------------------
