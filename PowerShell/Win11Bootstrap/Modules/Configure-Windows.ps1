@@ -62,21 +62,24 @@ try {
     $taskName = "WinBootstrap-WingetUpdate"
     $taskPath = "\WinBootstrap"
 
-    # Remove existing task if present
+    # Remove existing task if present (PowerShell + COM cleanup)
     try {
+        # Try PowerShell deletion first
         $existing = Get-ScheduledTask -TaskName $taskName -TaskPath $taskPath -ErrorAction SilentlyContinue
         if ($existing) {
             Unregister-ScheduledTask -TaskName $taskName -TaskPath $taskPath -Confirm:$false
+        }
 
-            # Force COM refresh to avoid "file already exists" error
-            $service = New-Object -ComObject "Schedule.Service"
-            $service.Connect()
-            $folder = $service.GetFolder($taskPath)
-            try {
-                $folder.DeleteTask($taskName, 0)
-            } catch {
-                # Ignore if already gone
-            }
+        # COM cleanup (handles ghost tasks)
+        $service = New-Object -ComObject "Schedule.Service"
+        $service.Connect()
+
+        $folder = $service.GetFolder($taskPath)
+
+        try {
+            $folder.DeleteTask($taskName, 0)
+        } catch {
+            # Ignore if COM says it doesn't exist
         }
     }
     catch {
