@@ -1,72 +1,115 @@
 <#
     Configure-WindowsTerminal.ps1
-    Applies Windows Terminal configuration from Config/terminal.json.
-    Supports:
-      - Nerd Font assignment
-      - settings.json templating
-      - backup of existing settings
-      - clean logging
+    - Loads Config/terminal.json as a template
+    - Loads Config/fonts.json to pick a Nerd Font
+    - Injects the font into profiles.defaults.font.face
+    - Backs up existing Windows Terminal settings.json
+    - Writes new settings.json
 #>
 
 Write-Log "Starting Windows Terminal configuration..."
 
 # ------------------------------------------------------------
-# Locate Windows Terminal settings.json
+# Helper: Convert PSCustomObject tree to hashtables (PS 5.1 compatible)
 # ------------------------------------------------------------
-$wtSettingsPath = Join-Path $env:LOCALAPPDATA "Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+function ConvertTo-Hashtable {
+    param(
+        [Parameter(Mandatory)]
+        [object]$InputObject
+    )
 
-if (-not (Test-Path $wtSettingsPath)) {
-    Write-Log "Windows Terminal settings.json not found. Terminal may not be installed yet." "WARN"
-    return
+    if ($InputObject -is [System.Collections.IDictionary]) {
+        $hash = @{}
+        foreach ($key in $InputObject.Keys) {
+            $hash[$key] = ConvertTo-Hashtable $InputObject[$key]
+        }
+        return $hash
+    }
+    elseif ($InputObject -is [System.Collections.IEnumerable] -and
+            -not ($InputObject -is [string])) {
+        $list = @()
+        foreach ($item in $InputObject) {
+            $list += ConvertTo-Hashtable $item
+        }
+        return $list
+    }
+    else {
+        return $InputObject
+    }
 }
 
 # ------------------------------------------------------------
-# Load terminal.json (your template)
+# Resolve paths
 # ------------------------------------------------------------
-$configPath = Join-Path $BootstrapRoot "Config/terminal.json"
+if (-not $BootstrapRoot) {
+    Write-Log "BootstrapRoot is not set. Cannot locate config files." "ERROR"
+    return
+}
 
-if (-not (Test-Path $configPath)) {
-    Write-Log "Config file not found: $configPath" "ERROR"
+$terminalConfigPath = Join-Path $BootstrapRoot "Config\terminal.json"
+$fontsConfigPath    = Join-Path $BootstrapRoot "Config\fonts.json"
+
+# ------------------------------------------------------------
+# Load terminal.json
+# ------------------------------------------------------------
+if (-not (Test-Path $terminalConfigPath)) {
+    Write-Log "terminal.json not found at: $terminalConfigPath" "ERROR"
     return
 }
 
 try {
-    $terminalConfig = Get-Content $configPath -Raw | ConvertFrom-Json -AsHashtable
+    $terminalConfigRaw = Get-Content $terminalConfigPath -Raw
+    $terminalConfigObj = $terminalConfigRaw | ConvertFrom-Json
+    $terminalConfig    = ConvertTo-Hashtable $terminalConfigObj
 } catch {
     Write-Log "Failed to parse terminal.json: $($_.Exception.Message)" "ERROR"
     return
 }
 
 # ------------------------------------------------------------
-# Load Nerd Font name from fonts.json
+# Load fonts.json and pick a Nerd Font
 # ------------------------------------------------------------
-$fontsConfigPath = Join-Path $BootstrapRoot "Config/fonts.json"
+$fontName = $null
 
 if (Test-Path $fontsConfigPath) {
     try {
-        $fontsConfig = Get-Content $fontsConfigPath -Raw | ConvertFrom-Json
-        $fontName = $fontsConfig.fonts[0]  # first font is the primary
-        Write-Log "Using Nerd Font for Terminal: $fontName"
+        $fontsRaw = Get-Content $fontsConfigPath -Raw
+        $fontsObj = $fontsRaw | ConvertFrom-Json
+        $fonts    = ConvertTo-Hashtable $fontsObj
+
+        if ($fonts -and $fonts.fonts -and $fonts.fonts.Count -gt 0) {
+            # Pick the first font in the list for Terminal
+            $fontName = $fonts.fonts[0]
+            Write-Log "Using Nerd Font for Terminal: $fontName"
+        } else {
+            Write-Log "fonts.json found but no fonts defined. Using default Terminal font." "WARN"
+        }
     } catch {
-        Write-Log "Failed to parse fonts.json: $($_.Exception.Message)" "WARN"
+        Write-Log "Failed to parse fonts.json: $($_.Exception.Message)" "ERROR"
     }
 } else {
-    Write-Log "fonts.json not found - using default font." "WARN"
+    Write-Log "fonts.json not found. Using default Terminal font." "WARN"
 }
 
 # ------------------------------------------------------------
-# Inject Nerd Font into Terminal config
+# Inject Nerd Font into profiles.defaults (modern schema)
 # ------------------------------------------------------------
 if ($fontName) {
-    if (-not $terminalConfig.profiles) {
+    if (-not $terminalConfig.ContainsKey('profiles')) {
         Write-Log "terminal.json missing 'profiles' section." "ERROR"
     } else {
-        if (-not $terminalConfig.profiles.defaults) {
+        # Ensure profiles is an object-like structure
+        if ($terminalConfig.profiles -is [System.Collections.IEnumerable] -and
+            -not ($terminalConfig.profiles -is [System.Collections.IDictionary])) {
+            # If profiles is an array, wrap it in an object under 'list'
+            $terminalConfig.profiles = @{ list = $terminalConfig.profiles }
+        }
+
+        if (-not $terminalConfig.profiles.ContainsKey('defaults')) {
             $terminalConfig.profiles.defaults = @{}
         }
 
-        # Ensure modern font schema exists
-        if (-not $terminalConfig.profiles.defaults.font) {
+        if (-not $terminalConfig.profiles.defaults.ContainsKey('font')) {
             $terminalConfig.profiles.defaults.font = @{}
         }
 
@@ -77,26 +120,39 @@ if ($fontName) {
 }
 
 # ------------------------------------------------------------
-# Backup existing settings.json
+# Resolve Windows Terminal settings path
 # ------------------------------------------------------------
-$backupPath = "$wtSettingsPath.bak"
+$wtPackageRoot = Join-Path $env:LOCALAPPDATA "Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
+$wtSettingsPath = Join-Path $wtPackageRoot "settings.json"
 
-try {
-    Copy-Item -Path $wtSettingsPath -Destination $backupPath -Force
-    Write-Log "Backed up existing settings.json to: $backupPath"
-} catch {
-    Write-Log "Failed to back up settings.json: $($_.Exception.Message)" "ERROR"
+if (-not (Test-Path $wtPackageRoot)) {
+    Write-Log "Windows Terminal LocalState folder not found at: $wtPackageRoot" "ERROR"
+    return
+}
+
+# ------------------------------------------------------------
+# Backup existing settings.json (if present)
+# ------------------------------------------------------------
+if (Test-Path $wtSettingsPath) {
+    $backupPath = "$wtSettingsPath.bak"
+    try {
+        Copy-Item -Path $wtSettingsPath -Destination $backupPath -Force
+        Write-Log "Backed up existing settings.json to: $backupPath"
+    } catch {
+        Write-Log "Failed to back up existing settings.json: $($_.Exception.Message)" "ERROR"
+    }
 }
 
 # ------------------------------------------------------------
 # Write new settings.json
 # ------------------------------------------------------------
 try {
-    $json = $terminalConfig | ConvertTo-Json -Depth 20
-    Set-Content -Path $wtSettingsPath -Value $json -Encoding UTF8
+    $jsonOut = $terminalConfig | ConvertTo-Json -Depth 20
+    $jsonOut | Set-Content -Path $wtSettingsPath -Encoding UTF8
     Write-Log "Applied new Windows Terminal configuration."
 } catch {
     Write-Log "Failed to write new settings.json: $($_.Exception.Message)" "ERROR"
+    return
 }
 
 Write-Log "Windows Terminal configuration complete."
