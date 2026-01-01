@@ -31,7 +31,7 @@ if (-not (Test-Path $configPath)) {
 }
 
 try {
-    $terminalConfig = Get-Content $configPath -Raw | ConvertFrom-Json
+    $terminalConfig = Get-Content $configPath -Raw | ConvertFrom-Json -AsHashtable
 } catch {
     Write-Log "Failed to parse terminal.json: $($_.Exception.Message)" "ERROR"
     return
