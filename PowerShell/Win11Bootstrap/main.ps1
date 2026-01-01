@@ -6,16 +6,27 @@
 Write-Host "=== WinBootstrap Loader ==="
 
 # ------------------------------------------------------------
-# Elevation check
+# Elevation check with auto-elevation
 # ------------------------------------------------------------
-
-$identity = [Security.Principal.WindowsIdentity]::GetCurrent()
+$identity  = [Security.Principal.WindowsIdentity]::GetCurrent()
 $principal = New-Object Security.Principal.WindowsPrincipal($identity)
-$IsAdmin = $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+$IsAdmin   = $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 
 if (-not $IsAdmin) {
-    Write-Error "This script must be run as Administrator."
-    return
+    Write-Host "Elevating to Administrator..." -ForegroundColor Yellow
+
+    $psi = New-Object System.Diagnostics.ProcessStartInfo
+    $psi.FileName = "powershell.exe"
+    $psi.Arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`""
+    $psi.Verb = "runas"
+
+    try {
+        [System.Diagnostics.Process]::Start($psi) | Out-Null
+    } catch {
+        Write-Host "Elevation cancelled by user." -ForegroundColor Red
+    }
+
+    exit 0
 }
 
 # ------------------------------------------------------------
