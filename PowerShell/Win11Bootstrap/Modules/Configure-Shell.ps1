@@ -162,4 +162,37 @@ Invoke-WebRequest `
     -OutFile "$WTLocalState\settings.json" `
     -UseBasicParsing
 
+# ------------------------------------------------------------
+# Install WSL (Ubuntu 24.04 LTS)
+# ------------------------------------------------------------
+Write-Log "Ensuring WSL is installed..."
+
+# Check if WSL is already installed
+$WSLInstalled = wsl --status 2>$null
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Log "WSL not detected. Installing WSL..."
+    wsl --install --no-distribution
+}
+
+# Check if Ubuntu 24.04 is installed
+$UbuntuInstalled = wsl --list --online | Select-String "Ubuntu-24.04"
+
+if ($UbuntuInstalled) {
+    # Check if the distro is already registered
+    $Registered = wsl --list --verbose | Select-String "Ubuntu-24.04"
+
+    if (-not $Registered) {
+        Write-Log "Installing Ubuntu 24.04 LTS..."
+        wsl --install -d Ubuntu-24.04
+    } else {
+        Write-Log "Ubuntu 24.04 LTS already installed"
+    }
+} else {
+    Write-Log "Ubuntu 24.04 not found in online list. Installing default Ubuntu..."
+    wsl --install -d Ubuntu
+}
+
+Write-Log "WSL setup complete"
+
 Write-Log "=== Shell configuration complete ==="
