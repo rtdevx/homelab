@@ -12,7 +12,7 @@ Write-Log "=== Configuring Shell Environment ==="
 # ------------------------------------------------------------
 # Resolve user profile (works even when elevated)
 # ------------------------------------------------------------
-$UserProfile = (Get-ChildItem Env:USERPROFILE).Value
+$UserProfile = [Environment]::GetFolderPath("UserProfile")
 $ConfigDir   = Join-Path $UserProfile ".config"
 $PSProfile   = Join-Path $UserProfile "Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
 
