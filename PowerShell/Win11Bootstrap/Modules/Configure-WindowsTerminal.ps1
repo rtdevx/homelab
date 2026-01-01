@@ -18,6 +18,16 @@ function ConvertTo-Hashtable {
         [object]$InputObject
     )
 
+    # Handle PSCustomObject (ConvertFrom-Json output)
+    if ($InputObject -is [pscustomobject]) {
+        $hash = @{}
+        foreach ($prop in $InputObject.PSObject.Properties) {
+            $hash[$prop.Name] = ConvertTo-Hashtable $prop.Value
+        }
+        return $hash
+    }
+
+    # Handle hashtable/dictionary
     if ($InputObject -is [System.Collections.IDictionary]) {
         $hash = @{}
         foreach ($key in $InputObject.Keys) {
@@ -25,17 +35,19 @@ function ConvertTo-Hashtable {
         }
         return $hash
     }
-    elseif ($InputObject -is [System.Collections.IEnumerable] -and
-            -not ($InputObject -is [string])) {
+
+    # Handle arrays/lists
+    if ($InputObject -is [System.Collections.IEnumerable] -and
+        -not ($InputObject -is [string])) {
         $list = @()
         foreach ($item in $InputObject) {
             $list += ConvertTo-Hashtable $item
         }
         return $list
     }
-    else {
-        return $InputObject
-    }
+
+    # Primitive value
+    return $InputObject
 }
 
 # ------------------------------------------------------------
