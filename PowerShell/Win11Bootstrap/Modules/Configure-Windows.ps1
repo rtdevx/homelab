@@ -71,7 +71,7 @@ try {
         Unregister-ScheduledTask -TaskName $taskName -TaskPath $taskPath -Confirm:$false
     }
 
-    # Create folder if missing (COM API, works on all Windows versions)
+    # Create folder if missing (COM API)
     $service = New-Object -ComObject "Schedule.Service"
     $service.Connect()
 
@@ -82,35 +82,53 @@ try {
         $rootFolder.CreateFolder($taskPath) | Out-Null
     }
 
-    # Action: run PowerShell silently
-    $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument @(
-        "-NoProfile",
-        "-WindowStyle Hidden",
-        "-Command",
-        "winget upgrade --all --silent --accept-package-agreements --accept-source-agreements"
-    ) -WorkingDirectory "C:\Windows\System32"
+    # XML definition for idle-triggered daily winget update
+    $taskXml = @"
+<Task version="1.4" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
+  <RegistrationInfo>
+    <Description>Automatically updates winget packages once per day when the system is idle.</Description>
+  </RegistrationInfo>
+  <Triggers>
+    <IdleTrigger>
+      <Repetition>
+        <Interval>P1D</Interval>
+      </Repetition>
+      <Enabled>true</Enabled>
+    </IdleTrigger>
+  </Triggers>
+  <Principals>
+    <Principal id="Author">
+      <RunLevel>HighestAvailable</RunLevel>
+      <LogonType>InteractiveToken</LogonType>
+    </Principal>
+  </Principals>
+  <Settings>
+    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+    <DisallowStartIfOnBatteries>true</DisallowStartIfOnBatteries>
+    <StopIfGoingOnBatteries>true</StopIfGoingOnBatteries>
+    <RunOnlyIfIdle>true</RunOnlyIfIdle>
+    <IdleSettings>
+      <Duration>PT10M</Duration>
+      <WaitTimeout>PT1H</WaitTimeout>
+    </IdleSettings>
+    <StartWhenAvailable>true</StartWhenAvailable>
+    <AllowHardTerminate>true</AllowHardTerminate>
+    <Enabled>true</Enabled>
+    <Hidden>false</Hidden>
+  </Settings>
+  <Actions Context="Author">
+    <Exec>
+      <Command>powershell.exe</Command>
+      <Arguments>-NoProfile -WindowStyle Hidden -Command &quot;winget upgrade --all --silent --accept-package-agreements --accept-source-agreements&quot;</Arguments>
+      <WorkingDirectory>C:\Windows\System32</WorkingDirectory>
+    </Exec>
+  </Actions>
+</Task>
+"@
 
-    # Trigger: when system is idle, repeat every 1 day
-    $trigger = New-ScheduledTaskTrigger -AtStartup
-    $trigger.IdleDuration = "PT10M"       # wait 10 minutes of idle
-    $trigger.RepetitionInterval = "P1D"   # run at most once per day
-
-    # Settings
-    $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries:$false `
-                                             -DontStopIfGoingOnBatteries:$false `
-                                             -StartWhenAvailable `
-                                             -RunOnlyIfIdle `
-                                             -IdleDuration "PT10M" `
-                                             -IdleWaitTimeout "PT1H"
-
-    # Register task
     Register-ScheduledTask -TaskName $taskName `
                            -TaskPath $taskPath `
-                           -Action $action `
-                           -Trigger $trigger `
-                           -Settings $settings `
-                           -RunLevel Highest `
-                           -Description "Automatically updates winget packages once per day when the system is idle." `
+                           -Xml $taskXml `
                            | Out-Null
 
     Write-Log "Winget update task configured."
