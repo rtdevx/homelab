@@ -67,6 +67,8 @@ Write-Log "Writing deterministic PowerShell 7 profile..."
 Import-Module PSReadLine -Force
 Set-PSReadLineOption -PredictionSource History
 
+# Font is controlled by Windows Terminal, not PSReadLine
+
 Import-Module Terminal-Icons
 
 Invoke-Expression (& starship init powershell)
