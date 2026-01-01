@@ -3,6 +3,7 @@
     Consolidated Windows configuration:
       - System Restore
       - Power Plan
+      - Winget Update Logging Script
       - Daily Winget Update Task
       - Taskbar & Start Menu QoL
       - Windows Update Behavior
@@ -54,7 +55,58 @@ catch {
 }
 
 # ------------------------------------------------------------
-# 3. Scheduled Task: Daily Winget Updater (Idle Trigger)
+# 3. Winget Update Logging Script
+# ------------------------------------------------------------
+Write-Log "Ensuring winget update logging script exists..."
+
+try {
+    $scriptPath = "C:\Windows\System32\WinBootstrap-WingetUpdate.ps1"
+
+    $scriptContent = @'
+$logDir = "C:\Logs"
+$logFile = Join-Path $logDir "winget-update.log"
+$maxSize = 1MB
+
+# Ensure log directory exists
+if (-not (Test-Path $logDir)) {
+    New-Item -Path $logDir -ItemType Directory | Out-Null
+}
+
+# Rotate log if needed
+if (Test-Path $logFile) {
+    $size = (Get-Item $logFile).Length
+    if ($size -gt $maxSize) {
+        $backup = "$logFile.1"
+
+        if (Test-Path $backup) {
+            Remove-Item -Force $backup
+        }
+
+        Move-Item -Force $logFile $backup
+        New-Item -Path $logFile -ItemType File | Out-Null
+    }
+}
+
+# Write header
+"[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] Starting winget upgrade..." | Out-File -FilePath $logFile -Append
+
+# Run winget and capture output
+winget upgrade --all --silent --accept-package-agreements --accept-source-agreements 2>&1 |
+    Out-File -FilePath $logFile -Append
+
+# Write footer
+"[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] Completed winget upgrade." | Out-File -FilePath $logFile -Append
+'@
+
+    Set-Content -Path $scriptPath -Value $scriptContent -Encoding UTF8 -Force
+    Write-Log "Winget update logging script created."
+}
+catch {
+    Write-Log "Failed to create winget update logging script: $($_.Exception.Message)" "WARN"
+}
+
+# ------------------------------------------------------------
+# 4. Scheduled Task: Daily Winget Updater (Idle Trigger)
 # ------------------------------------------------------------
 Write-Log "Configuring daily winget update task..."
 
@@ -64,13 +116,11 @@ try {
 
     # Remove existing task if present (PowerShell + COM cleanup)
     try {
-        # Try PowerShell deletion first
         $existing = Get-ScheduledTask -TaskName $taskName -TaskPath $taskPath -ErrorAction SilentlyContinue
         if ($existing) {
             Unregister-ScheduledTask -TaskName $taskName -TaskPath $taskPath -Confirm:$false
         }
 
-        # COM cleanup (handles ghost tasks)
         $service = New-Object -ComObject "Schedule.Service"
         $service.Connect()
 
@@ -78,9 +128,7 @@ try {
 
         try {
             $folder.DeleteTask($taskName, 0)
-        } catch {
-            # Ignore if COM says it doesn't exist
-        }
+        } catch {}
     }
     catch {
         Write-Log "Failed to remove existing scheduled task: $($_.Exception.Message)" "WARN"
@@ -134,7 +182,7 @@ try {
   <Actions Context="Author">
     <Exec>
       <Command>powershell.exe</Command>
-      <Arguments>-NoProfile -WindowStyle Hidden -Command &quot;winget upgrade --all --silent --accept-package-agreements --accept-source-agreements&quot;</Arguments>
+      <Arguments>-NoProfile -WindowStyle Hidden -File &quot;C:\Windows\System32\WinBootstrap-WingetUpdate.ps1&quot;</Arguments>
       <WorkingDirectory>C:\Windows\System32</WorkingDirectory>
     </Exec>
   </Actions>
@@ -153,7 +201,7 @@ catch {
 }
 
 # ------------------------------------------------------------
-# 4. Taskbar & Start Menu Quality-of-Life
+# 5. Taskbar & Start Menu Quality-of-Life
 # ------------------------------------------------------------
 
 # Disable Bing web search
@@ -241,7 +289,7 @@ catch {
 }
 
 # ------------------------------------------------------------
-# 5. Windows Update Behavior
+# 6. Windows Update Behavior
 # ------------------------------------------------------------
 
 # Disable automatic reboot
