@@ -1,12 +1,12 @@
 {
-  "groups": {
+  "winget": {
     "core": [
       { "name": "Google Chrome", "id": "Google.Chrome" },
       { "name": "Mozilla Firefox", "id": "Mozilla.Firefox" },
       { "name": "7zip Zstandard", "id": "mcmilk.7zip-zstd" },
       { "name": "PowerToys", "id": "Microsoft.PowerToys" },
       { "name": "Windows Terminal", "id": "Microsoft.WindowsTerminal" },
-      { "name": "PowerShell 7", "id": "Microsoft.PowerShell" }      
+      { "name": "PowerShell 7", "id": "Microsoft.PowerShell" }
     ],
 
     "dev": [
@@ -14,7 +14,7 @@
       { "name": ".NET Desktop Runtime 8", "id": "Microsoft.DotNet.DesktopRuntime.8" },
       { "name": "NodeJS LTS", "id": "OpenJS.NodeJS.LTS" },
       { "name": "Git", "id": "Git.Git" },
-      { "name": "GitHub CLI", "id": "GitHub.cli" },      
+      { "name": "GitHub CLI", "id": "GitHub.cli" },
       { "name": "Terraform", "id": "Hashicorp.Terraform" },
       { "name": "Terraform Docs", "id": "Terraform-docs.Terraform-docs" },
       { "name": "VS Code", "id": "Microsoft.VisualStudioCode" },
@@ -23,10 +23,7 @@
     ],
 
     "ops": [
-      {
-        "name": ".NET Desktop Runtime 5",
-        "id": "Microsoft.DotNet.DesktopRuntime.5"
-      },
+      { "name": ".NET Desktop Runtime 5", "id": "Microsoft.DotNet.DesktopRuntime.5" },
       {
         "name": "Dell Display Manager",
         "id": "Dell.DisplayManager",
@@ -36,7 +33,7 @@
       { "name": "mRemoteNG", "id": "mRemoteNG.mRemoteNG" },
       { "name": "QNAP Qsync", "id": "QNAP.Qsync" },
       { "name": "Lenovo System Update", "id": "Lenovo.SystemUpdate" },
-      { "name": "Tailscale", "id": "tailscale.tailscale" }      
+      { "name": "Tailscale", "id": "tailscale.tailscale" }
     ],
 
     "personal": [
@@ -50,6 +47,31 @@
       { "name": "Rufus", "id": "Rufus.Rufus" },
       { "name": "WinDirStat", "id": "WinDirStat.WinDirStat" },
       { "name": "Notepad++", "id": "Notepad++.Notepad++" }
+    ]
+  },
+
+  "store": {
+    "core": [
+      { "name": "Windows Notepad", "id": "9MSMLRH6LZF3" },
+      { "name": "Snipping Tool", "id": "9MZ95KL8MR0L" },
+      { "name": "Windows Calculator", "id": "9WZDNCRFHVN5" }
+    ],
+
+    "media": [
+      { "name": "Microsoft Photos", "id": "9WZDNCRFJBH4" },
+      { "name": "Windows Camera", "id": "9WZDNCRFJBBG" },
+      { "name": "WebP Image Extension", "id": "9PG2DK419DRG" },
+      { "name": "Raw Image Extension", "id": "9NCTDW2W1BH8" }
+    ],
+
+    "communication": [
+      { "name": "WhatsApp", "id": "9NKSQGP7F2NH" },
+      { "name": "Phone Link", "id": "9NMPJ99VJBWV" }
+    ],
+
+    "utilities": [
+      { "name": "Rufus", "id": "9PC3H3V7Q9CH" },
+      { "name": "Microsoft To Do", "id": "9NBLGGH5R558" }
     ]
   }
 }
