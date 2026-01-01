@@ -1,8 +1,9 @@
 <#
     Install-StoreApps.ps1
-    Installs Microsoft Store applications defined in Config/apps-store.json.
+    Installs Microsoft Store applications defined in Config/apps.json.
     Supports:
-      - dependency ordering
+      - groups
+      - dependencies
       - version pinning
       - clean logging
 #>
@@ -12,7 +13,7 @@ Write-Log "Starting Microsoft Store application installation..."
 # ------------------------------------------------------------
 # Load configuration
 # ------------------------------------------------------------
-$configPath = Join-Path $BootstrapRoot "Config/apps-store.json"
+$configPath = Join-Path $BootstrapRoot "Config/apps.json"
 
 if (-not (Test-Path $configPath)) {
     Write-Log "Config file not found: $configPath" "ERROR"
@@ -22,22 +23,28 @@ if (-not (Test-Path $configPath)) {
 try {
     $config = Get-Content $configPath | ConvertFrom-Json
 } catch {
-    Write-Log "Failed to parse apps-store.json: $($_.Exception.Message)" "ERROR"
+    Write-Log "Failed to parse apps.json: $($_.Exception.Message)" "ERROR"
     return
 }
 
-if (-not $config.groups) {
-    Write-Log "No 'groups' object found in apps-store.json" "ERROR"
+if (-not $config.store) {
+    Write-Log "No 'store' section found in apps.json" "ERROR"
     return
 }
 
+# ------------------------------------------------------------
+# Select groups to install
+# ------------------------------------------------------------
 $selectedGroups = @("core", "media", "communication", "utilities")
 
+# ------------------------------------------------------------
+# Flatten selected groups from the *store* section
+# ------------------------------------------------------------
 $apps = foreach ($group in $selectedGroups) {
-    if ($config.groups.PSObject.Properties.Name -contains $group) {
-        $config.groups.$group
+    if ($config.store.PSObject.Properties.Name -contains $group) {
+        $config.store.$group
     } else {
-        Write-Log "Group not found in config: $group" "WARN"
+        Write-Log "Group not found in store config: $group" "WARN"
     }
 }
 
@@ -123,7 +130,7 @@ foreach ($app in $apps) {
     Write-Log "Installing: $name ($id)"
 
     try {
-        $args = @(
+        $storeArgs = @(
             "install", "--id", $id,
             "--source", "msstore",
             "--accept-package-agreements",
@@ -131,10 +138,10 @@ foreach ($app in $apps) {
         )
 
         if ($version) {
-            $args += @("--version", $version)
+            $storeArgs += @("--version", $version)
         }
 
-        winget @args
+        winget @storeArgs
         Write-Log "Installed: $name"
     }
     catch {
