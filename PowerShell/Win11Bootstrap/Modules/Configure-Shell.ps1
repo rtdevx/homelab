@@ -1,20 +1,26 @@
 <#
     Configure-Shell.ps1
-    A compact, deterministic setup for:
+    Deterministic PowerShell 7 shell setup:
     - Nerd Fonts
-    - Starship prompt
-    - PowerShell profile
+    - Starship
+    - PowerShell 7 profile
     - Windows Terminal settings
 #>
 
 Write-Log "=== Configuring Shell Environment ==="
 
 # ------------------------------------------------------------
-# Resolve user profile (works even when elevated)
+# Resolve user profile (interactive user, not elevated token)
 # ------------------------------------------------------------
 $UserProfile = [Environment]::GetFolderPath("UserProfile")
 $ConfigDir   = Join-Path $UserProfile ".config"
-$PSProfile   = Join-Path $UserProfile "Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
+
+# PowerShell 7 profile path
+$PS7ProfileDir = Join-Path $UserProfile "Documents\PowerShell"
+$PS7Profile    = Join-Path $PS7ProfileDir "Microsoft.PowerShell_profile.ps1"
+
+# Legacy PowerShell 5.1 profile path
+$PS51Dir = Join-Path $UserProfile "Documents\WindowsPowerShell"
 
 # ------------------------------------------------------------
 # Ensure .config exists
@@ -22,6 +28,22 @@ $PSProfile   = Join-Path $UserProfile "Documents\WindowsPowerShell\Microsoft.Pow
 if (-not (Test-Path $ConfigDir)) {
     New-Item -ItemType Directory -Path $ConfigDir -Force | Out-Null
     Write-Log "Created: $ConfigDir"
+}
+
+# ------------------------------------------------------------
+# Remove legacy WindowsPowerShell folder (PowerShell 5.1)
+# ------------------------------------------------------------
+if (Test-Path $PS51Dir) {
+    Remove-Item $PS51Dir -Recurse -Force
+    Write-Log "Removed legacy WindowsPowerShell profile directory: $PS51Dir"
+}
+
+# ------------------------------------------------------------
+# Ensure PowerShell 7 profile directory exists
+# ------------------------------------------------------------
+if (-not (Test-Path $PS7ProfileDir)) {
+    New-Item -ItemType Directory -Path $PS7ProfileDir -Force | Out-Null
+    Write-Log "Created PowerShell 7 profile directory: $PS7ProfileDir"
 }
 
 # ------------------------------------------------------------
@@ -33,35 +55,33 @@ Invoke-Expression ((New-Object System.Net.WebClient).DownloadString(
 ))
 
 # ------------------------------------------------------------
-# Overwrite PowerShell profile (deterministic)
+# Write deterministic PowerShell 7 profile
 # ------------------------------------------------------------
-Write-Log "Writing deterministic PowerShell profile..."
+Write-Log "Writing deterministic PowerShell 7 profile..."
 
 @'
 # ============================================================
-# Deterministic PowerShell Profile (managed by WinBootstrap)
+# Deterministic PowerShell 7 Profile (managed by WinBootstrap)
 # ============================================================
 
-# --- PSReadLine ------------------------------------------------
 Import-Module PSReadLine -Force
 Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -Font "Hack Nerd Font"
 
-# --- Terminal Icons -------------------------------------------
 Import-Module Terminal-Icons
 
-# --- Starship Prompt ------------------------------------------
 Invoke-Expression (& starship init powershell)
-'@ | Set-Content -Path $PSProfile -Encoding UTF8 -Force
+'@ | Set-Content -Path $PS7Profile -Encoding UTF8 -Force
 
-Write-Log "PowerShell profile written to: $PSProfile"
+Write-Log "PowerShell 7 profile written to: $PS7Profile"
 
 # ------------------------------------------------------------
 # Download Starship config
 # ------------------------------------------------------------
 Write-Log "Applying Starship configuration..."
+
 Invoke-WebRequest `
-    -Uri "https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/terminal/starship.toml" `
+    -Uri "https://raw.githubusercontent.com/rtdevx/dotfiles/main/terminal/starship.toml" `
     -OutFile "$ConfigDir\starship.toml" `
     -UseBasicParsing
 
@@ -73,15 +93,13 @@ $WTLocalState = Join-Path $UserProfile "AppData\Local\Packages\Microsoft.Windows
 Write-Log "Applying Windows Terminal settings..."
 
 Invoke-WebRequest `
-    -Uri "https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/terminal/state.json" `
+    -Uri "https://raw.githubusercontent.com/rtdevx/dotfiles/main/terminal/state.json" `
     -OutFile "$WTLocalState\state.json" `
     -UseBasicParsing
 
 Invoke-WebRequest `
-    -Uri "https://raw.githubusercontent.com/rtdevx/dotfiles/refs/heads/main/terminal/settings.json" `
+    -Uri "https://raw.githubusercontent.com/rtdevx/dotfiles/main/terminal/settings.json" `
     -OutFile "$WTLocalState\settings.json" `
     -UseBasicParsing
 
 Write-Log "=== Shell configuration complete ==="
-
-Write-Log "DEBUG: Writing settings.json to: $WTLocalState\settings.json"
