@@ -171,9 +171,9 @@ Write-Log "Ensuring WSL is installed..."
 $WSLStatus = wsl --status 2>$null
 
 if (-not $WSLStatus) {
-    Write-Host "WSL is not installed or unavailable." -ForegroundColor Yellow
+    Write-Log "WSL is not installed or unavailable."
 } else {
-    Write-Host "WSL detected." -ForegroundColor Green
+    Write-Log "WSL is already installed."
 }
 
 if ($LASTEXITCODE -ne 0) {
