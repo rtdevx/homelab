@@ -51,7 +51,7 @@ if (Test-Path $fontsConfigPath) {
         Write-Log "Failed to parse fonts.json: $($_.Exception.Message)" "WARN"
     }
 } else {
-    Write-Log "fonts.json not found — using default font." "WARN"
+    Write-Log "fonts.json not found - using default font." "WARN"
 }
 
 # ------------------------------------------------------------
