@@ -14,7 +14,7 @@ $IsAdmin   = $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Admini
 
 if (-not $IsAdmin) {
     Write-Host "This script must be run as Administrator." -ForegroundColor Yellow
-    exit 1
+    return
 }
 
 # ------------------------------------------------------------
