@@ -2,7 +2,7 @@
     Install-Starship.ps1
     Installs and configures the Starship prompt for PowerShell.
     Supports:
-      - Nerd Font requirement (external installer)
+      - Nerd Fonts installation (via Install-NerdFonts.ps1)
       - PowerShell profile injection
       - PSReadLine IntelliSense configuration
       - Clean logging
@@ -11,14 +11,14 @@
 Write-Log "Starting Starship installation..."
 
 # ------------------------------------------------------------
-# Ensure Nerd Fonts are installed
+# Install Nerd Fonts (config-driven)
 # ------------------------------------------------------------
 try {
-    Write-Log "Ensuring Nerd Fonts are installed..."
-    # Call your existing Nerd Fonts installer module or script here
-    # Example:
-    # Invoke-Module "Install-NerdFonts"
-} catch {
+    Write-Log "Installing Nerd Fonts..."
+    Invoke-Module "Install-NerdFonts"
+    Write-Log "Nerd Fonts installation complete."
+}
+catch {
     Write-Log "Failed to install Nerd Fonts: $($_.Exception.Message)" "ERROR"
 }
 
@@ -50,14 +50,12 @@ if ($hasHeader -and -not $notInstalledMessage) {
 Write-Log "Configuring PowerShell profile for Starship..."
 
 $profilePath = $PROFILE
-
-# Ensure profile directory exists
 $profileDir = Split-Path $profilePath
+
 if (-not (Test-Path $profileDir)) {
     New-Item -ItemType Directory -Path $profileDir -Force | Out-Null
 }
 
-# Inject Starship init if missing
 $profileContent = ""
 if (Test-Path $profilePath) {
     $profileContent = Get-Content $profilePath -Raw
@@ -89,7 +87,7 @@ catch {
 }
 
 # ------------------------------------------------------------
-# Create starship.toml if missing
+# Ensure starship.toml exists
 # ------------------------------------------------------------
 Write-Log "Ensuring starship.toml exists..."
 
@@ -103,7 +101,6 @@ if (-not (Test-Path $starshipConfigDir)) {
 if (-not (Test-Path $starshipConfigPath)) {
     @"
 # Starship configuration
-# Minimal, clean, cross-platform prompt
 add_newline = true
 
 [character]
