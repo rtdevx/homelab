@@ -84,7 +84,4 @@ Invoke-WebRequest `
 
 Write-Log "=== Shell configuration complete ==="
 
-Write-Log "DEBUG: Writing starship.toml to: $ConfigDir\starship.toml"
-Write-Log "DEBUG: UserProfile resolved to: $UserProfile"
-Write-Log "DEBUG: starship.toml size: $((Get-Item "$ConfigDir\starship.toml").Length) bytes"
-
+Write-Log "DEBUG: Writing settings.json to: $WTLocalState\settings.json"
