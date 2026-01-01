@@ -1,6 +1,6 @@
 <#
     Install-NerdFonts.ps1
-    Installs one or more Nerd Fonts for the current user.
+    Installs Nerd Fonts listed in Config/fonts.json.
     Supports:
       - clean logging
       - idempotent installation
@@ -11,7 +11,31 @@
 Write-Log "Starting Nerd Fonts installation..."
 
 # ------------------------------------------------------------
-# Function: Download and install a single Nerd Font
+# Load configuration
+# ------------------------------------------------------------
+$configPath = Join-Path $BootstrapRoot "Config/fonts.json"
+
+if (-not (Test-Path $configPath)) {
+    Write-Log "Config file not found: $configPath" "ERROR"
+    return
+}
+
+try {
+    $config = Get-Content $configPath | ConvertFrom-Json
+} catch {
+    Write-Log "Failed to parse fonts.json: $($_.Exception.Message)" "ERROR"
+    return
+}
+
+if (-not $config.fonts) {
+    Write-Log "No 'fonts' array found in fonts.json" "ERROR"
+    return
+}
+
+$FontsToInstall = $config.fonts | Where-Object { $_ -ne $null }
+
+# ------------------------------------------------------------
+# Function: Install a single Nerd Font
 # ------------------------------------------------------------
 function Install-NerdFont {
     param(
@@ -26,13 +50,13 @@ function Install-NerdFont {
     $DestinationFolder = Join-Path $LocalAppData "Microsoft\Windows\Fonts\$FontName"
     $TempZip = Join-Path $env:TEMP "$FontName.zip"
 
-    # Create destination folder
+    # Ensure destination folder exists
     if (-not (Test-Path $DestinationFolder)) {
         New-Item -ItemType Directory -Path $DestinationFolder -Force | Out-Null
     }
 
     try {
-        Write-Log "Downloading $FontName from GitHub..."
+        Write-Log "Downloading $FontName..."
         Invoke-WebRequest -Uri $url -OutFile $TempZip -UseBasicParsing
 
         Write-Log "Extracting $FontName..."
@@ -65,11 +89,8 @@ function Install-NerdFont {
 }
 
 # ------------------------------------------------------------
-# Fonts to install (config-driven in the future)
+# Install all fonts from config
 # ------------------------------------------------------------
-
-$FontsToInstall = @("Hack", "FiraCode", "CascadiaCode")
-
 foreach ($font in $FontsToInstall) {
     Install-NerdFont -FontName $font
 }
