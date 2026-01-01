@@ -14,6 +14,7 @@
       { "name": ".NET Desktop Runtime 8", "id": "Microsoft.DotNet.DesktopRuntime.8" },
       { "name": "NodeJS LTS", "id": "OpenJS.NodeJS.LTS" },
       { "name": "Git", "id": "Git.Git" },
+      { "name": "GitHub CLI", "id": "GitHub.cli" },      
       { "name": "Terraform", "id": "Hashicorp.Terraform" },
       { "name": "Terraform Docs", "id": "Terraform-docs.Terraform-docs" },
       { "name": "VS Code", "id": "Microsoft.VisualStudioCode" },
