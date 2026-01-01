@@ -16,7 +16,11 @@ if (-not $BootstrapRoot) {
 }
 
 $sourceConfigPath = Join-Path $BootstrapRoot "Config\starship.toml"
-$targetConfigDir  = Join-Path $HOME ".config"
+
+# Always resolve the REAL user profile, even when elevated
+$UserProfile = [Environment]::GetFolderPath("UserProfile")
+
+$targetConfigDir  = Join-Path $UserProfile ".config"
 $targetConfigPath = Join-Path $targetConfigDir "starship.toml"
 
 # ------------------------------------------------------------
