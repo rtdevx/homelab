@@ -26,12 +26,22 @@ try {
     return
 }
 
-if (-not $config.apps) {
-    Write-Log "No 'apps' array found in apps-store.json" "ERROR"
+if (-not $config.groups) {
+    Write-Log "No 'groups' object found in apps-store.json" "ERROR"
     return
 }
 
-$apps = $config.apps | Where-Object { $_ -ne $null }
+$selectedGroups = @("core", "media", "communication", "utilities")
+
+$apps = foreach ($group in $selectedGroups) {
+    if ($config.groups.PSObject.Properties.Name -contains $group) {
+        $config.groups.$group
+    } else {
+        Write-Log "Group not found in config: $group" "WARN"
+    }
+}
+
+$apps = $apps | Where-Object { $_ -ne $null }
 
 # ------------------------------------------------------------
 # Deduplicate apps by ID
