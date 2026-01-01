@@ -13,6 +13,8 @@ $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
 $principal = New-Object Security.Principal.WindowsPrincipal($identity)
 $IsAdmin = $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 
+if (-not $IsAdmin) { Write-Error "This script must be run as Administrator." return }
+
 # ------------------------------------------------------------
 # 1. Environment Sanity Checks
 # ------------------------------------------------------------
