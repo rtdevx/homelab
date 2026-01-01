@@ -67,13 +67,13 @@ foreach ($ext in $extensions) {
     Write-Log "Installing: $name ($id)"
 
     try {
-        $args = @("--install-extension", $id, "--force")
+        $extensionArgs = @("--install-extension", $id, "--force")
 
         if ($version) {
-            $args += @("--install-extension", "$id@$version")
+            $extensionArgs += @("--install-extension", "$id@$version")
         }
 
-        Start-Process "code" -WindowStyle Hidden -ArgumentList $args -Wait
+        Start-Process "code" -WindowStyle Hidden -ArgumentList $extensionArgs -Wait
         Write-Log "Installed: $name"
     }
     catch {
