@@ -192,16 +192,17 @@ catch {
     Write-Log "Failed to configure taskbar search: $($_.Exception.Message)" "WARN"
 }
 
+# Disable widgets
 Write-Log "Disabling taskbar widgets..."
 try {
     $path = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
 
-    if (Test-Path $path) {
+    if (Test-Path $path -and (Get-ItemProperty -Path $path -Name "TaskbarDa" -ErrorAction SilentlyContinue)) {
         Set-ItemProperty -Path $path -Name "TaskbarDa" -Value 0 -Type DWord -ErrorAction Stop
         Write-Log "Taskbar widgets disabled."
     }
     else {
-        Write-Log "Explorer Advanced key not found. Skipping widget toggle." "INFO"
+        Write-Log "Taskbar widgets key not present. Skipping." "INFO"
     }
 }
 catch {
@@ -213,12 +214,12 @@ Write-Log "Disabling taskbar chat..."
 try {
     $path = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
 
-    if (Test-Path $path) {
+    if (Test-Path $path -and (Get-ItemProperty -Path $path -Name "TaskbarMn" -ErrorAction SilentlyContinue)) {
         Set-ItemProperty -Path $path -Name "TaskbarMn" -Value 0 -Type DWord -ErrorAction Stop
         Write-Log "Taskbar chat disabled."
     }
     else {
-        Write-Log "Explorer Advanced key not found. Skipping chat toggle." "INFO"
+        Write-Log "Taskbar chat key not present. Skipping." "INFO"
     }
 }
 catch {
