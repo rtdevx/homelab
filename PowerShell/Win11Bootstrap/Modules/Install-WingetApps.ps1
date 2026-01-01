@@ -128,7 +128,7 @@ foreach ($app in $apps) {
     Write-Log "Installing: $name ($id)"
 
     try {
-        $args = @(
+        $wingetArgs = @(
             "install", "--id", $id,
             "--silent",
             "--accept-package-agreements",
@@ -136,10 +136,10 @@ foreach ($app in $apps) {
         )
 
         if ($version) {
-            $args += @("--version", $version)
+            $wingetArgs += @("--version", $version)
         }
 
-        winget @args
+        winget @wingetArgs
         Write-Log "Installed: $name"
     }
     catch {
@@ -153,6 +153,5 @@ Write-Log "Winget application installation complete."
 # Refresh PATH so newly installed apps are immediately available
 # ------------------------------------------------------------
 Update-PathEnvironment
-    Write-Log "PATH refreshed for current session." -ForegroundColor "Red"
 
 Write-Log "Winget application installation complete."
