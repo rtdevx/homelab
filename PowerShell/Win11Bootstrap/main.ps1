@@ -74,7 +74,7 @@ try {
 Write-Host "Extracting bootstrap bundle..."
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 try {
-    [System.IO.Compression.ZipFile]::ExtractToDirectory($ZipPath, $TempRoot)
+    Expand-Archive -Path $ZipPath -DestinationPath $TempRoot -Force
 } catch {
     Write-Error "Failed to extract bootstrap bundle: $($_.Exception.Message)"
     return
