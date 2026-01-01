@@ -5,7 +5,7 @@
       { "name": "Mozilla Firefox", "id": "Mozilla.Firefox" },
       { "name": "7zip Zstandard", "id": "mcmilk.7zip-zstd" },
       { "name": "PowerToys", "id": "Microsoft.PowerToys" },
-      { "name": "Windows Terminal", "id": "Microsoft.WindowsTerminal" }
+      { "name": "Windows Terminal", "id": "Microsoft.WindowsTerminal" },
       { "name": "PowerShell 7", "id": "Microsoft.PowerShell" }      
     ],
 
