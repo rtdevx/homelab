@@ -153,5 +153,6 @@ Write-Log "Winget application installation complete."
 # Refresh PATH so newly installed apps are immediately available
 # ------------------------------------------------------------
 Update-PathEnvironment
+    Write-Log "PATH refreshed for current session." -ForegroundColor "Red"
 
 Write-Log "Winget application installation complete."
