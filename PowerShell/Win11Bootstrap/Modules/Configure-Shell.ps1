@@ -5,6 +5,7 @@
     - Starship
     - PowerShell 7 profile
     - Windows Terminal settings
+    - Module installation (PSReadLine, Terminal-Icons)
 #>
 
 Write-Log "=== Configuring Shell Environment ==="
@@ -47,6 +48,25 @@ if (-not (Test-Path $PS7ProfileDir)) {
 }
 
 # ------------------------------------------------------------
+# Install required modules for PowerShell 7
+# ------------------------------------------------------------
+Write-Log "Ensuring required PowerShell 7 modules are installed..."
+
+$RequiredModules = @(
+    "PSReadLine",
+    "Terminal-Icons"
+)
+
+foreach ($Module in $RequiredModules) {
+    if (-not (Get-Module -ListAvailable -Name $Module)) {
+        Write-Log "Installing module: $Module"
+        Install-Module $Module -Scope CurrentUser -Force -AllowClobber
+    } else {
+        Write-Log "Module already installed: $Module"
+    }
+}
+
+# ------------------------------------------------------------
 # Install Nerd Fonts
 # ------------------------------------------------------------
 Write-Log "Installing Nerd Fonts..."
@@ -66,8 +86,6 @@ Write-Log "Writing deterministic PowerShell 7 profile..."
 
 Import-Module PSReadLine -Force
 Set-PSReadLineOption -PredictionSource History
-
-# Font is controlled by Windows Terminal, not PSReadLine
 
 Import-Module Terminal-Icons
 
