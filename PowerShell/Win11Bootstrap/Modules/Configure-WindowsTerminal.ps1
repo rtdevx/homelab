@@ -65,7 +65,13 @@ if ($fontName) {
             $terminalConfig.profiles.defaults = @{}
         }
 
-        $terminalConfig.profiles.defaults.fontFace = $fontName
+        # Ensure modern font schema exists
+        if (-not $terminalConfig.profiles.defaults.font) {
+            $terminalConfig.profiles.defaults.font = @{}
+        }
+
+        $terminalConfig.profiles.defaults.font.face = $fontName
+
         Write-Log "Applied Nerd Font to Terminal profiles.defaults."
     }
 }
