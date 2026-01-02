@@ -283,20 +283,14 @@ catch {
     Write-Log "Failed to hide taskbar search: $($_.Exception.Message)" "WARN"
 }
 
-# Disable Widgets (persistent + immediate)
+# Disable Widgets (persistent)
 Write-Log "Disabling taskbar widgets..."
 try {
-    # Persistent policy (prevents Windows from re-enabling Widgets)
     New-Item -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Dsh' -Force | Out-Null
     Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Dsh' `
                      -Name 'AllowNewsAndInterests' -Value 0 -Type DWord
 
-    # Immediate user-level toggle (hides the button right away)
-    New-Item -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Force | Out-Null
-    Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' `
-                     -Name 'TaskbarDa' -Value 0 -Type DWord
-
-    Write-Log "Taskbar widgets disabled (policy + user setting applied)."
+    Write-Log "Taskbar widgets disabled (policy applied)."
 }
 catch {
     Write-Log "Failed to disable taskbar widgets: $($_.Exception.Message)" "WARN"
