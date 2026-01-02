@@ -59,7 +59,7 @@
       "Microsoft.SkypeApp",
       "Microsoft.Wallet",
       "Microsoft.WindowsAlarms",
-      "Microsoft.WindowsCamera",
+      {"_comment": "Comment", "name": "Microsoft.WindowsCamera"},
       "microsoft.windowscommunicationsapps",
       "Microsoft.WindowsMaps",
       "Microsoft.WindowsPhone",
