@@ -188,6 +188,31 @@ try {
 # 9. Clone repositories
 # ------------------------------------------------------------
 
+# Load GitHub repository configuration
+
+$githubConfigPath = Join-Path $PSScriptRoot "..\Config\github.json"
+
+if (-not (Test-Path $githubConfigPath)) {
+    Write-Error "github.json not found at $githubConfigPath. Cannot clone repositories."
+    return
+}
+
+try {
+    $githubConfig = Get-Content -Path $githubConfigPath -Raw | ConvertFrom-Json -ErrorAction Stop
+    Write-Host "Loaded GitHub repository configuration."
+}
+catch {
+    Write-Error "Failed to parse github.json: $($_.Exception.Message)"
+    return
+}
+
+if (-not $githubConfig.Repositories -or $githubConfig.Repositories.Count -eq 0) {
+    Write-Host "No repositories defined in github.json. Skipping clone step."
+    return
+}
+
+# Clone repositories from the config file
+
 foreach ($repo in $githubConfig.Repositories) {
 
     if ([string]::IsNullOrWhiteSpace($repo)) {
