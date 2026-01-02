@@ -229,10 +229,11 @@ foreach ($repo in $githubConfig.Repositories) {
     }
 
     Write-Log "Cloning ${repo} into ${target}..."
-    $cloneOutput = git clone $repo $target 2>&1
+    $cloneOutput = git clone $repo $target 2>&1    
     foreach ($line in $cloneOutput) {
-        if ($line -and $line.Trim() -ne "") {
-            Write-Log $line
+        $text = $line | Out-String
+        if ($text -and $text.Trim() -ne "") {
+            Write-Log $text
         }
     }
 }
