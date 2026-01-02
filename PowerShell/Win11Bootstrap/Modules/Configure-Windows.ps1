@@ -228,13 +228,13 @@ catch {
     Write-Log "Failed to disable suggested apps: $($_.Exception.Message)" "WARN"
 }
 
-# Taskbar search icon only
+# Taskbar search icon only (persistent)
 Write-Log "Setting taskbar search to icon only..."
 try {
-    New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Force | Out-Null
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" `
-                     -Name "SearchboxTaskbarMode" -Value 1 -Type DWord
-    Write-Log "Taskbar search set to icon only."
+    New-Item -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search' -Force | Out-Null
+    Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search' `
+                     -Name 'SearchboxTaskbarMode' -Value 1 -Type DWord
+    Write-Log "Taskbar search set to icon only (policy applied)."
 }
 catch {
     Write-Log "Failed to configure taskbar search: $($_.Exception.Message)" "WARN"
