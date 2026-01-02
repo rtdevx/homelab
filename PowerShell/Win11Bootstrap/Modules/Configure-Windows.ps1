@@ -274,10 +274,19 @@ catch {
 # Taskbar search icon only (persistent)
 Write-Log "Setting taskbar search to icon only..."
 try {
-    New-Item -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Force | Out-Null
-    Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' `
-                     -Name 'TaskbarSearchMode' -Value 1 -Type DWord
-    Write-Log "Taskbar search set to icon only (policy applied)."
+    # Disable Search Highlights (required for persistence)
+    New-Item -Path 'HKCU:\Software\Policies\Microsoft\Windows\Windows Search' -Force | Out-Null
+    Set-ItemProperty -Path 'HKCU:\Software\Policies\Microsoft\Windows\Windows Search' `
+                     -Name 'EnableDynamicContentInWSB' -Value 0 -Type DWord
+
+    # Ensure Search key exists
+    New-Item -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Search' -Force | Out-Null
+
+    # Set taskbar search to icon only
+    Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Search' `
+                     -Name 'SearchboxTaskbarMode' -Value 1 -Type DWord
+
+    Write-Log "Taskbar search set to icon only (persistent configuration applied)."
 }
 catch {
     Write-Log "Failed to configure taskbar search: $($_.Exception.Message)" "WARN"
