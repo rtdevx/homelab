@@ -135,7 +135,8 @@
       "LinkedIn.LinkedIn",
       "Microsoft.LinkedIn",
       "MicrosoftCorporationII.LinkedIn",
-      "*LinkedIn*"
+      "*LinkedIn*",
+      "Microsoft.OutlookForWindows"
     ]
   }
 }
