@@ -127,7 +127,9 @@
       "Microsoft.XboxGameCallableUI",
       "Microsoft.GamingApp",
       "Microsoft.BingSearch",
-      "Microsoft.BingWeather"
+      "Microsoft.BingWeather",
+      "Microsoft.XboxGameCallableUI",
+      "Microsoft.XboxIdentityProvider"
     ]
   }
 }
