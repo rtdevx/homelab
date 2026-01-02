@@ -271,46 +271,32 @@ catch {
     Write-Log "Failed to disable suggested apps: $($_.Exception.Message)" "WARN"
 }
 
-# Taskbar search icon only (persistent)
-Write-Log "Setting taskbar search to icon only..."
+# Taskbar search hidden (persistent)
+Write-Log "Hiding taskbar search (persistent policy)..."
 try {
-    # Disable Search Highlights (required for persistence)
-    New-Item -Path 'HKCU:\Software\Policies\Microsoft\Windows\Windows Search' -Force | Out-Null
-    Set-ItemProperty -Path 'HKCU:\Software\Policies\Microsoft\Windows\Windows Search' `
-                     -Name 'EnableDynamicContentInWSB' -Value 0 -Type DWord
-
-    # Ensure Search key exists
-    New-Item -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Search' -Force | Out-Null
-
-    # Set taskbar search to icon only
-    Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Search' `
-                     -Name 'SearchboxTaskbarMode' -Value 1 -Type DWord
-
-    Write-Log "Taskbar search set to icon only (persistent configuration applied)."
+    New-Item -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Force | Out-Null
+    Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' `
+                     -Name 'HideSearchBox' -Value 1 -Type DWord
+    Write-Log "Taskbar search hidden (policy applied)."
 }
 catch {
-    Write-Log "Failed to configure taskbar search: $($_.Exception.Message)" "WARN"
+    Write-Log "Failed to hide taskbar search: $($_.Exception.Message)" "WARN"
 }
 
-# Disable widgets
+# Disable Widgets (persistent + immediate)
 Write-Log "Disabling taskbar widgets..."
 try {
-    $path = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+    # Persistent policy (prevents Windows from re-enabling Widgets)
+    New-Item -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Dsh' -Force | Out-Null
+    Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Dsh' `
+                     -Name 'AllowNewsAndInterests' -Value 0 -Type DWord
 
-    if (Test-Path $path) {
-        $value = Get-ItemProperty -Path $path -Name "TaskbarDa" -ErrorAction SilentlyContinue
+    # Immediate user-level toggle (hides the button right away)
+    New-Item -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Force | Out-Null
+    Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' `
+                     -Name 'TaskbarDa' -Value 0 -Type DWord
 
-        if ($null -ne $value) {
-            Set-ItemProperty -Path $path -Name "TaskbarDa" -Value 0 -Type DWord -ErrorAction Stop
-            Write-Log "Taskbar widgets disabled."
-        }
-        else {
-            Write-Log "Taskbar widgets key not present. Skipping." "INFO"
-        }
-    }
-    else {
-        Write-Log "Explorer Advanced key not found. Skipping widget toggle." "INFO"
-    }
+    Write-Log "Taskbar widgets disabled (policy + user setting applied)."
 }
 catch {
     Write-Log "Failed to disable taskbar widgets: $($_.Exception.Message)" "WARN"
