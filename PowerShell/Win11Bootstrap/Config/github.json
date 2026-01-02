@@ -1,5 +1,6 @@
 {
   "Repositories": [
-    "git@github.com:rtdevx/homelab.git"
+    "git@github.com:rtdevx/homelab.git",
+    "git@github.com:rtdevx/dotfiles.git"
   ]
 }
