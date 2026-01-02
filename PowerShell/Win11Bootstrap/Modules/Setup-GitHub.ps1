@@ -188,21 +188,29 @@ try {
 # 9. Clone repositories
 # ------------------------------------------------------------
 
-$repos = @(
-    "git@github.com:rtdevx/homelab.git"
-)
+foreach ($repo in $githubConfig.Repositories) {
 
-foreach ($repo in $repos) {
+    if ([string]::IsNullOrWhiteSpace($repo)) {
+        Write-Log "Skipping empty repository entry in github.json." "WARN"
+        continue
+    }
+
     $name = ($repo -split "/")[-1].Replace(".git","")
     $target = Join-Path $GitRoot $name
 
     if (Test-Path $target) {
-        Write-Host "Repository '$name' already exists at $target"
+        Write-Log "Repository '$name' already exists at $target. Skipping."
         continue
     }
 
-    Write-Host "Cloning $repo into $target..."
-    git clone $repo $target
+    Write-Log "Cloning $repo into $target..."
+    try {
+        git clone $repo $target 2>&1 | Write-Log
+        Write-Log "Successfully cloned $name."
+    }
+    catch {
+        Write-Log "Failed to clone ${repo}: $($_.Exception.Message)" "WARN"
+    }
 }
 
 Write-Host "=== Setup-GitHub completed ==="
