@@ -199,18 +199,12 @@ foreach ($repo in $githubConfig.Repositories) {
     $target = Join-Path $GitRoot $name
 
     if (Test-Path $target) {
-        Write-Log "Repository '$name' already exists at $target. Skipping."
+        Write-Log "Repository '${name}' already exists at ${target}. Skipping."
         continue
     }
 
-    Write-Log "Cloning $repo into $target..."
-    try {
-        git clone $repo $target 2>&1 | Write-Log
-        Write-Log "Successfully cloned $name."
-    }
-    catch {
-        Write-Log "Failed to clone ${repo}: $($_.Exception.Message)" "WARN"
-    }
+    Write-Log "Cloning ${repo} into ${target}..."
+    git clone $repo $target 2>&1 | Write-Log
 }
 
 Write-Host "=== Setup-GitHub completed ==="
