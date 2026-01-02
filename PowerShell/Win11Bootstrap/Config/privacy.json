@@ -123,7 +123,11 @@
       "Microsoft.Advertising.Xaml",
       "9E2F88E3.Twitter",
       "4DF9E0F8.Netflix",
-      "Microsoft.NetworkSpeedTest"
+      "Microsoft.NetworkSpeedTest",
+      "Microsoft.XboxGameCallableUI",
+      "Microsoft.GamingApp",
+      "Microsoft.BingSearch",
+      "Microsoft.BingWeather"
     ]
   }
 }
