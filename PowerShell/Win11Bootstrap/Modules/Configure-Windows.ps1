@@ -274,9 +274,9 @@ catch {
 # Taskbar search icon only (persistent)
 Write-Log "Setting taskbar search to icon only..."
 try {
-    New-Item -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search' -Force | Out-Null
-    Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search' `
-                     -Name 'SearchboxTaskbarMode' -Value 1 -Type DWord
+    New-Item -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Force | Out-Null
+    Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' `
+                     -Name 'TaskbarSearchMode' -Value 1 -Type DWord
     Write-Log "Taskbar search set to icon only (policy applied)."
 }
 catch {
