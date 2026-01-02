@@ -103,12 +103,13 @@ Win11Bootstrap/
 
 ### Setup-GitHub
 
-- Creates `~/git` workspace    
-- Generates SSH keypair    
-- Authenticates GitHub CLI    
-- Uploads SSH key if missing    
-- Downloads SSH config    
-- Clones repositories from `github.json`    
+- Creates `~/git` workspace
+- Creates ~/.ssh if missing
+- Generates a dedicated SSH keypair (id_rsa_git / id_rsa_git.pub) if it doesn’t already exist
+- Uses GitHub CLI (gh) to authenticate the user if needed
+- Checks whether the public key is already uploaded to GitHub; uploads it automatically if missing
+- Downloads a predefined SSH config into ~/.ssh/config so Git always uses the correct key for GitHub
+- Clones repositories from `github.json`
 
 ### Configure-Privacy
 
