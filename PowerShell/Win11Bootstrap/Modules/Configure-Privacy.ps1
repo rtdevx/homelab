@@ -314,4 +314,14 @@ else {
     Write-Log "Bloatware removal disabled or not configured. Skipping." "INFO"
 }
 
+# ------------------------------------------------------------
+# 8. DisableConsumerFeatures (Start Menu app suggestions)
+# ------------------------------------------------------------
+
+if ($privacyConfig.ContentSuggestions.DisableConsumerFeatures) {
+    Set-RegistryValue -Path 'HKLM:\Software\Policies\Microsoft\Windows\CloudContent' `
+                      -Name 'DisableConsumerFeatures' -Value 1 -Type DWord -Machine
+    Write-Log "Consumer features (app suggestions) disabled."
+}
+
 Write-Log "Privacy configuration complete."

@@ -8,7 +8,8 @@
   "Advertising": {
     "DisableAdvertisingId": true,
     "DisableSettingsSuggestions": true,
-    "DisableStartSuggestions": true
+    "DisableStartSuggestions": true,
+    "DisableConsumerFeatures": true
   },
   "ContentSuggestions": {
     "DisableWindowsSpotlight": true,
@@ -129,7 +130,12 @@
       "Microsoft.BingSearch",
       "Microsoft.BingWeather",
       "Microsoft.XboxGameCallableUI",
-      "Microsoft.XboxIdentityProvider"
+      "Microsoft.XboxIdentityProvider",
+      "Clipchamp.Clipchamp",
+      "LinkedIn.LinkedIn",
+      "Microsoft.LinkedIn",
+      "MicrosoftCorporationII.LinkedIn",
+      "*LinkedIn*"
     ]
   }
 }
