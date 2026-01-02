@@ -229,7 +229,12 @@ foreach ($repo in $githubConfig.Repositories) {
     }
 
     Write-Log "Cloning ${repo} into ${target}..."
-    git clone $repo $target 2>&1 | Write-Log
+    $cloneOutput = git clone $repo $target 2>&1
+    foreach ($line in $cloneOutput) {
+        if ($line -and $line.Trim() -ne "") {
+            Write-Log $line
+        }
+    }
 }
 
 Write-Host "=== Setup-GitHub completed ==="
