@@ -106,8 +106,10 @@ catch {
 }
 
 # ------------------------------------------------------------
-# 4. Scheduled Task: Daily Winget Updater (Idle Trigger)
+# 4. Scheduled Tasks
 # ------------------------------------------------------------
+
+# Daily Winget Updater (Idle Trigger)
 Write-Log "Configuring daily winget update task..."
 
 try {
@@ -198,6 +200,47 @@ try {
 }
 catch {
     Write-Log "Failed to configure winget update task: $($_.Exception.Message)" "WARN"
+}
+
+# Run Homelab Bootstrap at Startup (10 min delay)
+Write-Log "Configuring scheduled task for Homelab bootstrap..."
+
+try {
+    $taskName = "WinBootstrap-Win11"
+    $taskPath = "\WinBootstrap"
+
+    # Remove existing task if present
+    try {
+        Unregister-ScheduledTask -TaskName $taskName -TaskPath $taskPath -Confirm:$false -ErrorAction Stop
+        Write-Log "Removed existing scheduled task: ${taskPath}\${taskName}"
+    }
+    catch {
+        Write-Log "No existing scheduled task to remove (expected on first run)." "INFO"
+    }
+
+    # Trigger: At startup with 10-minute delay
+    $trigger = New-ScheduledTaskTrigger -AtStartup -RandomDelay (New-TimeSpan -Minutes 10)
+
+    # PowerShell command to run
+    $psCommand = "Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/PowerShell/Win11Bootstrap/main.ps1' | Invoke-Expression"
+
+    # Action: Hidden PowerShell window
+    $action = New-ScheduledTaskAction -Execute "powershell.exe" `
+                                      -Argument "-NoProfile -WindowStyle Hidden -Command `"${psCommand}`""
+
+    # Register task
+    Register-ScheduledTask -TaskName $taskName `
+                           -TaskPath $taskPath `
+                           -Trigger $trigger `
+                           -Action $action `
+                           -RunLevel Highest `
+                           -Description "Runs Homelab bootstrap script at startup with 10-minute delay." `
+                           -ErrorAction Stop
+
+    Write-Log "Scheduled task '${taskPath}\${taskName}' created successfully."
+}
+catch {
+    Write-Log "Failed to configure Homelab bootstrap scheduled task: $($_.Exception.Message)" "WARN"
 }
 
 # ------------------------------------------------------------
