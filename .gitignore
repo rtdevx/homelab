@@ -1,7 +1,7 @@
 # Ignore sensitive information
 *.key
 *.pem
-*.env
+#*.env
 *.config
 
 # Ignore user-specific files
