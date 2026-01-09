@@ -6,4 +6,4 @@ services:
     env_file: .env
     environment:
       PRIMARY: "https://srv-lxc-pihole1|{{password}}"
-      REPLICAS: "srv-lxc-pihole2|{{password}}"
+      REPLICAS: "https://srv-lxc-pihole2|{{password}}"
