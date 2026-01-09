@@ -18,6 +18,7 @@
       { "name": "Terraform", "id": "Hashicorp.Terraform" },
       { "name": "Terraform Docs", "id": "Terraform-docs.Terraform-docs" },
       { "name": "VS Code", "id": "Microsoft.VisualStudioCode" },
+      { "name": "VS Code", "id": "Docker.DockerDesktop" },      
       { "name": "Hugo Extended", "id": "Hugo.Hugo.Extended" },
       { "name": "Starship Prompt", "id": "Starship.Starship" }
     ],
