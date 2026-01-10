@@ -1,0 +1,13 @@
+[Unit]
+Description=Ansible Pull configuration management
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=ansible
+Group=ansible
+ExecStart=/usr/local/bin/ansible-pull-wrapper
+
+[Install]
+WantedBy=multi-user.target

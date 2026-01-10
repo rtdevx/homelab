@@ -1,0 +1,14 @@
+# NOTE: Configure Servers
+
+#- block:
+
+#  - import_tasks: qemu-agent.yml
+#  - import_tasks: ufw.yml  
+
+  # Rescue section allows you to define tasks that will run if a previous task in a block fails.
+#  rescue:
+#    - set_fact: task_failed=true
+
+#    - name: Log the failure
+#      debug:
+#        msg: "The task has failed, setting task_failed to true."

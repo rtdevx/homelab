@@ -1,0 +1,8 @@
+- name: Ensure base packages are installed
+  apt:
+    name:
+      - curl
+      - htop
+      - vim
+      - unattended-upgrades
+    state: present

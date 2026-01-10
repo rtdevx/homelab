@@ -1,0 +1,12 @@
+[Unit]
+Description=Run ansible-pull every 1 hour with 30 mins random drift.
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=1h
+RandomizedDelaySec=30min
+Unit=ansible-pull.service
+Persistent=true
+
+[Install]
+WantedBy=timers.target

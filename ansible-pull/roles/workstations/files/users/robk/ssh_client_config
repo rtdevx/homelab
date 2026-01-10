@@ -1,0 +1,47 @@
+###############
+# TO BE REMOVED
+###############
+
+Host ux-anss1
+  HostName anss1
+  Port 22
+  User ansible
+  IdentityFile ~/.ssh/id_ansible
+
+Host ux-ansp1
+  HostName ansp1
+  Port 22
+  User ansible
+  IdentityFile ~/.ssh/id_ansible
+
+Host ux-mgrs1
+  HostName mgrs1
+  Port 22
+  User k3s
+  IdentityFile ~/.ssh/id_k3s
+
+Host ux-mgrp1
+  HostName mgrp1
+  Port 22
+  User k3s
+  IdentityFile ~/.ssh/id_k3s
+
+###############
+# NEW
+###############
+
+Host srv-*
+  User robk
+  Port 22
+  IdentityFile ~/.ssh/id_ed25519
+
+#Host ws-*
+#  User ansible
+#  IdentityFile ~/.ssh/id_ansible
+
+Host github.com
+IdentityFile ~/.ssh/id_rsa_git
+Host skynetx.uk
+IdentityFile ~/.ssh/id_ed25519
+Host *
+StrictHostKeyChecking no

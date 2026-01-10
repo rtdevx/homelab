@@ -1,0 +1,7 @@
+- name: Ensure base packages are installed
+  apt:
+    name:
+      - curl
+      - htop
+      - vim
+    state: present

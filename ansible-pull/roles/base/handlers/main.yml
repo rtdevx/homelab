@@ -1,0 +1,32 @@
+---
+- name: apt_update
+  apt: update_cache=yes
+
+- name: restart_sshd
+  service:
+    name: ssh
+    state: restarted
+
+- name: update_tmux_plugin_perms
+  file:
+    path: /home/robk/.tmux/plugins
+    owner: robk
+    group: robk
+    recurse: true
+
+- name: update_vim_bundle_perms
+  file:
+    path: /home/robk/.vim/bundle
+    owner: robk
+    group: robk
+    recurse: true
+
+- name: restart_qemu_agent
+  tags: qemu,qemu-agent
+  service:
+    name: qemu-guest-agent
+    state: restarted    
+
+- name: reload_systemd
+  tags: systemd
+  command: systemctl daemon-reload

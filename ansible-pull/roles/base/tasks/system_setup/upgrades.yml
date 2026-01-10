@@ -1,0 +1,8 @@
+- name: users | robk | copy tmux config (server version)
+  tags: system,settings
+  copy:
+    src: system/50unattended-upgrades
+    dest: /etc/apt/apt.conf.d/50unattended-upgrades
+    owner: root
+    group: root
+    mode: 0644

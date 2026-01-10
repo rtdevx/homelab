@@ -1,0 +1,206 @@
+#- name: users | robk | create group
+#  tags: users
+#  group:
+#    name: robk
+#    state: present
+
+- name: Check if user exists
+  getent:
+    database: passwd
+    key: robk
+  register: user_check
+  ignore_errors: yes
+
+- name: users | robk | create user
+  tags: users
+  user:
+    name: robk
+    group: robk
+    groups: adm,ansible,sudo
+    state: present
+    comment: "Rob"
+    password: "{{ robk_passwd }}"
+    shell: /bin/bash
+  when: user_check is failed    
+
+- name: users | robk | robk | add sudoers file
+  tags: users
+  copy:
+    src: users/sudoers_robk
+    dest: /etc/sudoers.d/robk
+    owner: root
+    group: root
+    mode: 0440
+
+- name: users | robk | create .ssh directory
+  tags: dotfiles,users
+  file:
+    path: "{{ item.dir }}"
+    state: directory
+    owner: robk
+    group: robk
+    mode: 0700
+  with_items:
+    - { dir: '/home/robk/.ssh' }
+
+- name: users | robk | add public key
+  tags: dotfiles,users
+  authorized_key:
+    user: robk
+    key: "{{ item }}"
+  with_file:
+    - users/robk/ssh/robk_id_ed25519.pub
+
+- name: users | robk | create config directories
+  tags: dotfiles,users
+  file:
+    path: /home/robk/{{ item.dir }}
+    state: directory
+    owner: robk
+    group: robk
+    mode: 0700
+  with_items:
+    - { dir: '.bash' }
+    - { dir: '.config' }
+    - { dir: '.config/htop' }
+    - { dir: '.config/mc' }
+    - { dir: '.tmux' }
+    - { dir: '.tmux/config' }
+    - { dir: '.tmux/plugins' }
+    - { dir: '.vim' }
+    - { dir: '.vim/autoload' }
+    - { dir: '.vim/bundle' }
+    - { dir: '.vim/colors' }
+    - { dir: '.vim/ftplugin' }
+    - { dir: '.zsh' }
+
+- name: users | robk | copy tmux config (server version)
+  tags: dotfiles,users
+  copy:
+    src: users/robk/tmux/tmux.conf.server
+    dest: /home/robk/.tmux.conf
+    owner: robk
+    group: robk
+    mode: 0600
+  when: "'server' not in group_names"
+
+- name: users | robk | copy tmux config (workstation version)
+  tags: dotfiles,users
+  copy:
+    src: users/robk/tmux/tmux.conf.workstation
+    dest: /home/robk/.tmux.conf
+    owner: robk
+    group: robk
+    mode: 0600
+  when: "'server' in group_names"
+
+- name: users | robk | copy dotfiles
+  tags: dotfiles,users
+  copy:
+    src: users/robk/{{ item.src }}
+    dest: /home/robk/{{ item.dest }}
+    owner: robk
+    group: robk
+    mode: 0600
+  with_items:
+    - { src: 'bash/bash_aliases', dest: '.bash/bash_aliases' }
+    - { src: 'bash/bash_profile', dest: '.bash_profile' }
+    - { src: 'bash/bash_prompt', dest: '.bash/bash_prompt' }
+    - { src: 'bash/bash_functions', dest: '.bash/bash_functions' }
+    - { src: 'bash/bashrc', dest: '.bashrc' }
+    - { src: 'bash/profile', dest: '.profile' }
+    - { src: 'git/gitconfig', dest: '.gitconfig' }
+    - { src: 'htop/htoprc', dest: '.config/htop/htoprc' }
+    - { src: 'inputrc', dest: '.inputrc' }
+    - { src: 'mc/mc.ini', dest: '.config/mc/ini' }
+    - { src: 'vim/vimrc', dest: '.vimrc' }
+    - { src: 'zsh/zshrc', dest: '.zshrc' }
+
+- name: users | robk | clone tmux-completion plugin repository
+  tags: dotfiles,users
+  git:
+    repo: https://github.com/srsudar/tmux-completion.git
+    dest: /home/robk/.tmux/plugins/completion
+    force: yes
+  notify: update_tmux_plugin_perms
+
+- name: users | robk | clone tmux-continuum plugin repository
+  tags: dotfiles,users
+  git:
+    repo: https://github.com/tmux-plugins/tmux-continuum
+    dest: /home/robk/.tmux/plugins/continuum
+    force: yes
+  notify: update_tmux_plugin_perms
+
+- name: users | robk | clone tmux-resurrect plugin repository
+  tags: dotfiles,users
+  git:
+    repo: https://github.com/tmux-plugins/tmux-resurrect
+    dest: /home/robk/.tmux/plugins/resurrect
+    force: yes
+  notify: update_tmux_plugin_perms
+
+- name: users | robk | copy individual zsh config files
+  tags: dotfiles,users
+  copy:
+    src: users/robk/zsh/{{ item.src }}
+    dest: /home/robk/.zsh/{{ item.src }}
+    owner: robk
+    group: robk
+    mode: 0600
+  with_items:
+    - { src: 'aliases.zsh' }
+    - { src: 'bindkey.zsh' }
+    - { src: 'completion.zsh' }
+    - { src: 'exports.zsh' }
+    - { src: 'functions.zsh' }
+    - { src: 'history.zsh' }
+    - { src: 'path.zsh' }
+    - { src: 'plugins.zsh' }
+    - { src: 'prompt.zsh' }
+    - { src: 'setopt.zsh' }
+    - { src: 'theming.zsh' }  
+
+- name: users | robk | copy vim ftype files
+  tags: dotfiles,users
+  copy:
+    src: users/robk/vim/{{ item.src }}
+    dest: /home/robk/.vim/ftplugin/{{ item.src }}
+    owner: robk
+    group: robk
+    mode: 0600
+  with_items:
+    - { src: 'cmake.vim' }
+    - { src: 'cpp.vim' }
+    - { src: 'html.vim' }
+    - { src: 'perl.vim' }
+    - { src: 'python.vim' }
+    - { src: 'ruby.vim' }
+    - { src: 'sql.vim' }
+    - { src: 'xml.vim' }
+
+- name: users | robk | copy vim color files
+  tags: dotfiles,users
+  copy:
+    src: users/robk/vim/{{ item.src }}
+    dest: /home/robk/.vim/colors/{{ item.src }}
+    owner: robk
+    group: robk
+    mode: 0600
+  with_items:
+    - { src: 'bubblegum-256-dark.vim' }
+    - { src: 'darktango.vim' }
+    - { src: 'jellybeans.vim' }
+    - { src: 'xoria256.vim' }
+    - { src: 'zenburn.vim' }
+
+- name: users | robk | install pathogen
+  tags: dotfiles,users
+  copy:
+    src: users/robk/vim/{{ item.src }}
+    dest: "{{ item.dest }}"
+    owner: robk
+    group: robk
+    mode: 0700
+  with_items:
+    - { src: 'pathogen.vim', dest: '/home/robk/.vim/autoload/pathogen.vim' }

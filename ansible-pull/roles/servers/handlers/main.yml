@@ -1,0 +1,12 @@
+---
+- name: restart_qemu_agent
+  tags: qemu,qemu-agent
+  service:
+    name: qemu-guest-agent
+    state: restarted
+
+- name: restart_ufw
+  tags: ufw
+  service:
+    name: ufw
+    state: restarted

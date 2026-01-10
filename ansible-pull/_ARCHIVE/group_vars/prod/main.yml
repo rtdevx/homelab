@@ -1,0 +1,3 @@
+region: prod
+package_state: latest
+docker_registry: "registry.prod.example.com"

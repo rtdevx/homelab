@@ -1,0 +1,13 @@
+- name: system setup | openssh | install or update daemon package
+  tags: system,settings
+  package:
+    name: ssh
+    state: latest
+  notify: restart_sshd
+
+- name: system setup | openssh | enable daemon
+  tags: system,settings
+  service:
+    name: ssh
+    enabled: yes
+    state: started
