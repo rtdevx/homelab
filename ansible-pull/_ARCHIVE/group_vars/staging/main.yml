@@ -1,3 +1,0 @@
-region: staging
-package_state: latest
-docker_registry: "registry.staging.example.com"

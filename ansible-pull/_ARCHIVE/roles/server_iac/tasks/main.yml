@@ -1,3 +1,0 @@
-- name: Placeholder for server_iac role
-  debug:
-    msg: "server_iac role executed"

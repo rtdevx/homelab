@@ -1,3 +1,0 @@
-- name: Placeholder for server_utiltity role
-  debug:
-    msg: "server_utility role executed"
