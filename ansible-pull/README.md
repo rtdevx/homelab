@@ -5,7 +5,7 @@ Ansible pull repository for Ubuntu-based Servers and Desktops.
 
 ```
 sudo apt update && sudo apt install -y curl
-bash <(curl -s https://raw.githubusercontent.com/rtdevx/cicd-ansible-pull/main/scripts/bootstrap.sh)
+bash <(curl -s https://raw.githubusercontent.com/rtdevx/homelab/ansible-pull/main/scripts/bootstrap.sh)
 ```
 
 # Host Name Patterns
@@ -17,7 +17,6 @@ _Regex:_ `^srv-.*[0-9]?[0-9]?`
 **Desktop base:**
 
 _Regex:_ `^ws-.[0-9]?[0-9]?`
-
 
 
 ## 🖥️ Servers - Hostname Patterns
