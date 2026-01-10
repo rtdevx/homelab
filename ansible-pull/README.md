@@ -5,7 +5,7 @@ Ansible pull repository for Ubuntu-based Servers and Desktops.
 
 ```
 sudo apt update && sudo apt install -y curl
-bash <(curl -s https://raw.githubusercontent.com/rtdevx/cicd-ansible-pull/main/scripts/bootstrap.sh)
+bash <(curl -s https://raw.githubusercontent.com/rtdevx/homelab/ansible-pull/main/scripts/bootstrap.sh)
 ```
 
 # Host Name Patterns
