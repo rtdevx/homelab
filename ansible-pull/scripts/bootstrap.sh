@@ -2,8 +2,8 @@
 set -e
 
 # INFO: Configuration
-REPO_URL="https://github.com/rtdevx/homelab/ansible-pull"
-RAW_URL="https://raw.githubusercontent.com/rtdevx/homelab/ansible-pull/main"
+REPO_URL="https://github.com/rtdevx/homelab/tree/main/ansible-pull"
+RAW_URL="https://raw.githubusercontent.com/rtdevx/homelab/refs/heads/main/ansible-pull"
 
 # INFO: Ensure ansible user exists
 echo "Ensuring ansible user exists..."
