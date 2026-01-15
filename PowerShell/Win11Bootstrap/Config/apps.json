@@ -15,7 +15,7 @@
       { "name": "NodeJS LTS", "id": "OpenJS.NodeJS.LTS" },
       { "name": "Git", "id": "Git.Git" },
       { "name": "GitHub CLI", "id": "GitHub.cli" },
-      { "name": "Terraform", "id": "Hashicorp.Terraform" },
+      { "name": "Terraform", "id": "Hashicorp.Terraform", "version": "1.13.5" },
       { "name": "Terraform Docs", "id": "Terraform-docs.Terraform-docs" },
       { "name": "VS Code", "id": "Microsoft.VisualStudioCode" },
       { "name": "Docker Desktop", "id": "Docker.DockerDesktop" },      
