@@ -2,6 +2,8 @@
   "Repositories": [
     "git@github.com:rtdevx/homelab.git",
     "git@github.com:rtdevx/dotfiles.git",
-    "git@github.com:rtdevx/cicd-ansible-pull.git"
+    "git@github.com:rtdevx/cicd-ansible-pull.git",
+    "git@github.com:rtdevx/terraform.git",
+    "git@github.com:rtdevx/terraform-iac-aws-cp1.git"
   ]
 }
