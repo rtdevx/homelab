@@ -91,7 +91,13 @@ if (Test-Path $logFile) {
 "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] Starting winget upgrade..." | Out-File -FilePath $logFile -Append
 
 # Run winget and capture output
-winget upgrade --all --silent --accept-package-agreements --accept-source-agreements 2>&1 |
+$excluded = @(
+    "Hashicorp.Terraform"
+)
+
+$excludeArg = "--exclude-package-ids " + ($excluded -join ",")
+
+winget upgrade --all $excludeArg --silent --accept-package-agreements --accept-source-agreements 2>&1 |
     Out-File -FilePath $logFile -Append
 
 # Write footer
