@@ -69,7 +69,7 @@
       "Microsoft.XboxGameOverlay",
       "Microsoft.XboxGamingOverlay",
       "Microsoft.XboxSpeechToTextOverlay",
-      "Microsoft.YourPhone",
+      {"_comment": "Comment", "name": "Microsoft.YourPhone"},
       "Microsoft.ZuneMusic",
       "Microsoft.ZuneVideo",
       "Microsoft.CommsPhone",
