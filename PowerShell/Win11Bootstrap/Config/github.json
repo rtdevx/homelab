@@ -5,6 +5,7 @@
     "git@github.com:rtdevx/cicd-ansible-pull.git",
     "git@github.com:rtdevx/terraform.git",
     "git@github.com:rtdevx/terraform-core.git",
-    "git@github.com:rtdevx/terraform-iac-aws-cp1.git"
+    "git@github.com:rtdevx/terraform-iac-aws-cp1.git",
+    "git@github.com:rtdevx/terraform-iac-aws-gh1.git"
   ]
 }
