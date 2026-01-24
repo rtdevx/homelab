@@ -3,7 +3,7 @@
     "git@github.com:rtdevx/homelab.git",
     "git@github.com:rtdevx/dotfiles.git",
     "git@github.com:rtdevx/cicd-ansible-pull.git",
-    "git@github.com:rtdevx/terraform-archive.git",
+    "git@github.com:rtdevx/archive.git",
     "git@github.com:rtdevx/terraform-core.git",
     "git@github.com:rtdevx/terraform-iac-aws-cp1.git",
     "git@github.com:rtdevx/terraform-iac-aws-gh1.git"
