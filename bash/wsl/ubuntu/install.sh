@@ -166,15 +166,12 @@ cd "$PARENT_DIR" || exit
 
 # Define SSH repository URLs in a single line
 REPO_URLS=(
-    "git@github.com:rtdevx/homelab.git"
-    "git@github.com:rtdevx/kubernetes.git"
-    "git@github.com:rtdevx/dotfiles.git"
-    "git@github.com:rtdevx/terraform.git"
-    "git@github.com:rtdevx/terraform-core.git"
-    "git@github.com:rtdevx/terraform-iac-aws-cp1.git"
-    "git@github.com:rtdevx/cicd-gh-actions-course.git"
-    "git@github.com:rtdevx/docker-course-40.git"
-    "git@github.com:rtdevx/rtdevx.github.io.git"
+    "git@github.com:rtdevx/archive.git",
+    "git@github.com:rtdevx/dotfiles.git",
+    "git@github.com:rtdevx/homelab.git",
+    "git@github.com:rtdevx/iac-ansible-pull.git",
+    "git@github.com:rtdevx/terraform-core.git",
+    "git@github.com:rtdevx/terraform-iac-aws-gh1.git"
 )
 
 # Clone each repository
