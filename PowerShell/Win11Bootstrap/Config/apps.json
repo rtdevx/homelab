@@ -31,7 +31,8 @@
         "dependsOn": ["Microsoft.DotNet.DesktopRuntime.5"]
       },
       { "name": "AWS CLI", "id": "Amazon.AWSCLI" },
-      { "name": "AWS Session Manager Plugin", "id": "Amazon.SessionManagerPlugin" },      
+      { "name": "AWS Session Manager Plugin (For SSM)", "id": "Amazon.SessionManagerPlugin" },
+      { "name": "AWS Amazon Chime (Communication Service)", "id": "Amazon.Chime" },      
       { "name": "mRemoteNG", "id": "mRemoteNG.mRemoteNG" },
       { "name": "QNAP Qsync", "id": "QNAP.Qsync" },
       { "name": "Lenovo System Update", "id": "Lenovo.SystemUpdate" },
