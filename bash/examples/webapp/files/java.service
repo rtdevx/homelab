@@ -7,7 +7,7 @@ Type=simple
 User=java
 Group=java
 WorkingDirectory=/opt/java
-ExecStart=/opt/java/run-java-server.sh
+ExecStart=/bin/sh -c 'while true; do /usr/bin/java -Xms512m -Xmx1024m -jar /opt/java/helloworld.jar || { echo "helloworld.jar failed; starting fallback HTTP server on 0.0.0.0:8080"; exec /usr/bin/python3 -m http.server 8080 --directory /opt/java; }; echo "helloworld.jar exited cleanly; restarting in 1s"; sleep 1; done'
 Restart=on-failure
 RestartSec=5
 Environment=JAVA_TOOL_OPTIONS=-XX:+UseContainerSupport
@@ -20,5 +20,13 @@ ProtectSystem=full
 ProtectHome=true
 LimitNOFILE=65535
 
-[Install]
-WantedBy=multi-user.target
+sudo tee /opt/java/index.html > /dev/null <<'EOF'
+<!doctype html>
+<html>
+  <head><meta charset="utf-8"><title>My App</title></head>
+  <body><h1>Hello — web page served</h1><p>This is index.html</p></body>
+</html>
+EOF
+sudo chown java:java /opt/java/index.html
+sudo systemctl restart java
+curl -sS http://127.0.0.1:8080/ | head -n 40
