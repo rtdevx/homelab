@@ -1,0 +1,23 @@
+[Unit]
+Description=My Java Application
+After=network.target
+
+[Service]
+User=java
+Group=java
+WorkingDirectory=/opt/java
+ExecStart=/usr/bin/java -Xms512m -Xmx1024m -jar /opt/java/helloworld.jar
+Restart=always
+RestartSec=5
+Environment=JAVA_TOOL_OPTIONS=-XX:+UseContainerSupport
+Environment=SERVER_PORT=8080
+
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target
