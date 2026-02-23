@@ -6,8 +6,9 @@
     "git@github.com:rtdevx/iac-ansible-pull.git",
     "git@github.com:rtdevx/iac-terraform-aws.git",
     "git@github.com:rtdevx/iac-terraform-core.git",
+    "git@github.com:rtdevx/iac-terraform-aws-eks",    
     "git@github.com:rtdevx/iac-terraform-aws-jvx.git",    
-    "git@github.com:rtdevx/app-aws.git",
-    "git@github.com:rtdevx/iac-terraform-aws-eks"
+    "git@github.com:rtdevx/app-aws.git"
+
   ]
 }
