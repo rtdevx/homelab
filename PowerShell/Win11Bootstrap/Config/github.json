@@ -4,7 +4,6 @@
     "git@github.com:rtdevx/dotfiles.git",
     "git@github.com:rtdevx/homelab.git",
     "git@github.com:rtdevx/iac-ansible-pull.git",
-    "git@github.com:rtdevx/iac-terraform-aws.git",
     "git@github.com:rtdevx/iac-terraform-core.git",
     "git@github.com:rtdevx/iac-terraform-aws-eks.git",    
     "git@github.com:rtdevx/iac-terraform-aws-jvx.git",    
