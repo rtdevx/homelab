@@ -30,7 +30,7 @@ try {
 # ------------------------------------------------------------
 # Select groups to install
 # ------------------------------------------------------------
-$selectedGroups = @("core", "dev", "ops", "personal")
+$selectedGroups = @("core", "dev", "ops", "personal", "entertainment")
 
 # ------------------------------------------------------------
 # Flatten selected groups from the *winget* section
