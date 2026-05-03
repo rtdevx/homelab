@@ -49,7 +49,13 @@
       { "name": "Rufus", "id": "Rufus.Rufus" },
       { "name": "WinDirStat", "id": "WinDirStat.WinDirStat" },
       { "name": "Notepad++", "id": "Notepad++.Notepad++" }
+    ],
+
+    "entertainment": [
+      { "name": "Steam", "id": "Valve.Steam" },
+      { "name": "Gog Galaxy", "id": "GOG.Galaxy" }
     ]
+
   },
 
   "store": {
