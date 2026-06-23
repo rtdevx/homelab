@@ -13,7 +13,7 @@
       { "name": ".NET SDK 7", "id": "Microsoft.DotNet.SDK.7" },
       { "name": ".NET Desktop Runtime 8", "id": "Microsoft.DotNet.DesktopRuntime.8" },
       { "name": "NodeJS LTS", "id": "OpenJS.NodeJS.LTS" },
-      { "name": "GoLang 1.20", "id": "GoLang.Go.1.20" },      
+      { "name": "GoLang", "id": "GoLang.Go" },      
       { "name": "Git", "id": "Git.Git" },
       { "name": "GitHub CLI", "id": "GitHub.cli" },
       { "name": "Terraform", "id": "Hashicorp.Terraform", "version": "1.13.5" },
